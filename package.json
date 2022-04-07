@@ -1,0 +1,32 @@
+{
+  "name": "families",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ente-io/families.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ente-io/families/issues"
+  },
+  "homepage": "https://github.com/ente-io/families#readme",
+  "dependencies": {
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "@mui/material": "^5.6.0",
+    "next": "^12.1.4",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.23",
+    "@types/react": "^17.0.43",
+    "typescript": "^4.6.3"
+  }
+}
