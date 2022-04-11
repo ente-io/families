@@ -10,18 +10,22 @@ const LogoImage = styled('img')({
 
 function Navbar({ mediaQuery }: { mediaQuery: boolean }) {
     return (
-        <Container
-            maxWidth={'xl'}
-            sx={{
-                textAlign: mediaQuery ? 'start' : 'center',
-            }}>
-            <div
-                style={{
-                    marginLeft: mediaQuery ? '2vw' : '0vw',
-                }}>
-                <LogoImage alt="logo" src="./icon.svg" />
-            </div>
-        </Container>
+        <>
+            {mediaQuery && (
+                <Container
+                    maxWidth={'xl'}
+                    sx={{
+                        textAlign: mediaQuery ? 'start' : 'center',
+                    }}>
+                    <div
+                        style={{
+                            marginLeft: mediaQuery ? '2vw' : '0vw',
+                        }}>
+                        <LogoImage alt="logo" src="./icon.svg" />
+                    </div>
+                </Container>
+            )}
+        </>
     );
 }
 

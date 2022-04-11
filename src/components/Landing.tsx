@@ -41,7 +41,7 @@ function Landing({ mediaQuery }) {
                     marginTop: mediaQuery ? '72px' : '0px',
                 }}>
                 <Grid item xs={12} md={6}>
-                    <ContentContainer mq={mediaQuery}>
+                    <ContentContainer mq={mediaQuery ? true : undefined}>
                         <div>
                             <div
                                 style={{
