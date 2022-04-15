@@ -1,6 +1,7 @@
 import { Grid, Button, Container } from '@mui/material';
 import { styled } from '@mui/system';
-import React from 'react';
+import React, { useContext } from 'react';
+import { AppContext, PageState } from '../pages';
 import customTheme from '../theme';
 
 const ImageContainer = styled('div')<{ mq: boolean }>(({ mq }) => ({
@@ -31,7 +32,13 @@ const ContentContainer = styled('div')<{ mq: boolean }>(({ mq }) => ({
     marginTop: mq ? '48px' : '16px',
 }));
 
-function Landing({ mediaQuery }) {
+function Landing({ setPage }: { setPage: (page: number) => void }) {
+    const { mediaQuery } = useContext(AppContext);
+
+    const handleClick = () => {
+        setPage(PageState.FamilyMembers);
+    };
+
     return (
         <>
             <Grid
@@ -77,7 +84,8 @@ function Landing({ mediaQuery }) {
                             {mediaQuery && (
                                 <GetStartedButton
                                     variant="contained"
-                                    mq={mediaQuery}>
+                                    mq={mediaQuery}
+                                    onClick={handleClick}>
                                     <b>Get Started</b>
                                 </GetStartedButton>
                             )}
@@ -106,7 +114,10 @@ function Landing({ mediaQuery }) {
                     sx={{
                         textAlign: 'center',
                     }}>
-                    <GetStartedButton variant="contained" mq={mediaQuery}>
+                    <GetStartedButton
+                        variant="contained"
+                        mq={mediaQuery}
+                        onClick={handleClick}>
                         <b>Get Started</b>
                     </GetStartedButton>
                 </Container>

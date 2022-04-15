@@ -1,10 +1,13 @@
 import { Container } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { PieChart, Pie, Label, Cell } from 'recharts';
 import { Breakdown } from './Breakdown';
 import { UsageChartColors as colors } from '../util/constants';
+import { AppContext } from '../pages';
 
-export default function UsageData({ mediaQuery, members }) {
+export default function UsageData() {
+    const { mediaQuery, members } = useContext(AppContext);
+
     const [data, setData] = useState([]);
     useEffect(() => {
         setData([
@@ -13,7 +16,7 @@ export default function UsageData({ mediaQuery, members }) {
                 value: member.used,
             })),
         ]);
-    }, []);
+    }, [members]);
 
     return (
         <>
@@ -68,11 +71,7 @@ export default function UsageData({ mediaQuery, members }) {
                             </Pie>
                         </PieChart>
                     </div>
-                    <Breakdown
-                        mediaQuery={mediaQuery}
-                        data={data}
-                        colors={colors}
-                    />
+                    <Breakdown />
                 </div>
             </Container>
         </>

@@ -1,10 +1,13 @@
 import { Button, Container } from '@mui/material';
-import React from 'react';
+import React, { useContext } from 'react';
 import customTheme from '../theme';
 import { MembersList } from './MembersList';
 import { PersonIconContainer } from './FamilyMembers';
+import { AppContext } from '../pages';
 
-export function MembersContainer({ mediaQuery, members }) {
+export function MembersContainer() {
+    const { mediaQuery, members } = useContext(AppContext);
+
     return (
         <Container
             maxWidth={'md'}
@@ -63,7 +66,7 @@ export function MembersContainer({ mediaQuery, members }) {
                         <b>+ Invite member</b>
                     </Button>
                 </div>
-                <MembersList mediaQuery={mediaQuery} members={members} />
+                <MembersList />
                 <div
                     style={{
                         marginBottom: mediaQuery ? '48px' : '32px',

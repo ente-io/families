@@ -1,10 +1,11 @@
 import { Grid, Button, Container } from '@mui/material';
 import { styled } from '@mui/system';
-import React from 'react';
+import React, { useContext } from 'react';
 import customTheme from '../theme';
 import UsageData from './UsageData';
 import PersonIcon from './icons/PersonIcon';
 import { MembersContainer } from './MembersContainer';
+import { AppContext } from '../pages';
 
 const ImageContainer = styled('div')<{ mq: boolean }>(({ mq }) => ({
     display: 'flex',
@@ -50,14 +51,8 @@ export const PersonIconContainer = ({
     );
 };
 
-function FamilyMembers({ mediaQuery }) {
-    const familyManagerEmail = 'bonafidethat@hotmail.com';
-    const members = [
-        { email: 'bonafidethat@hotmail.com', status: 'Admin', used: 40 },
-        { email: 'dad@family.com', status: 'Member', used: 20 },
-        { email: 'son@family.com', status: 'Member', used: 16 },
-        { email: 'mom@family.com', status: 'Invited', used: 2 },
-    ];
+function FamilyMembers() {
+    const { mediaQuery, familyManagerEmail, members } = useContext(AppContext);
 
     return (
         <>
@@ -151,14 +146,14 @@ function FamilyMembers({ mediaQuery }) {
                     </Container>
                 )}
             </Grid>
-            <MembersContainer members={members} mediaQuery={mediaQuery} />
+            <MembersContainer />
             <div
                 style={{
                     display: 'flex',
                     flexDirection: 'column',
                     marginBottom: '32px',
                 }}>
-                <UsageData mediaQuery={mediaQuery} members={members} />
+                <UsageData />
             </div>
         </>
     );

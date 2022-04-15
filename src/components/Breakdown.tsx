@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FaCircle } from 'react-icons/fa';
+import { AppContext } from '../pages';
+import { UsageChartColors as colors } from '../util/constants';
 
-export function Breakdown({ mediaQuery, data, colors }) {
+export function Breakdown() {
+    const { members, mediaQuery } = useContext(AppContext);
     return (
         <div
             style={{
@@ -24,7 +27,7 @@ export function Breakdown({ mediaQuery, data, colors }) {
                     flexDirection: 'column',
                     alignItems: mediaQuery ? 'flex-start' : 'center',
                 }}>
-                {data.map((entry, index) => (
+                {members.map((entry, index) => (
                     <UsageEntry
                         key={index}
                         index={index}
@@ -68,7 +71,7 @@ function UsageEntry({ colors, index, mediaQuery, entry }) {
                     color: '#fff',
                     fontSize: mediaQuery ? '16px' : '12px',
                 }}>
-                {entry.value} GB
+                {entry.used} GB
             </div>
         </div>
     );

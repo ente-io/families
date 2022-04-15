@@ -1,6 +1,7 @@
 import { Container } from '@mui/material';
 import { styled } from '@mui/system';
-import React from 'react';
+import React, { useContext } from 'react';
+import { AppContext } from '../pages';
 
 const LogoImage = styled('img')({
     height: '24px',
@@ -8,7 +9,9 @@ const LogoImage = styled('img')({
     padding: '5px',
 });
 
-function Navbar({ mediaQuery }: { mediaQuery: boolean }) {
+function Navbar() {
+    const { mediaQuery } = useContext(AppContext);
+
     return (
         <>
             {mediaQuery && (
