@@ -12,7 +12,7 @@ function App({ Component, pageProps }) {
             <GlobalStyles
                 styles={{
                     body: {
-                        backgroundColor: '#121212',
+                        backgroundColor: '#212121',
                         color: '#fff',
                         fontFamily: 'Inter',
                     },
