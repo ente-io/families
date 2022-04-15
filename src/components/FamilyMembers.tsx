@@ -146,15 +146,19 @@ function FamilyMembers() {
                     </Container>
                 )}
             </Grid>
-            <MembersContainer />
-            <div
-                style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    marginBottom: '32px',
-                }}>
-                <UsageData />
-            </div>
+            {members?.length > 0 && (
+                <>
+                    <MembersContainer />
+                    <div
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            marginBottom: '32px',
+                        }}>
+                        <UsageData />
+                    </div>
+                </>
+            )}
         </>
     );
 }
