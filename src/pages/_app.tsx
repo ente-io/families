@@ -5,7 +5,7 @@ function App({ Component, pageProps }) {
     return (
         <>
             <link
-                href="https://fonts.googleapis.com/css?family=Inter:400,700"
+                href="https://fonts.googleapis.com/css?family=Inter:400,500,700"
                 rel="stylesheet"
             />
 

@@ -9,22 +9,32 @@ import React, { useContext } from 'react';
 import { AppContext } from '../pages';
 import { IoMdClose } from 'react-icons/io';
 
+export interface ActionDialogOptions {
+    msg: string | JSX.Element;
+    confirmText: string;
+    warningText?: string;
+    onConfirmClick: () => void;
+    onWarningClick?: () => void;
+    title: string;
+}
+
+export const defaultActionDialogOptions: ActionDialogOptions = {
+    msg: '',
+    confirmText: '',
+    warningText: '',
+    onConfirmClick: () => {},
+    onWarningClick: () => {},
+    title: '',
+};
+
 function ActionDialog({
-    msg,
     open,
     setOpen,
     options,
 }: {
-    msg: string | JSX.Element;
     open: boolean;
     setOpen: (open: boolean) => void;
-    options: {
-        confirmText: string;
-        warningText?: string;
-        onConfirmClick: () => void;
-        onWarningClick?: () => void;
-        title: string;
-    };
+    options: ActionDialogOptions;
 }) {
     const { mediaQuery } = useContext(AppContext);
 
@@ -67,7 +77,7 @@ function ActionDialog({
                         style={{
                             color: 'white',
                         }}>
-                        {msg}
+                        {options.msg}
                     </DialogContentText>
                 </DialogContent>
                 <div
@@ -85,7 +95,7 @@ function ActionDialog({
                         {options.warningText && (
                             <Button
                                 variant="contained"
-                                color="error"
+                                color="warning"
                                 onClick={options.onWarningClick}
                                 style={{
                                     marginRight: mediaQuery ? '20px' : '0px',

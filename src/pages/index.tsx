@@ -5,6 +5,12 @@ import Landing from '../components/Landing';
 import customTheme from '../theme';
 import FamilyMembers from '../components/FamilyMembers';
 import { useState, createContext } from 'react';
+import InviteDialog from '../components/InviteDialog';
+import ActionDialog, {
+    ActionDialogOptions,
+    defaultActionDialogOptions,
+} from '../components/ActionDialog';
+import MessageDialog from '../components/MessageDialog';
 
 export enum PageState {
     Landing,
@@ -20,6 +26,16 @@ interface AppContextType {
         used: number;
     }[];
     familyManagerEmail: string;
+    openInviteDialog: boolean;
+    setOpenInviteDialog: (open: boolean) => void;
+    openMessageDialog: boolean;
+    setOpenMessageDialog: (open: boolean) => void;
+    message: string;
+    setMessage: (message: string) => void;
+    openActionDialog: boolean;
+    setOpenActionDialog: (open: boolean) => void;
+    actionDialogOptions: ActionDialogOptions;
+    setActionDialogOptions: (options: ActionDialogOptions) => void;
 }
 
 const defaultAppContext: AppContextType = {
@@ -27,6 +43,16 @@ const defaultAppContext: AppContextType = {
     isUserAdmin: false,
     members: [],
     familyManagerEmail: '',
+    openInviteDialog: false,
+    setOpenInviteDialog: () => {},
+    openMessageDialog: false,
+    setOpenMessageDialog: () => {},
+    message: '',
+    setMessage: () => {},
+    openActionDialog: false,
+    setOpenActionDialog: () => {},
+    actionDialogOptions: defaultActionDialogOptions,
+    setActionDialogOptions: () => {},
 };
 
 export const AppContext = createContext(defaultAppContext);
@@ -34,6 +60,13 @@ export const AppContext = createContext(defaultAppContext);
 function App() {
     const mediaQuery = useMediaQuery(customTheme.breakpoints.up('md'));
     const [page, setPage] = useState(PageState.Landing);
+    const [openInviteDialog, setOpenInviteDialog] = useState(false);
+    const [openMessageDialog, setOpenMessageDialog] = useState(false);
+    const [message, setMessage] = useState('');
+    const [openActionDialog, setOpenActionDialog] = useState(false);
+    const [actionDialogOptions, setActionDialogOptions] = useState(
+        defaultActionDialogOptions
+    );
 
     const familyManagerEmail = 'bonafidethat@hotmail.com';
     const members = [
@@ -51,6 +84,16 @@ function App() {
                     mediaQuery,
                     familyManagerEmail,
                     members,
+                    openInviteDialog,
+                    setOpenInviteDialog,
+                    openMessageDialog,
+                    setOpenMessageDialog,
+                    message,
+                    setMessage,
+                    openActionDialog,
+                    setOpenActionDialog,
+                    actionDialogOptions,
+                    setActionDialogOptions,
                 }}>
                 <Navbar />
                 {page === PageState.Landing ? (
@@ -58,6 +101,20 @@ function App() {
                 ) : (
                     <FamilyMembers />
                 )}
+                <InviteDialog
+                    open={openInviteDialog}
+                    setOpen={setOpenInviteDialog}
+                />
+                <MessageDialog
+                    open={openMessageDialog}
+                    setOpen={setOpenMessageDialog}
+                    msg={message}
+                />
+                <ActionDialog
+                    open={openActionDialog}
+                    setOpen={setOpenActionDialog}
+                    options={actionDialogOptions}
+                />
             </AppContext.Provider>
         </ThemeProvider>
     );

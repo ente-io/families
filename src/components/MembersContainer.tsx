@@ -4,9 +4,10 @@ import customTheme from '../theme';
 import { MembersList } from './MembersList';
 import { PersonIconContainer } from './FamilyMembers';
 import { AppContext } from '../pages';
+import { BsPlusLg } from 'react-icons/bs';
 
 export function MembersContainer() {
-    const { mediaQuery, members } = useContext(AppContext);
+    const { mediaQuery, members, setOpenInviteDialog } = useContext(AppContext);
 
     return (
         <Container
@@ -59,11 +60,13 @@ export function MembersContainer() {
                     </div>
                     <Button
                         variant="contained"
+                        onClick={() => setOpenInviteDialog(true)}
                         style={{
                             textTransform: 'none',
                             height: '40px',
                         }}>
-                        <b>+ Invite member</b>
+                        <BsPlusLg style={{ marginRight: '10px' }} />
+                        <b> Invite member</b>
                     </Button>
                 </div>
                 <MembersList />

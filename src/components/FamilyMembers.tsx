@@ -6,6 +6,7 @@ import UsageData from './UsageData';
 import PersonIcon from './icons/PersonIcon';
 import { MembersContainer } from './MembersContainer';
 import { AppContext } from '../pages';
+import { BsPlusLg } from 'react-icons/bs';
 
 const ImageContainer = styled('div')<{ mq: boolean }>(({ mq }) => ({
     display: 'flex',
@@ -52,7 +53,8 @@ export const PersonIconContainer = ({
 };
 
 function FamilyMembers() {
-    const { mediaQuery, familyManagerEmail, members } = useContext(AppContext);
+    const { mediaQuery, familyManagerEmail, members, setOpenInviteDialog } =
+        useContext(AppContext);
 
     return (
         <>
@@ -102,8 +104,10 @@ function FamilyMembers() {
                             {mediaQuery && members.length === 0 && (
                                 <InviteButton
                                     variant="contained"
+                                    onClick={() => setOpenInviteDialog(true)}
                                     mq={mediaQuery}>
-                                    <b>+ Invite Member</b>
+                                    <BsPlusLg style={{ marginRight: '10px' }} />
+                                    <b> Invite Member</b>
                                 </InviteButton>
                             )}
                         </div>
