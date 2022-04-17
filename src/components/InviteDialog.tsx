@@ -115,6 +115,19 @@ function InviteDialog({ open, setOpen }) {
                                 }}
                             />
                         </div>
+                        {isError && (
+                            <div
+                                style={{
+                                    color: customTheme.palette.error.main,
+                                    fontWeight: 500,
+                                    fontSize: '12px',
+                                    marginTop: '10px',
+                                    width: '90%',
+                                    textAlign: 'center',
+                                }}>
+                                {errorMsg}
+                            </div>
+                        )}
                         <Button
                             disabled={isError}
                             variant="contained"
@@ -130,20 +143,6 @@ function InviteDialog({ open, setOpen }) {
                             }}>
                             Invite
                         </Button>
-                        {isError && (
-                            <div
-                                style={{
-                                    color: customTheme.palette.error.main,
-                                    fontWeight: 500,
-                                    fontSize: '12px',
-                                    marginTop: '-10px',
-                                    marginBottom: '20px',
-                                    width: '90%',
-                                    textAlign: 'center',
-                                }}>
-                                {errorMsg}
-                            </div>
-                        )}
                         <TextContainer>
                             Private space will be allocated
                         </TextContainer>
