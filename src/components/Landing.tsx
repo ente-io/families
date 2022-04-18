@@ -2,6 +2,7 @@ import { Grid, Button, Container } from '@mui/material';
 import { styled } from '@mui/system';
 import React, { useContext } from 'react';
 import { AppContext, PageState } from '../pages';
+import { createFamily } from '../services/APIService';
 import customTheme from '../theme';
 
 const ImageContainer = styled('div')<{ mq: boolean }>(({ mq }) => ({
@@ -32,10 +33,24 @@ const ContentContainer = styled('div')<{ mq: boolean }>(({ mq }) => ({
 }));
 
 function Landing({ setPage }: { setPage: (page: number) => void }) {
-    const { mediaQuery } = useContext(AppContext);
+    const {
+        mediaQuery,
+        setOpenMessageDialog,
+        setMessage,
+        authToken,
+        setIsLoading,
+    } = useContext(AppContext);
 
-    const handleClick = () => {
-        setPage(PageState.FamilyMembers);
+    const handleClick = async () => {
+        setIsLoading(true);
+        const res = await createFamily(authToken);
+        setIsLoading(false);
+        if (res.success) {
+            setPage(PageState.FamilyMembers);
+        } else {
+            setOpenMessageDialog(true);
+            setMessage(res.msg);
+        }
     };
 
     return (

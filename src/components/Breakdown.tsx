@@ -71,7 +71,7 @@ function UsageEntry({ colors, index, mediaQuery, entry }) {
                     color: '#fff',
                     fontSize: mediaQuery ? '16px' : '12px',
                 }}>
-                {entry.used} GB
+                {entry.usage} GB
             </div>
         </div>
     );

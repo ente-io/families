@@ -13,7 +13,7 @@ export default function UsageData() {
         setData([
             ...members.map((member) => ({
                 email: member.email,
-                value: member.used,
+                value: member.usage,
             })),
         ]);
     }, [members]);
