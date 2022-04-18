@@ -43,8 +43,8 @@ export function MembersContainer() {
                             alignItems: 'center',
                         }}>
                         {members.map((member, index) =>
-                            member.status === 'Member' ||
-                            member.status === 'Admin' ? (
+                            member.status === 'ACCEPTED' ||
+                            member.status === 'SELF' ? (
                                 <PersonIconContainer
                                     fill={customTheme.palette.primary.main}
                                     key={index}

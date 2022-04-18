@@ -12,7 +12,7 @@ import ActionDialog, {
 } from '../components/ActionDialog';
 import MessageDialog from '../components/MessageDialog';
 import InviteAccepted from '../components/InviteAccepted';
-import { acceptInvite } from '../services/APIService';
+import { acceptInvite, getMembers } from '../services/APIService';
 
 export enum PageState {
     Landing,
@@ -20,10 +20,12 @@ export enum PageState {
     InviteAccepted,
 }
 
+export type MemberStatusOptions = 'ACCEPTED' | 'INVITED' | 'SELF';
+
 export interface Member {
     id: string;
     email: string;
-    status: string;
+    status: MemberStatusOptions;
     usage: number;
     isAdmin: boolean;
 }
@@ -106,6 +108,26 @@ function App() {
         }
     };
 
+    const syncMembers = async (authToken) => {
+        setIsLoading(true);
+        const res = await getMembers(authToken);
+        console.log(res);
+        setIsLoading(false);
+        if (res.success) {
+            setMembers(res.data.members);
+            setTotalStorage(res.data.storage);
+            for (const member of res.data.members) {
+                if (member.isAdmin) {
+                    setFamilyManagerEmail(member.email);
+                    break;
+                }
+            }
+        } else {
+            setMessage(res.msg);
+            setOpenMessageDialog(true);
+        }
+    };
+
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
         const inviteToken = params.get('inviteToken');
@@ -115,6 +137,7 @@ function App() {
         const token = params.get('token');
         if (token) {
             setAuthToken(token);
+            syncMembers(token);
         }
     }, []);
 

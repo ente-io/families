@@ -1,12 +1,13 @@
 import { Grid, Button, Container } from '@mui/material';
 import { styled } from '@mui/system';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import customTheme from '../theme';
 import UsageData from './UsageData';
 import PersonIcon from './icons/PersonIcon';
 import { MembersContainer } from './MembersContainer';
 import { AppContext } from '../pages';
 import { BsPlusLg } from 'react-icons/bs';
+import { getMembers } from '../services/APIService';
 
 const ImageContainer = styled('div')<{ mq: boolean }>(({ mq }) => ({
     display: 'flex',
@@ -53,8 +54,12 @@ export const PersonIconContainer = ({
 };
 
 function FamilyMembers() {
-    const { mediaQuery, familyManagerEmail, members, setOpenInviteDialog } =
-        useContext(AppContext);
+    const {
+        mediaQuery,
+        familyManagerEmail,
+        members,
+        setOpenInviteDialog,
+    } = useContext(AppContext);
 
     return (
         <>

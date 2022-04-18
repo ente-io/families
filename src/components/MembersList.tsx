@@ -3,6 +3,12 @@ import { BsTrash as TrashIcon } from 'react-icons/bs';
 import { IoReload as ResendIcon } from 'react-icons/io5';
 import { AppContext } from '../pages';
 
+const StatusMap = {
+    SELF: 'Admin',
+    ACCEPTED: 'Member',
+    INVITED: 'Invited',
+};
+
 export function MembersList() {
     const { mediaQuery, members } = useContext(AppContext);
 
@@ -10,7 +16,7 @@ export function MembersList() {
         <>
             {members.map(
                 (member, index) =>
-                    member.status !== 'Admin' && (
+                    member.status !== 'SELF' && (
                         <div style={{ width: '90%' }} key={index}>
                             <div
                                 style={{
@@ -19,7 +25,7 @@ export function MembersList() {
                                     fontWeight: 'bold',
                                     marginBottom: '4px',
                                 }}>
-                                {member.status}
+                                {StatusMap[member.status]}
                             </div>
                             <div
                                 style={{
@@ -39,7 +45,7 @@ export function MembersList() {
                                         flexDirection: 'row',
                                         color: '#7d7d7d',
                                     }}>
-                                    {member.status !== 'Member' && (
+                                    {member.status !== 'ACCEPTED' && (
                                         <div
                                             style={{
                                                 marginLeft: '8px',
