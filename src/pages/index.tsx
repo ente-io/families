@@ -4,17 +4,19 @@ import { ThemeProvider } from '@mui/material/styles';
 import Landing from '../components/Landing';
 import customTheme from '../theme';
 import FamilyMembers from '../components/FamilyMembers';
-import { useState, createContext } from 'react';
+import { useState, createContext, useEffect } from 'react';
 import InviteDialog from '../components/InviteDialog';
 import ActionDialog, {
     ActionDialogOptions,
     defaultActionDialogOptions,
 } from '../components/ActionDialog';
 import MessageDialog from '../components/MessageDialog';
+import InviteAccepted from '../components/InviteAccepted';
 
 export enum PageState {
     Landing,
     FamilyMembers,
+    InviteAccepted,
 }
 
 interface AppContextType {
@@ -98,8 +100,10 @@ function App() {
                 <Navbar />
                 {page === PageState.Landing ? (
                     <Landing setPage={setPage} />
-                ) : (
+                ) : page === PageState.FamilyMembers ? (
                     <FamilyMembers />
+                ) : (
+                    <InviteAccepted />
                 )}
                 <InviteDialog
                     open={openInviteDialog}

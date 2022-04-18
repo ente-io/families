@@ -5,7 +5,6 @@ import { AppContext, PageState } from '../pages';
 import customTheme from '../theme';
 
 const ImageContainer = styled('div')<{ mq: boolean }>(({ mq }) => ({
-    marginLeft: '32px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: mq ? 'flex-start' : 'center',
