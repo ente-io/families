@@ -12,7 +12,11 @@ import ActionDialog, {
 } from '../components/ActionDialog';
 import MessageDialog from '../components/MessageDialog';
 import InviteAccepted from '../components/InviteAccepted';
-import { acceptInvite, getMembers } from '../services/APIService';
+import {
+    acceptInvite,
+    getInviteInfo,
+    getMembers,
+} from '../services/APIService';
 
 export enum PageState {
     Landing,
@@ -101,14 +105,23 @@ function App() {
     const [authToken, setAuthToken] = useState('');
     const [familyManagerEmail, setFamilyManagerEmail] = useState('');
 
-    const handleInviteAccept = async (inviteToken) => {
+    const handleAcceptInvite = async (inviteToken) => {
         setIsLoading(true);
-        const res = await acceptInvite(inviteToken);
+        const inviteInfoRes = await getInviteInfo(inviteToken);
+        if (inviteInfoRes.success) {
+            setFamilyManagerEmail(inviteInfoRes.data.adminEmail);
+        } else {
+            setMessage(inviteInfoRes.msg);
+            setOpenMessageDialog(true);
+            setIsLoading(false);
+            return;
+        }
+        const acceptInviteRes = await acceptInvite(inviteToken);
         setIsLoading(false);
-        if (res.success) {
+        if (acceptInviteRes.success) {
             setPage(PageState.InviteAccepted);
         } else {
-            setMessage(res.msg);
+            setMessage(acceptInviteRes.msg);
             setOpenMessageDialog(true);
         }
     };
@@ -117,7 +130,7 @@ function App() {
         const params = new URLSearchParams(window.location.search);
         const inviteToken = params.get('inviteToken');
         if (inviteToken) {
-            handleInviteAccept(inviteToken);
+            handleAcceptInvite(inviteToken);
         }
         const token = params.get('token');
         if (token) {
@@ -187,7 +200,9 @@ function App() {
                         ) : page === PageState.FamilyMembers ? (
                             <FamilyMembers />
                         ) : (
-                            <InviteAccepted />
+                            <InviteAccepted
+                                familyManagerEmail={familyManagerEmail}
+                            />
                         )}
                         <InviteDialog
                             open={openInviteDialog}

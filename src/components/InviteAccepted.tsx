@@ -12,7 +12,7 @@ const ImageContainer = styled('div')<{ mq: boolean }>(({ mq }) => ({
     marginTop: mq ? '0px' : '24px',
 }));
 
-function InviteAccepted() {
+function InviteAccepted({ familyManagerEmail }) {
     const { mediaQuery } = useContext(AppContext);
 
     const handleClick = () => {
@@ -53,7 +53,7 @@ function InviteAccepted() {
                                     color: theme.palette.primary.main,
                                     fontWeight: 'bold',
                                 }}>
-                                manager@family.com
+                                {familyManagerEmail}
                             </span>
                             's family on <b>ente</b>.
                         </div>

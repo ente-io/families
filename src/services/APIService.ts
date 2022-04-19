@@ -218,3 +218,30 @@ export async function removeMember(
         };
     }
 }
+
+export async function getInviteInfo(inviteToken: string) {
+    try {
+        const res = await HTTPService.get(
+            `${getEndpoint()}/family/invite-info/${inviteToken}`,
+            undefined,
+            {}
+        );
+
+        if (res.status === 200) {
+            return {
+                success: true,
+                data: res.data,
+            };
+        }
+
+        return {
+            success: false,
+            msg: 'Sorry, something went wrong.',
+        };
+    } catch (e) {
+        return {
+            success: false,
+            msg: 'Sorry, something went wrong.',
+        };
+    }
+}
