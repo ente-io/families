@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { FaCircle } from 'react-icons/fa';
 import { AppContext } from '../pages';
+import { convertBytesToHumanReadable } from '../util/common';
 import { UsageChartColors as colors } from '../util/constants';
 
 export function Breakdown() {
@@ -71,7 +72,7 @@ function UsageEntry({ colors, index, mediaQuery, entry }) {
                     color: '#fff',
                     fontSize: mediaQuery ? '16px' : '12px',
                 }}>
-                {entry.usage} GB
+                {convertBytesToHumanReadable(entry.usage)}
             </div>
         </div>
     );

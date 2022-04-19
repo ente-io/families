@@ -45,6 +45,7 @@ function InviteDialog({ open, setOpen }) {
             setOpen(false);
             setIsInviteSent(true);
             setShouldSyncMembers(true);
+            setEmail('');
         } else {
             setIsError(true);
             setErrorMsg(res.msg);

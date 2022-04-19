@@ -4,11 +4,13 @@ import { PieChart, Pie, Label, Cell } from 'recharts';
 import { Breakdown } from './Breakdown';
 import { UsageChartColors as colors } from '../util/constants';
 import { AppContext } from '../pages';
+import { convertBytesToGBs } from '../util/common';
 
 export default function UsageData() {
-    const { mediaQuery, members } = useContext(AppContext);
+    const { mediaQuery, members, totalStorage } = useContext(AppContext);
 
     const [data, setData] = useState([]);
+    const [usedStorage, setUsedStorage] = useState<number>(0);
     useEffect(() => {
         setData([
             ...members.map((member) => ({
@@ -16,6 +18,11 @@ export default function UsageData() {
                 value: member.usage,
             })),
         ]);
+        let used = 0;
+        for (const member of members) {
+            used += member.usage;
+        }
+        setUsedStorage(used);
     }, [members]);
 
     return (
@@ -45,7 +52,7 @@ export default function UsageData() {
                     <div
                         style={{
                             marginRight: mediaQuery ? '30px' : '0px',
-                            marginLeft: '30px',
+                            marginLeft: mediaQuery ? '30px' : '0px',
                         }}>
                         <PieChart width={320} height={320}>
                             <Pie
@@ -56,7 +63,11 @@ export default function UsageData() {
                                 paddingAngle={8}
                                 dataKey="value">
                                 <Label
-                                    value="78 GB/ 100 GB"
+                                    value={`${convertBytesToGBs(
+                                        usedStorage
+                                    )} GB / ${convertBytesToGBs(
+                                        totalStorage
+                                    )} GB`}
                                     position="center"
                                     fontSize="20px"
                                     fill="white"
