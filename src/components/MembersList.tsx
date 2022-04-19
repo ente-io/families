@@ -3,11 +3,10 @@ import { BsTrash as TrashIcon } from 'react-icons/bs';
 import { IoReload as ResendIcon } from 'react-icons/io5';
 import { AppContext, Member } from '../pages';
 import {
-    inviteMember,
-    removeMember,
-    revokeInvite,
-} from '../services/APIService';
-import theme from '../theme';
+    removeMemberOptions,
+    resendInviteOptions,
+    revokeInviteOptions,
+} from './utils/ActionDialogOptionsUtils';
 
 const StatusMap = {
     SELF: 'Admin',
@@ -28,101 +27,42 @@ export function MembersList() {
     } = useContext(AppContext);
 
     const handleResendInvite = (member: Member) => {
-        setActionDialogOptions({
-            title: 'Resend Invite?',
-            msg: (
-                <>
-                    Are you sure that you want to resend an invite to{' '}
-                    <span
-                        style={{
-                            color: theme.palette.primary.main,
-                        }}>
-                        {member.email}
-                    </span>
-                    ?
-                </>
-            ),
-            defaultText: 'Invite',
-            onDefaultClick: async () => {
-                const res = await inviteMember(authToken, member.email);
-                setOpenActionDialog(false);
-                if (!res.success) {
-                    setMessage('Sorry, something went wrong.');
-                    setOpenMessageDialog(true);
-                }
-            },
-        });
+        setActionDialogOptions(
+            resendInviteOptions(
+                member,
+                authToken,
+                setOpenActionDialog,
+                setMessage,
+                setOpenMessageDialog
+            )
+        );
         setOpenActionDialog(true);
     };
 
     const handleRevokeInvite = (member: Member) => {
-        setActionDialogOptions({
-            title: 'Revoke Invite?',
-            msg: (
-                <>
-                    Are you sure that you want to revoke invite to{' '}
-                    <span
-                        style={{
-                            color: theme.palette.primary.main,
-                        }}>
-                        {member.email}
-                    </span>
-                    ?
-                </>
-            ),
-            defaultText: 'Cancel',
-            onDefaultClick: async () => {
-                setOpenActionDialog(false);
-            },
-            warningText: 'Revoke',
-            onWarningClick: async () => {
-                const res = await revokeInvite(authToken, member.id);
-                setOpenActionDialog(false);
-                if (res.success) {
-                    setMessage('Invite revoked.');
-                    setOpenMessageDialog(true);
-                    setShouldSyncMembers(true);
-                } else {
-                    setMessage('Sorry, something went wrong.');
-                    setOpenMessageDialog(true);
-                }
-            },
-        });
+        setActionDialogOptions(
+            revokeInviteOptions(
+                member,
+                authToken,
+                setOpenActionDialog,
+                setMessage,
+                setOpenMessageDialog,
+                setShouldSyncMembers
+            )
+        );
     };
 
     const handleRemoveMember = (member: Member) => {
-        setActionDialogOptions({
-            title: 'Remove member?',
-            msg: (
-                <>
-                    Are you sure that you want to remove{' '}
-                    <span
-                        style={{
-                            color: theme.palette.primary.main,
-                        }}>
-                        {member.email}
-                    </span>
-                    ?
-                </>
-            ),
-            defaultText: 'Cancel',
-            onDefaultClick: async () => {
-                setOpenActionDialog(false);
-            },
-            warningText: 'Remove',
-            onWarningClick: async () => {
-                const res = await removeMember(authToken, member.id);
-                setOpenActionDialog(false);
-                if (res.success) {
-                    setMessage('Member removed.');
-                    setOpenMessageDialog(true);
-                    setShouldSyncMembers(true);
-                } else {
-                    setMessage('Sorry, something went wrong.');
-                    setOpenMessageDialog(true);
-                }
-            },
-        });
+        setActionDialogOptions(
+            removeMemberOptions(
+                member,
+                authToken,
+                setOpenActionDialog,
+                setMessage,
+                setOpenMessageDialog,
+                setShouldSyncMembers
+            )
+        );
     };
 
     const handleTrashClick = (member: Member) => {
