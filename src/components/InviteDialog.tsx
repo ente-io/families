@@ -8,6 +8,7 @@ import {
 import React, { useContext, useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
 import { AppContext } from '../pages';
+import { inviteMember } from '../services/APIService';
 import customTheme from '../theme';
 import InviteSent from './InviteSent';
 
@@ -28,16 +29,32 @@ const TextContainer = styled('div')(() => ({
 }));
 
 function InviteDialog({ open, setOpen }) {
-    const { mediaQuery } = useContext(AppContext);
+    const { mediaQuery, authToken, setShouldSyncMembers } =
+        useContext(AppContext);
+    const [email, setEmail] = useState('');
     const [isError, setIsError] = useState(false);
     const [errorMsg, setErrorMsg] = useState<string | JSX.Element>('');
     const [isInviteSent, setIsInviteSent] = useState(false);
 
-    const handleInviteClick = () => {
-        setOpen(false);
-        setTimeout(() => {
+    const handleInviteClick = async () => {
+        if (email.length === 0) {
+            return;
+        }
+        const res = await inviteMember(authToken, email);
+        if (res.success) {
+            setOpen(false);
             setIsInviteSent(true);
-        }, 300);
+            setShouldSyncMembers(true);
+        } else {
+            setIsError(true);
+            setErrorMsg(res.msg);
+        }
+    };
+
+    const handleTextChange = (e) => {
+        setEmail(e.target.value);
+        setIsError(false);
+        setErrorMsg('');
     };
 
     return (
@@ -104,6 +121,8 @@ function InviteDialog({ open, setOpen }) {
                                 size="small"
                                 variant="filled"
                                 fullWidth={true}
+                                value={email}
+                                onChange={handleTextChange}
                                 sx={{
                                     input: {
                                         backgroundColor: '#e4e4e4',

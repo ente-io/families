@@ -7,7 +7,6 @@ import PersonIcon from './icons/PersonIcon';
 import { MembersContainer } from './MembersContainer';
 import { AppContext } from '../pages';
 import { BsPlusLg } from 'react-icons/bs';
-import { getMembers } from '../services/APIService';
 
 const ImageContainer = styled('div')<{ mq: boolean }>(({ mq }) => ({
     display: 'flex',
@@ -54,12 +53,8 @@ export const PersonIconContainer = ({
 };
 
 function FamilyMembers() {
-    const {
-        mediaQuery,
-        familyManagerEmail,
-        members,
-        setOpenInviteDialog,
-    } = useContext(AppContext);
+    const { mediaQuery, familyManagerEmail, members, setOpenInviteDialog } =
+        useContext(AppContext);
 
     return (
         <>
@@ -106,7 +101,7 @@ function FamilyMembers() {
                                 }}>
                                 {familyManagerEmail}
                             </div>
-                            {mediaQuery && members.length === 0 && (
+                            {mediaQuery && members.length === 1 && (
                                 <InviteButton
                                     variant="contained"
                                     onClick={() => setOpenInviteDialog(true)}
@@ -118,7 +113,7 @@ function FamilyMembers() {
                         </div>
                     </ContentContainer>
                 </Grid>
-                {(mediaQuery || members.length === 0) && (
+                {(mediaQuery || members.length === 1) && (
                     <Grid item xs={12} md={6}>
                         <ImageContainer mq={mediaQuery}>
                             <div
@@ -136,7 +131,7 @@ function FamilyMembers() {
                         </ImageContainer>
                     </Grid>
                 )}
-                {!mediaQuery && members.length === 0 && (
+                {!mediaQuery && members.length === 1 && (
                     <Container
                         maxWidth={'lg'}
                         sx={{
@@ -155,7 +150,7 @@ function FamilyMembers() {
                     </Container>
                 )}
             </Grid>
-            {members?.length > 0 && (
+            {members?.length > 1 && (
                 <>
                     <MembersContainer />
                     <div

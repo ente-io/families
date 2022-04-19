@@ -1,3 +1,4 @@
+import UserNotFoundMessage from '../components/utils/UserNotFoundMessage';
 import { Member } from '../pages';
 import HTTPService from './HTTPService';
 
@@ -101,6 +102,49 @@ export async function getMembers(authToken: string): Promise<{
         return {
             success: false,
             msg: 'Sorry, something went wrong.',
+        };
+    }
+}
+
+export async function inviteMember(
+    authToken: string,
+    email: string
+): Promise<{
+    success: boolean;
+    msg?: string | JSX.Element;
+}> {
+    try {
+        const res = await HTTPService.post(
+            `${getEndpoint()}/family/add-member`,
+            { email },
+            undefined,
+            {
+                'X-Auth-Token': authToken,
+            }
+        );
+        if (res.status === 200) {
+            return {
+                success: true,
+            };
+        } else if (res.status === 404) {
+            return {
+                success: false,
+                msg: UserNotFoundMessage(),
+            };
+        } else if (res.status === 412) {
+            return {
+                success: false,
+                msg: 'You have reached the maximum number of family members.',
+            };
+        }
+        return {
+            success: false,
+            msg: 'Oops, something went wrong.',
+        };
+    } catch (e) {
+        return {
+            success: false,
+            msg: 'Oops, something went wrong.',
         };
     }
 }

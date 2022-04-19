@@ -39,6 +39,7 @@ function Landing({ setPage }: { setPage: (page: number) => void }) {
         setMessage,
         authToken,
         setIsLoading,
+        setShouldSyncMembers,
     } = useContext(AppContext);
 
     const handleClick = async () => {
@@ -47,6 +48,7 @@ function Landing({ setPage }: { setPage: (page: number) => void }) {
         setIsLoading(false);
         if (res.success) {
             setPage(PageState.FamilyMembers);
+            setShouldSyncMembers(true);
         } else {
             setOpenMessageDialog(true);
             setMessage(res.msg);

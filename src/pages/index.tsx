@@ -35,6 +35,8 @@ interface AppContextType {
     isUserAdmin: boolean;
     members: Member[];
     setMembers: (members: Member[]) => void;
+    shouldSyncMembers: boolean;
+    setShouldSyncMembers: (shouldSyncMembers: boolean) => void;
     familyManagerEmail: string;
     setFamilyManagerEmail: (email: string) => void;
     totalStorage: number;
@@ -59,6 +61,8 @@ const defaultAppContext: AppContextType = {
     isUserAdmin: false,
     members: [],
     setMembers: () => {},
+    shouldSyncMembers: false,
+    setShouldSyncMembers: () => {},
     familyManagerEmail: '',
     setFamilyManagerEmail: () => {},
     totalStorage: 0,
@@ -92,6 +96,7 @@ function App() {
         defaultActionDialogOptions
     );
     const [members, setMembers] = useState([]);
+    const [shouldSyncMembers, setShouldSyncMembers] = useState(false);
     const [totalStorage, setTotalStorage] = useState(0);
     const [authToken, setAuthToken] = useState('');
     const [familyManagerEmail, setFamilyManagerEmail] = useState('');
@@ -108,11 +113,21 @@ function App() {
         }
     };
 
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        const inviteToken = params.get('inviteToken');
+        if (inviteToken) {
+            handleInviteAccept(inviteToken);
+        }
+        const token = params.get('token');
+        if (token) {
+            setAuthToken(token);
+        }
+    }, []);
+
     const syncMembers = async (authToken) => {
-        setIsLoading(true);
         const res = await getMembers(authToken);
         console.log(res);
-        setIsLoading(false);
         if (res.success) {
             setMembers(res.data.members);
             setTotalStorage(res.data.storage);
@@ -123,23 +138,18 @@ function App() {
                 }
             }
         } else {
+            setPage(PageState.Landing);
             setMessage(res.msg);
             setOpenMessageDialog(true);
         }
     };
 
     useEffect(() => {
-        const params = new URLSearchParams(window.location.search);
-        const inviteToken = params.get('inviteToken');
-        if (inviteToken) {
-            handleInviteAccept(inviteToken);
+        if (shouldSyncMembers) {
+            syncMembers(authToken);
+            setShouldSyncMembers(false);
         }
-        const token = params.get('token');
-        if (token) {
-            setAuthToken(token);
-            syncMembers(token);
-        }
-    }, []);
+    }, [shouldSyncMembers]);
 
     return (
         <ThemeProvider theme={customTheme}>
@@ -151,6 +161,8 @@ function App() {
                     setFamilyManagerEmail,
                     members,
                     setMembers,
+                    shouldSyncMembers,
+                    setShouldSyncMembers,
                     totalStorage,
                     setTotalStorage,
                     authToken,
