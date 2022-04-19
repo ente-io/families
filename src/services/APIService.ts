@@ -148,3 +148,73 @@ export async function inviteMember(
         };
     }
 }
+
+export async function revokeInvite(
+    authToken: string,
+    userId: string
+): Promise<{
+    success: boolean;
+    msg?: string;
+}> {
+    try {
+        const res = await HTTPService.delete(
+            `${getEndpoint()}/family/revoke-invite/${userId}`,
+            {},
+            undefined,
+            {
+                'X-Auth-Token': authToken,
+            }
+        );
+
+        if (res.status === 200) {
+            return {
+                success: true,
+            };
+        }
+
+        return {
+            success: false,
+            msg: 'Sorry, something went wrong.',
+        };
+    } catch (e) {
+        return {
+            success: false,
+            msg: 'Sorry, something went wrong.',
+        };
+    }
+}
+
+export async function removeMember(
+    authToken: string,
+    userId: string
+): Promise<{
+    success: boolean;
+    msg?: string;
+}> {
+    try {
+        const res = await HTTPService.delete(
+            `${getEndpoint()}/family/remove-member/${userId}`,
+            {},
+            undefined,
+            {
+                'X-Auth-Token': authToken,
+            }
+        );
+
+        if (res.status === 200) {
+            return {
+                success: true,
+            };
+        }
+
+        return {
+            success: false,
+            msg: 'Sorry, something went wrong.',
+        };
+    } catch (e) {
+        return {
+            success: false,
+            msg: 'Sorry, something went wrong.',
+        };
+    }
+}

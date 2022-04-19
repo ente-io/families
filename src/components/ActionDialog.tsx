@@ -11,18 +11,18 @@ import { IoMdClose } from 'react-icons/io';
 
 export interface ActionDialogOptions {
     msg: string | JSX.Element;
-    confirmText: string;
+    defaultText: string;
     warningText?: string;
-    onConfirmClick: () => void;
+    onDefaultClick: () => void;
     onWarningClick?: () => void;
     title: string;
 }
 
 export const defaultActionDialogOptions: ActionDialogOptions = {
     msg: '',
-    confirmText: '',
+    defaultText: '',
     warningText: '',
-    onConfirmClick: () => {},
+    onDefaultClick: () => {},
     onWarningClick: () => {},
     title: '',
 };
@@ -108,13 +108,13 @@ function ActionDialog({
                         )}
                         <Button
                             variant="contained"
-                            onClick={options.onConfirmClick}
+                            onClick={options.onDefaultClick}
                             style={{
                                 textTransform: 'none',
                                 width: mediaQuery ? 'auto' : '90%',
                                 marginRight: mediaQuery ? '24px' : '0px',
                             }}>
-                            {options.confirmText}
+                            {options.defaultText}
                         </Button>
                     </div>
                 </div>
