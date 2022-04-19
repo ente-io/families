@@ -4,7 +4,7 @@ import { PieChart, Pie, Label, Cell } from 'recharts';
 import { Breakdown } from './Breakdown';
 import { UsageChartColors as colors } from '../util/constants';
 import { AppContext } from '../pages';
-import { convertBytesToGBs } from '../util/common';
+import { convertBytesToGBs, convertBytesToHumanReadable } from '../util/common';
 
 export default function UsageData() {
     const { mediaQuery, members, totalStorage } = useContext(AppContext);
@@ -63,11 +63,9 @@ export default function UsageData() {
                                 paddingAngle={8}
                                 dataKey="value">
                                 <Label
-                                    value={`${convertBytesToGBs(
+                                    value={`${convertBytesToHumanReadable(
                                         usedStorage
-                                    )} GB / ${convertBytesToGBs(
-                                        totalStorage
-                                    )} GB`}
+                                    )} / ${convertBytesToGBs(totalStorage)} GB`}
                                     position="center"
                                     fontSize="20px"
                                     fill="white"

@@ -1,6 +1,6 @@
 export function convertBytesToHumanReadable(
     bytes: number,
-    precision = 0
+    precision = 2
 ): string {
     if (bytes === 0) {
         return '0 MB';
