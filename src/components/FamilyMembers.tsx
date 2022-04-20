@@ -137,7 +137,10 @@ function FamilyMembers() {
                         sx={{
                             textAlign: 'center',
                         }}>
-                        <InviteButton variant="contained" mq={mediaQuery}>
+                        <InviteButton
+                            variant="contained"
+                            onClick={() => setOpenInviteDialog(true)}
+                            mq={mediaQuery}>
                             <b>Invite</b>
                         </InviteButton>
                         <div
