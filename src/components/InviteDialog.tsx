@@ -123,6 +123,8 @@ function InviteDialog({ open, setOpen }) {
                                 variant="filled"
                                 fullWidth={true}
                                 value={email}
+                                autoFocus={true}
+                                inputProps={{ style: { textTransform: "none", }, autoCapitalize: 'none', }}
                                 onChange={handleTextChange}
                                 sx={{
                                     input: {
