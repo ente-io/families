@@ -42,7 +42,7 @@ function Landing({ setPage }: { setPage: (page: number) => void }) {
         setShouldSyncMembers,
     } = useContext(AppContext);
 
-    const handleClick = async () => {
+    const onGetStartedClick = async () => {
         setIsLoading(true);
         const res = await createFamily(authToken);
         setIsLoading(false);
@@ -101,7 +101,7 @@ function Landing({ setPage }: { setPage: (page: number) => void }) {
                                 <GetStartedButton
                                     variant="contained"
                                     mq={mediaQuery}
-                                    onClick={handleClick}>
+                                    onClick={onGetStartedClick}>
                                     <b>Get Started</b>
                                 </GetStartedButton>
                             )}
@@ -133,7 +133,7 @@ function Landing({ setPage }: { setPage: (page: number) => void }) {
                     <GetStartedButton
                         variant="contained"
                         mq={mediaQuery}
-                        onClick={handleClick}>
+                        onClick={onGetStartedClick}>
                         <b>Get Started</b>
                     </GetStartedButton>
                 </Container>

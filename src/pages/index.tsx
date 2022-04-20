@@ -64,26 +64,26 @@ const defaultAppContext: AppContextType = {
     mediaQuery: false,
     isUserAdmin: false,
     members: [],
-    setMembers: () => {},
+    setMembers: () => { },
     shouldSyncMembers: false,
-    setShouldSyncMembers: () => {},
+    setShouldSyncMembers: () => { },
     familyManagerEmail: '',
-    setFamilyManagerEmail: () => {},
+    setFamilyManagerEmail: () => { },
     totalStorage: 0,
-    setTotalStorage: () => {},
+    setTotalStorage: () => { },
     authToken: '',
-    setAuthToken: () => {},
+    setAuthToken: () => { },
     openInviteDialog: false,
-    setOpenInviteDialog: () => {},
+    setOpenInviteDialog: () => { },
     openMessageDialog: false,
-    setOpenMessageDialog: () => {},
+    setOpenMessageDialog: () => { },
     message: '',
-    setMessage: () => {},
+    setMessage: () => { },
     openActionDialog: false,
-    setOpenActionDialog: () => {},
+    setOpenActionDialog: () => { },
     actionDialogOptions: defaultActionDialogOptions,
-    setActionDialogOptions: () => {},
-    setIsLoading: () => {},
+    setActionDialogOptions: () => { },
+    setIsLoading: () => { },
 };
 
 export const AppContext = createContext(defaultAppContext);
@@ -133,8 +133,13 @@ function App() {
             handleAcceptInvite(inviteToken);
         }
         const token = params.get('token');
+        const isFamilyCreated = params.get('familyCreated')
         if (token) {
             setAuthToken(token);
+        }
+        if (isFamilyCreated && isFamilyCreated === "true") {
+            syncMembers(token).then(() => {setPage(PageState.FamilyMembers);});
+
         }
     }, []);
 
