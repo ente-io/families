@@ -107,18 +107,20 @@ function App() {
 
     const handleAcceptInvite = async (inviteToken) => {
         setIsLoading(true);
-        const inviteInfoRes = await getInviteInfo(inviteToken);
-        if (inviteInfoRes.success) {
-            setFamilyManagerEmail(inviteInfoRes.data.adminEmail);
-        } else {
-            setMessage(inviteInfoRes.msg);
-            setOpenMessageDialog(true);
-            setIsLoading(false);
-            return;
-        }
+        // const inviteInfoRes = await getInviteInfo(inviteToken);
+        // if (inviteInfoRes.success) {
+        //     setFamilyManagerEmail(inviteInfoRes.data.adminEmail);
+        // } else {
+        //     setMessage(inviteInfoRes.msg);
+        //     setOpenMessageDialog(true);
+        //     setIsLoading(false);
+        //     return;
+        // }
         const acceptInviteRes = await acceptInvite(inviteToken);
         setIsLoading(false);
         if (acceptInviteRes.success) {
+            setFamilyManagerEmail(acceptInviteRes.data.adminEmail);
+            setTotalStorage(acceptInviteRes.data.storage);
             setPage(PageState.InviteAccepted);
         } else {
             setMessage(acceptInviteRes.msg);
@@ -207,6 +209,7 @@ function App() {
                         ) : (
                             <InviteAccepted
                                 familyManagerEmail={familyManagerEmail}
+                                totalStorage={totalStorage}
                             />
                         )}
                         <InviteDialog

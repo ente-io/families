@@ -2,6 +2,7 @@ import { Button, Container, styled } from '@mui/material';
 import React, { useContext } from 'react';
 import { AppContext } from '../pages';
 import theme from '../theme';
+import { convertBytesToHumanReadable } from '../util/common';
 
 const ImageContainer = styled('div')<{ mq: boolean }>(({ mq }) => ({
     marginLeft: mq ? '16px' : '0px',
@@ -12,7 +13,7 @@ const ImageContainer = styled('div')<{ mq: boolean }>(({ mq }) => ({
     marginTop: mq ? '0px' : '24px',
 }));
 
-function InviteAccepted({ familyManagerEmail }) {
+function InviteAccepted({ familyManagerEmail, totalStorage }) {
     const { mediaQuery } = useContext(AppContext);
 
     const handleClick = () => {
@@ -69,7 +70,7 @@ function InviteAccepted({ familyManagerEmail }) {
                                     color: '#fff',
                                     fontWeight: 'bold',
                                 }}>
-                                100 GB
+                                {convertBytesToHumanReadable(totalStorage)}
                             </span>{' '}
                             of shared storage.
                         </div>

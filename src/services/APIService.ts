@@ -47,6 +47,11 @@ export async function createFamily(authToken: string): Promise<{
 export async function acceptInvite(inviteToken: string): Promise<{
     success: boolean;
     msg?: string;
+    data?: {
+        adminEmail: string;
+        storage: number;
+        expiryTime: number;
+    };
 }> {
     try {
         const res = await HTTPService.post(
@@ -56,6 +61,7 @@ export async function acceptInvite(inviteToken: string): Promise<{
         if (res.status === 200) {
             return {
                 success: true,
+                data: res.data,
             };
         }
         // TODO: add case for invite expired
