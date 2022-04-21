@@ -64,10 +64,14 @@ export async function acceptInvite(inviteToken: string): Promise<{
                 data: res.data,
             };
         }
+        let message = 'Sorry, something went wrong.'
+        if (res.status == 404) {
+            message = 'Sorry, invite token seems to be invalid'
+        }
         // TODO: add case for invite expired
         return {
             success: false,
-            msg: 'Sorry, something went wrong.',
+            msg: message,
         };
     } catch (e) {
         return {
