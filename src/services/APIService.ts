@@ -8,6 +8,12 @@ export const getEndpoint = () => {
     return endPoint;
 };
 
+export const getWebEndpoint = () => {
+    const endPoint =
+        process.env.NEXT_WEB_ENTE_ENDPOINT ?? 'https://web.ente.io';
+    return endPoint;
+};
+
 export async function createFamily(authToken: string): Promise<{
     success: boolean;
     msg?: string;

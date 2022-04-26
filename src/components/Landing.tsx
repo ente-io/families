@@ -1,8 +1,9 @@
 import { Grid, Button, Container } from '@mui/material';
 import { styled } from '@mui/system';
 import React, { useContext } from 'react';
+import { BsWindowSidebar } from 'react-icons/bs';
 import { AppContext, PageState } from '../pages';
-import { createFamily } from '../services/APIService';
+import { createFamily, getWebEndpoint } from '../services/APIService';
 import customTheme from '../theme';
 
 const ImageContainer = styled('div')<{ mq: boolean }>(({ mq }) => ({
@@ -43,16 +44,21 @@ function Landing({ setPage }: { setPage: (page: number) => void }) {
     } = useContext(AppContext);
 
     const onGetStartedClick = async () => {
-        setIsLoading(true);
-        const res = await createFamily(authToken);
-        setIsLoading(false);
-        if (res.success) {
-            setPage(PageState.FamilyMembers);
-            setShouldSyncMembers(true);
+        if (authToken) {
+            setIsLoading(true);
+            const res = await createFamily(authToken);
+            setIsLoading(false);
+            if (res.success) {
+                setPage(PageState.FamilyMembers);
+                setShouldSyncMembers(true);
+            } else {
+                setOpenMessageDialog(true);
+                setMessage(res.msg);
+            }
         } else {
-            setOpenMessageDialog(true);
-            setMessage(res.msg);
+            window.location.href = getWebEndpoint() + "?redirect=families";
         }
+
     };
 
     return (
