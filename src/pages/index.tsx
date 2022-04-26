@@ -135,12 +135,12 @@ function App() {
             handleAcceptInvite(inviteToken);
         }
         const token = params.get('token');
-        const isFamilyCreated = params.get('familyCreated')
         if (token) {
             setAuthToken(token);
         }
-        if (isFamilyCreated && isFamilyCreated === "true") {
-            syncMembers(token).then(() => {setPage(PageState.FamilyMembers);});
+        if ((params.get('familyCreated') && params.get('familyCreated') === "true") // handle both flag till internal APK is released
+            || (params.get('isFamilyCreated') && params.get('isFamilyCreated') === "true")) {
+            syncMembers(token).then(() => { setPage(PageState.FamilyMembers); });
 
         }
     }, []);
