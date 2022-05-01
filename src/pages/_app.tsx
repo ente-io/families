@@ -4,11 +4,6 @@ import React from 'react';
 function App({ Component, pageProps }) {
     return (
         <>
-            <link
-                href="https://fonts.googleapis.com/css?family=Inter:400,500,700"
-                rel="stylesheet"
-            />
-
             <GlobalStyles
                 styles={{
                     body: {
