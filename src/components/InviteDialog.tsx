@@ -40,6 +40,14 @@ function InviteDialog({ open, setOpen }) {
         if (email.length === 0) {
             return;
         }
+
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!re.test(email)) {
+            setIsError(true);
+            setErrorMsg('Please enter a valid email address');
+            return;
+        }
+
         const res = await inviteMember(authToken, email);
         if (res.success) {
             setOpen(false);
@@ -124,7 +132,10 @@ function InviteDialog({ open, setOpen }) {
                                 fullWidth={true}
                                 value={email}
                                 autoFocus={true}
-                                inputProps={{ style: { textTransform: "none", }, autoCapitalize: 'none', }}
+                                inputProps={{
+                                    style: { textTransform: 'none' },
+                                    autoCapitalize: 'none',
+                                }}
                                 onChange={handleTextChange}
                                 sx={{
                                     input: {
