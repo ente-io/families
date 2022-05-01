@@ -66,6 +66,12 @@ function InviteDialog({ open, setOpen }) {
         setErrorMsg('');
     };
 
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            handleInviteClick();
+        }
+    };
+
     return (
         <>
             <Dialog
@@ -137,6 +143,7 @@ function InviteDialog({ open, setOpen }) {
                                     autoCapitalize: 'none',
                                 }}
                                 onChange={handleTextChange}
+                                onKeyDown={handleKeyPress}
                                 sx={{
                                     input: {
                                         backgroundColor: '#e4e4e4',
