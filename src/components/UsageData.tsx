@@ -5,6 +5,7 @@ import { Breakdown } from './Breakdown';
 import { UsageChartColors as colors } from '../util/constants';
 import { AppContext } from '../pages';
 import { convertBytesToGBs, convertBytesToHumanReadable } from '../util/common';
+import CustomUsageLable from './CustomUsageLable';
 
 export default function UsageData() {
     const { mediaQuery, members, totalStorage } = useContext(AppContext);
@@ -60,17 +61,24 @@ export default function UsageData() {
                                 innerRadius={135}
                                 outerRadius={160}
                                 fill="#8884d8"
+                                stroke="none"
                                 paddingAngle={8}
                                 dataKey="value">
                                 <Label
-                                    value={`${convertBytesToHumanReadable(
-                                        usedStorage
-                                    )} / ${convertBytesToGBs(totalStorage)} GB`}
-                                    position="center"
+                                    content={
+                                        <CustomUsageLable
+                                            usedStorage={convertBytesToHumanReadable(
+                                                usedStorage
+                                            )}
+                                            totalStorageInGBs={convertBytesToGBs(
+                                                totalStorage
+                                            )}
+                                        />
+                                    }
+                                    position="centerBottom"
                                     fontSize="20px"
                                     fill="white"
                                 />
-
                                 {data.map((entry, index) => (
                                     <Cell
                                         key={`cell-${index}`}

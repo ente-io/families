@@ -62,7 +62,7 @@ function FamilyMembers() {
                 container
                 spacing={0}
                 style={{
-                    marginTop: mediaQuery ? '72px' : '0px',
+                    marginTop: mediaQuery ? '72px' : '40px',
                 }}>
                 <Grid item xs={12} md={6}>
                     <ContentContainer mq={mediaQuery ? true : undefined}>
