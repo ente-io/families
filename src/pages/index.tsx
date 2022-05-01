@@ -14,9 +14,9 @@ import MessageDialog from '../components/MessageDialog';
 import InviteAccepted from '../components/InviteAccepted';
 import {
     acceptInvite,
-    getInviteInfo,
     getMembers,
 } from '../services/APIService';
+import Head from 'next/head';
 
 export enum PageState {
     Landing,
@@ -64,26 +64,26 @@ const defaultAppContext: AppContextType = {
     mediaQuery: false,
     isUserAdmin: false,
     members: [],
-    setMembers: () => { },
+    setMembers: () => {},
     shouldSyncMembers: false,
-    setShouldSyncMembers: () => { },
+    setShouldSyncMembers: () => {},
     familyManagerEmail: '',
-    setFamilyManagerEmail: () => { },
+    setFamilyManagerEmail: () => {},
     totalStorage: 0,
-    setTotalStorage: () => { },
+    setTotalStorage: () => {},
     authToken: '',
-    setAuthToken: () => { },
+    setAuthToken: () => {},
     openInviteDialog: false,
-    setOpenInviteDialog: () => { },
+    setOpenInviteDialog: () => {},
     openMessageDialog: false,
-    setOpenMessageDialog: () => { },
+    setOpenMessageDialog: () => {},
     message: '',
-    setMessage: () => { },
+    setMessage: () => {},
     openActionDialog: false,
-    setOpenActionDialog: () => { },
+    setOpenActionDialog: () => {},
     actionDialogOptions: defaultActionDialogOptions,
-    setActionDialogOptions: () => { },
-    setIsLoading: () => { },
+    setActionDialogOptions: () => {},
+    setIsLoading: () => {},
 };
 
 export const AppContext = createContext(defaultAppContext);
@@ -138,10 +138,15 @@ function App() {
         if (token) {
             setAuthToken(token);
         }
-        if ((params.get('familyCreated') && params.get('familyCreated') === "true") // handle both flag till internal APK is released
-            || (params.get('isFamilyCreated') && params.get('isFamilyCreated') === "true")) {
-            syncMembers(token).then(() => { setPage(PageState.FamilyMembers); });
-
+        if (
+            (params.get('familyCreated') &&
+                params.get('familyCreated') === 'true') || // handle both flag till internal APK is released
+            (params.get('isFamilyCreated') &&
+                params.get('isFamilyCreated') === 'true')
+        ) {
+            syncMembers(token).then(() => {
+                setPage(PageState.FamilyMembers);
+            });
         }
     }, []);
 
@@ -172,74 +177,79 @@ function App() {
     }, [shouldSyncMembers]);
 
     return (
-        <ThemeProvider theme={customTheme}>
-            <AppContext.Provider
-                value={{
-                    ...defaultAppContext,
-                    mediaQuery,
-                    familyManagerEmail,
-                    setFamilyManagerEmail,
-                    members,
-                    setMembers,
-                    shouldSyncMembers,
-                    setShouldSyncMembers,
-                    totalStorage,
-                    setTotalStorage,
-                    authToken,
-                    setAuthToken,
-                    openInviteDialog,
-                    setOpenInviteDialog,
-                    openMessageDialog,
-                    setOpenMessageDialog,
-                    message,
-                    setMessage,
-                    openActionDialog,
-                    setOpenActionDialog,
-                    actionDialogOptions,
-                    setActionDialogOptions,
-                    setIsLoading,
-                }}>
-                <Navbar />
-                {!isLoading ? (
-                    <>
-                        {page === PageState.Landing ? (
-                            <Landing setPage={setPage} />
-                        ) : page === PageState.FamilyMembers ? (
-                            <FamilyMembers />
-                        ) : (
-                            <InviteAccepted
-                                familyManagerEmail={familyManagerEmail}
-                                totalStorage={totalStorage}
+        <>
+            <Head>
+                <title>Family</title>
+            </Head>
+            <ThemeProvider theme={customTheme}>
+                <AppContext.Provider
+                    value={{
+                        ...defaultAppContext,
+                        mediaQuery,
+                        familyManagerEmail,
+                        setFamilyManagerEmail,
+                        members,
+                        setMembers,
+                        shouldSyncMembers,
+                        setShouldSyncMembers,
+                        totalStorage,
+                        setTotalStorage,
+                        authToken,
+                        setAuthToken,
+                        openInviteDialog,
+                        setOpenInviteDialog,
+                        openMessageDialog,
+                        setOpenMessageDialog,
+                        message,
+                        setMessage,
+                        openActionDialog,
+                        setOpenActionDialog,
+                        actionDialogOptions,
+                        setActionDialogOptions,
+                        setIsLoading,
+                    }}>
+                    <Navbar />
+                    {!isLoading ? (
+                        <>
+                            {page === PageState.Landing ? (
+                                <Landing setPage={setPage} />
+                            ) : page === PageState.FamilyMembers ? (
+                                <FamilyMembers />
+                            ) : (
+                                <InviteAccepted
+                                    familyManagerEmail={familyManagerEmail}
+                                    totalStorage={totalStorage}
+                                />
+                            )}
+                            <InviteDialog
+                                open={openInviteDialog}
+                                setOpen={setOpenInviteDialog}
                             />
-                        )}
-                        <InviteDialog
-                            open={openInviteDialog}
-                            setOpen={setOpenInviteDialog}
+                            <MessageDialog
+                                open={openMessageDialog}
+                                setOpen={setOpenMessageDialog}
+                                msg={message}
+                            />
+                            <ActionDialog
+                                open={openActionDialog}
+                                setOpen={setOpenActionDialog}
+                                options={actionDialogOptions}
+                            />
+                        </>
+                    ) : (
+                        <CircularProgress
+                            color="primary"
+                            size={60}
+                            style={{
+                                position: 'absolute',
+                                top: 'calc(50% - 30px)',
+                                left: 'calc(50% - 30px)',
+                            }}
                         />
-                        <MessageDialog
-                            open={openMessageDialog}
-                            setOpen={setOpenMessageDialog}
-                            msg={message}
-                        />
-                        <ActionDialog
-                            open={openActionDialog}
-                            setOpen={setOpenActionDialog}
-                            options={actionDialogOptions}
-                        />
-                    </>
-                ) : (
-                    <CircularProgress
-                        color="primary"
-                        size={60}
-                        style={{
-                            position: 'absolute',
-                            top: 'calc(50% - 30px)',
-                            left: 'calc(50% - 30px)',
-                        }}
-                    />
-                )}
-            </AppContext.Provider>
-        </ThemeProvider>
+                    )}
+                </AppContext.Provider>
+            </ThemeProvider>
+        </>
     );
 }
 

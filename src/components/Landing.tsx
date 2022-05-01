@@ -11,7 +11,7 @@ const ImageContainer = styled('div')<{ mq: boolean }>(({ mq }) => ({
     flexDirection: 'column',
     alignItems: mq ? 'flex-start' : 'center',
     justifyContent: 'center',
-    marginBottom: '16px',
+    marginBottom: mq ? '16px' : '0px',
 }));
 
 const GetStartedButton = styled(Button)<{ mq: boolean }>(({ mq }) => ({
@@ -56,9 +56,8 @@ function Landing({ setPage }: { setPage: (page: number) => void }) {
                 setMessage(res.msg);
             }
         } else {
-            window.location.href = getWebEndpoint() + "?redirect=families";
+            window.location.href = getWebEndpoint() + '?redirect=families';
         }
-
     };
 
     return (
