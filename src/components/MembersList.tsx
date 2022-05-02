@@ -1,3 +1,4 @@
+import { Tooltip } from '@mui/material';
 import React, { useContext } from 'react';
 import { BsTrash as TrashIcon } from 'react-icons/bs';
 import { IoReload as ResendIcon } from 'react-icons/io5';
@@ -12,6 +13,16 @@ const StatusMap = {
     SELF: 'Admin',
     ACCEPTED: 'Member',
     INVITED: 'Invited',
+};
+
+const tooltipProps = {
+    tooltip: {
+        sx: {
+            color: '#fff',
+            backgroundColor: '#454545',
+            fontWeight: 'bold',
+        },
+    },
 };
 
 export function MembersList() {
@@ -108,27 +119,41 @@ export function MembersList() {
                                         color: '#7d7d7d',
                                     }}>
                                     {member.status !== 'ACCEPTED' && (
+                                        <Tooltip
+                                            title="Resend Invite"
+                                            placement="top"
+                                            componentsProps={tooltipProps}>
+                                            <div
+                                                style={{
+                                                    marginLeft: '8px',
+                                                    cursor: 'pointer',
+                                                }}
+                                                onClick={() =>
+                                                    handleResendInvite(member)
+                                                }>
+                                                <ResendIcon />
+                                            </div>
+                                        </Tooltip>
+                                    )}
+                                    <Tooltip
+                                        title={
+                                            member.status === 'INVITED'
+                                                ? 'Revoke Invite'
+                                                : 'Remove Member'
+                                        }
+                                        placement="top"
+                                        componentsProps={tooltipProps}>
                                         <div
                                             style={{
                                                 marginLeft: '8px',
                                                 cursor: 'pointer',
                                             }}
                                             onClick={() =>
-                                                handleResendInvite(member)
+                                                handleTrashClick(member)
                                             }>
-                                            <ResendIcon />
+                                            <TrashIcon />
                                         </div>
-                                    )}
-                                    <div
-                                        style={{
-                                            marginLeft: '8px',
-                                            cursor: 'pointer',
-                                        }}
-                                        onClick={() =>
-                                            handleTrashClick(member)
-                                        }>
-                                        <TrashIcon />
-                                    </div>
+                                    </Tooltip>
                                 </div>
                             </div>
                             {index !== members.length - 1 && (
