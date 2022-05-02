@@ -42,21 +42,23 @@ export function MembersContainer() {
                             marginLeft: '0',
                             alignItems: 'center',
                         }}>
-                        {members.map((member, index) =>
-                            member.status === 'ACCEPTED' ||
-                            member.status === 'SELF' ? (
+                        {[...Array(members.length - 1)].map((_, index) => {
+                            return (
                                 <PersonIconContainer
                                     fill={customTheme.palette.primary.main}
                                     key={index}
                                     mq={mediaQuery}
                                 />
-                            ) : (
+                            );
+                        })}
+                        {[...Array(6 - members.length)].map((_, index) => {
+                            return (
                                 <PersonIconContainer
                                     key={index}
                                     mq={mediaQuery}
                                 />
-                            )
-                        )}
+                            );
+                        })}
                     </div>
                     <Button
                         variant="contained"
