@@ -5,7 +5,7 @@ import theme from '../theme';
 import UsageData from './UsageData';
 import PersonIcon from './icons/PersonIcon';
 import { MembersContainer } from './MembersContainer';
-import { AppContext } from '../pages';
+import { AppContext } from '../pages/_app';
 import { BsPlusLg } from 'react-icons/bs';
 
 const ImageContainer = styled('div')<{ mq: boolean }>(({ mq }) => ({

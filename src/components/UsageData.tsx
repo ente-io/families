@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { PieChart, Pie, Label, Cell } from 'recharts';
 import { Breakdown } from './Breakdown';
 import { UsageChartColors as colors } from '../util/constants';
-import { AppContext } from '../pages';
+import { AppContext } from '../pages/_app';
 import { convertBytesToGBs, convertBytesToHumanReadable } from '../util/common';
 import CustomUsageLable from './CustomUsageLable';
 

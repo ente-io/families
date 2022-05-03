@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import React, { useContext, useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
-import { AppContext } from '../pages';
+import { AppContext } from '../pages/_app';
 import { inviteMember } from '../services/APIService';
 import theme from '../theme';
 import InviteSent from './InviteSent';

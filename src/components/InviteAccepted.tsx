@@ -1,6 +1,6 @@
 import { Button, Container, styled } from '@mui/material';
 import React, { useContext } from 'react';
-import { AppContext } from '../pages';
+import { AppContext } from '../pages/_app';
 import theme from '../theme';
 import { convertBytesToHumanReadable } from '../util/common';
 
@@ -13,8 +13,8 @@ const ImageContainer = styled('div')<{ mq: boolean }>(({ mq }) => ({
     marginTop: mq ? '0px' : '24px',
 }));
 
-function InviteAccepted({ familyManagerEmail, totalStorage }) {
-    const { isSmallerDisplay } = useContext(AppContext);
+function InviteAccepted() {
+    const { isSmallerDisplay, familyManagerEmail, totalStorage } = useContext(AppContext);
 
     const handleClick = () => {
         window.open('https://web.ente.io', '_self');

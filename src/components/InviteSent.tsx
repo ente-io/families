@@ -1,6 +1,6 @@
 import { DialogActions, Button, Dialog, styled } from '@mui/material';
 import React, { useContext } from 'react';
-import { AppContext } from '../pages';
+import { AppContext } from '../pages/_app';
 
 const ImageContainer = styled('div')<{ mq: boolean }>(({ mq }) => ({
     marginRight: mq ? '48px' : '48px',

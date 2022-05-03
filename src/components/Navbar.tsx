@@ -1,7 +1,7 @@
 import { Container } from '@mui/material';
 import { styled } from '@mui/system';
 import React, { useContext } from 'react';
-import { AppContext } from '../pages';
+import { AppContext } from '../pages/_app';
 
 const LogoImage = styled('img')({
     height: '24px',

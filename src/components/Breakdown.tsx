@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { AppContext } from '../pages';
+import { AppContext } from '../pages/_app';
 import { UsageChartColors as colors } from '../util/constants';
 import { UsageEntry } from './UsageEntry';
 

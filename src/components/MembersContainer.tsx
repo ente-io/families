@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import theme from '../theme';
 import { MembersList } from './MembersList';
 import { PersonIconContainer } from './FamilyMembers';
-import { AppContext } from '../pages';
+import { AppContext } from '../pages/_app';
 import { BsPlusLg } from 'react-icons/bs';
 import { MAX_FAMILY_MEMBERS } from '../util/constants';
 

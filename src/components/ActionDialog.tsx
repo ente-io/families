@@ -6,7 +6,7 @@ import {
     DialogTitle,
 } from '@mui/material';
 import React, { useContext } from 'react';
-import { AppContext } from '../pages';
+import { AppContext } from '../pages/_app';
 import { IoMdClose } from 'react-icons/io';
 
 export interface ActionDialogOptions {
