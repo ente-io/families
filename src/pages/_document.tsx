@@ -4,7 +4,7 @@ export default function App() {
     return (
         <Html>
             <Head>
-                <link href="/fonts/styles.css" rel="stylesheet"></link>
+                <title>Family</title>
                 <link rel="icon" href="/images/ente-512.png" type="image/png" />
                 <link
                     rel="apple-touch-icon"

@@ -13,7 +13,6 @@ import ActionDialog, {
 import MessageDialog from '../components/MessageDialog';
 import InviteAccepted from '../components/InviteAccepted';
 import { acceptInvite, getMembers } from '../services/APIService';
-import Head from 'next/head';
 
 export enum PageState {
     Landing,
@@ -174,79 +173,74 @@ function App() {
     }, [shouldSyncMembers]);
 
     return (
-        <>
-            <Head>
-                <title>Family</title>
-            </Head>
-            <ThemeProvider theme={theme}>
-                <AppContext.Provider
-                    value={{
-                        ...defaultAppContext,
-                        mediaQuery,
-                        familyManagerEmail,
-                        setFamilyManagerEmail,
-                        members,
-                        setMembers,
-                        shouldSyncMembers,
-                        setShouldSyncMembers,
-                        totalStorage,
-                        setTotalStorage,
-                        authToken,
-                        setAuthToken,
-                        openInviteDialog,
-                        setOpenInviteDialog,
-                        openMessageDialog,
-                        setOpenMessageDialog,
-                        message,
-                        setMessage,
-                        openActionDialog,
-                        setOpenActionDialog,
-                        actionDialogOptions,
-                        setActionDialogOptions,
-                        setIsLoading,
-                    }}>
-                    <Navbar />
-                    {!isLoading ? (
-                        <>
-                            {page === PageState.Landing ? (
-                                <Landing setPage={setPage} />
-                            ) : page === PageState.FamilyMembers ? (
-                                <FamilyMembers />
-                            ) : (
-                                <InviteAccepted
-                                    familyManagerEmail={familyManagerEmail}
-                                    totalStorage={totalStorage}
-                                />
-                            )}
-                            <InviteDialog
-                                open={openInviteDialog}
-                                setOpen={setOpenInviteDialog}
+        <ThemeProvider theme={theme}>
+            <AppContext.Provider
+                value={{
+                    ...defaultAppContext,
+                    mediaQuery,
+                    familyManagerEmail,
+                    setFamilyManagerEmail,
+                    members,
+                    setMembers,
+                    shouldSyncMembers,
+                    setShouldSyncMembers,
+                    totalStorage,
+                    setTotalStorage,
+                    authToken,
+                    setAuthToken,
+                    openInviteDialog,
+                    setOpenInviteDialog,
+                    openMessageDialog,
+                    setOpenMessageDialog,
+                    message,
+                    setMessage,
+                    openActionDialog,
+                    setOpenActionDialog,
+                    actionDialogOptions,
+                    setActionDialogOptions,
+                    setIsLoading,
+                }}>
+                <Navbar />
+                {!isLoading ? (
+                    <>
+                        {page === PageState.Landing ? (
+                            <Landing setPage={setPage} />
+                        ) : page === PageState.FamilyMembers ? (
+                            <FamilyMembers />
+                        ) : (
+                            <InviteAccepted
+                                familyManagerEmail={familyManagerEmail}
+                                totalStorage={totalStorage}
                             />
-                            <MessageDialog
-                                open={openMessageDialog}
-                                setOpen={setOpenMessageDialog}
-                                msg={message}
-                            />
-                            <ActionDialog
-                                open={openActionDialog}
-                                setOpen={setOpenActionDialog}
-                                options={actionDialogOptions}
-                            />
-                        </>
-                    ) : (
-                        <CircularProgress
-                            color="primary"
-                            size={60}
-                            style={{
-                                position: 'absolute',
-                                top: 'calc(50% - 30px)',
-                                left: 'calc(50% - 30px)',
-                            }}
+                        )}
+                        <InviteDialog
+                            open={openInviteDialog}
+                            setOpen={setOpenInviteDialog}
                         />
-                    )}
-                </AppContext.Provider>
-            </ThemeProvider>
-        </>
+                        <MessageDialog
+                            open={openMessageDialog}
+                            setOpen={setOpenMessageDialog}
+                            msg={message}
+                        />
+                        <ActionDialog
+                            open={openActionDialog}
+                            setOpen={setOpenActionDialog}
+                            options={actionDialogOptions}
+                        />
+                    </>
+                ) : (
+                    <CircularProgress
+                        color="primary"
+                        size={60}
+                        style={{
+                            position: 'absolute',
+                            top: 'calc(50% - 30px)',
+                            left: 'calc(50% - 30px)',
+                        }}
+                    />
+                )}
+            </AppContext.Provider>
+        </ThemeProvider>
     );
 }
 
