@@ -36,7 +36,7 @@ function ActionDialog({
     setOpen: (open: boolean) => void;
     options: ActionDialogOptions;
 }) {
-    const { mediaQuery } = useContext(AppContext);
+    const { isSmallerDisplay } = useContext(AppContext);
 
     const handleClose = (e, reason) => {
         if (reason === 'escapeKeyDown' || reason === 'backdropClick') {
@@ -88,8 +88,8 @@ function ActionDialog({
                     <div
                         style={{
                             display: 'flex',
-                            flexDirection: mediaQuery ? 'row' : 'column',
-                            alignItems: mediaQuery ? 'auto' : 'center',
+                            flexDirection: isSmallerDisplay ? 'row' : 'column',
+                            alignItems: isSmallerDisplay ? 'auto' : 'center',
                             justifyContent: 'flex-end',
                         }}>
                         {options.warningText && (
@@ -98,10 +98,14 @@ function ActionDialog({
                                 color="warning"
                                 onClick={options.onWarningClick}
                                 style={{
-                                    marginRight: mediaQuery ? '20px' : '0px',
+                                    marginRight: isSmallerDisplay
+                                        ? '20px'
+                                        : '0px',
                                     textTransform: 'none',
-                                    width: mediaQuery ? 'auto' : '90%',
-                                    marginBottom: mediaQuery ? '0px' : '12px',
+                                    width: isSmallerDisplay ? 'auto' : '90%',
+                                    marginBottom: isSmallerDisplay
+                                        ? '0px'
+                                        : '12px',
                                 }}>
                                 {options.warningText}
                             </Button>
@@ -111,8 +115,8 @@ function ActionDialog({
                             onClick={options.onDefaultClick}
                             style={{
                                 textTransform: 'none',
-                                width: mediaQuery ? 'auto' : '90%',
-                                marginRight: mediaQuery ? '24px' : '0px',
+                                width: isSmallerDisplay ? 'auto' : '90%',
+                                marginRight: isSmallerDisplay ? '24px' : '0px',
                             }}>
                             {options.defaultText}
                         </Button>

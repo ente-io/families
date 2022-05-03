@@ -27,7 +27,7 @@ const tooltipProps = {
 
 export function MembersList() {
     const {
-        mediaQuery,
+        isSmallerDisplay,
         members,
         setShouldSyncMembers,
         authToken,
@@ -93,7 +93,9 @@ export function MembersList() {
                         <div style={{ width: '90%' }} key={index}>
                             <div
                                 style={{
-                                    fontSize: mediaQuery ? '16px' : '12px',
+                                    fontSize: isSmallerDisplay
+                                        ? '16px'
+                                        : '12px',
                                     color: '#7d7d7d',
                                     fontWeight: 'bold',
                                     marginBottom: '4px',
@@ -105,7 +107,9 @@ export function MembersList() {
                                     display: 'flex',
                                     flexDirection: 'row',
                                     justifyContent: 'space-between',
-                                    fontSize: mediaQuery ? '24px' : '16px',
+                                    fontSize: isSmallerDisplay
+                                        ? '24px'
+                                        : '16px',
                                     marginBottom:
                                         index === members.length - 1
                                             ? '0px'

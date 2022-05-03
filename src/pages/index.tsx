@@ -31,7 +31,7 @@ export interface Member {
 }
 
 interface AppContextType {
-    mediaQuery: boolean;
+    isSmallerDisplay: boolean;
     isUserAdmin: boolean;
     members: Member[];
     setMembers: (members: Member[]) => void;
@@ -57,7 +57,7 @@ interface AppContextType {
 }
 
 const defaultAppContext: AppContextType = {
-    mediaQuery: false,
+    isSmallerDisplay: false,
     isUserAdmin: false,
     members: [],
     setMembers: () => {},
@@ -85,7 +85,7 @@ const defaultAppContext: AppContextType = {
 export const AppContext = createContext(defaultAppContext);
 
 function App() {
-    const mediaQuery = useMediaQuery(theme.breakpoints.up('md'));
+    const isSmallerDisplay = useMediaQuery(theme.breakpoints.up('md'));
     const [page, setPage] = useState(PageState.Landing);
     const [isLoading, setIsLoading] = useState(false);
     const [openInviteDialog, setOpenInviteDialog] = useState(false);
@@ -177,7 +177,7 @@ function App() {
             <AppContext.Provider
                 value={{
                     ...defaultAppContext,
-                    mediaQuery,
+                    isSmallerDisplay,
                     familyManagerEmail,
                     setFamilyManagerEmail,
                     members,

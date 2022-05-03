@@ -8,7 +8,8 @@ import { BsPlusLg } from 'react-icons/bs';
 import { MAX_FAMILY_MEMBERS } from '../util/constants';
 
 export function MembersContainer() {
-    const { mediaQuery, members, setOpenInviteDialog } = useContext(AppContext);
+    const { isSmallerDisplay, members, setOpenInviteDialog } =
+        useContext(AppContext);
 
     return (
         <Container
@@ -34,7 +35,7 @@ export function MembersContainer() {
                         justifyContent: 'space-between',
                         width: '90%',
                         marginBottom: '24px',
-                        marginTop: mediaQuery ? '48px' : '24px',
+                        marginTop: isSmallerDisplay ? '48px' : '24px',
                     }}>
                     <div
                         style={{
@@ -48,7 +49,7 @@ export function MembersContainer() {
                                 <PersonIconContainer
                                     fill={theme.palette.primary.main}
                                     key={index}
-                                    mq={mediaQuery}
+                                    mq={isSmallerDisplay}
                                 />
                             );
                         })}
@@ -57,7 +58,7 @@ export function MembersContainer() {
                                 return (
                                     <PersonIconContainer
                                         key={index}
-                                        mq={mediaQuery}
+                                        mq={isSmallerDisplay}
                                     />
                                 );
                             }
@@ -77,7 +78,7 @@ export function MembersContainer() {
                 <MembersList />
                 <div
                     style={{
-                        marginBottom: mediaQuery ? '48px' : '32px',
+                        marginBottom: isSmallerDisplay ? '48px' : '32px',
                     }}></div>
             </div>
         </Container>

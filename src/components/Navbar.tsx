@@ -10,19 +10,19 @@ const LogoImage = styled('img')({
 });
 
 function Navbar() {
-    const { mediaQuery } = useContext(AppContext);
+    const { isSmallerDisplay } = useContext(AppContext);
 
     return (
         <>
-            {mediaQuery && (
+            {isSmallerDisplay && (
                 <Container
                     maxWidth={'xl'}
                     sx={{
-                        textAlign: mediaQuery ? 'start' : 'center',
+                        textAlign: isSmallerDisplay ? 'start' : 'center',
                     }}>
                     <div
                         style={{
-                            marginLeft: mediaQuery ? '2vw' : '0vw',
+                            marginLeft: isSmallerDisplay ? '2vw' : '0vw',
                         }}>
                         <LogoImage alt="logo" src="./icon.svg" />
                     </div>

@@ -4,13 +4,13 @@ import { UsageChartColors as colors } from '../util/constants';
 import { UsageEntry } from './UsageEntry';
 
 export function Breakdown() {
-    const { members, mediaQuery } = useContext(AppContext);
+    const { members, isSmallerDisplay } = useContext(AppContext);
     return (
         <div
             style={{
                 color: '#848484',
-                width: mediaQuery ? '50%' : '100%',
-                marginLeft: mediaQuery ? '40px' : '0',
+                width: isSmallerDisplay ? '50%' : '100%',
+                marginLeft: isSmallerDisplay ? '40px' : '0',
             }}>
             <div
                 style={{
@@ -25,13 +25,13 @@ export function Breakdown() {
                 style={{
                     display: 'flex',
                     flexDirection: 'column',
-                    alignItems: mediaQuery ? 'flex-start' : 'center',
+                    alignItems: isSmallerDisplay ? 'flex-start' : 'center',
                 }}>
                 {members.map((entry, index) => (
                     <UsageEntry
                         key={index}
                         index={index}
-                        mediaQuery={mediaQuery}
+                        isSmallerDisplay={isSmallerDisplay}
                         entry={entry}
                         colors={colors}
                     />

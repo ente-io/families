@@ -18,7 +18,7 @@ function InviteSent({
     open: boolean;
     setOpen: (open: boolean) => void;
 }) {
-    const { mediaQuery } = useContext(AppContext);
+    const { isSmallerDisplay } = useContext(AppContext);
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
         if (e.key === 'Enter') {
@@ -37,10 +37,10 @@ function InviteSent({
                     backgroundColor: 'black',
                     color: 'white',
                 }}>
-                <ImageContainer mq={mediaQuery}>
+                <ImageContainer mq={isSmallerDisplay}>
                     <div
                         style={{
-                            width: mediaQuery ? '300px' : '300px',
+                            width: isSmallerDisplay ? '300px' : '300px',
                             maxWidth: '100%',
                             objectFit: 'contain',
                         }}>

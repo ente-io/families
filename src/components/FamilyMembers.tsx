@@ -53,8 +53,12 @@ export const PersonIconContainer = ({
 };
 
 function FamilyMembers() {
-    const { mediaQuery, familyManagerEmail, members, setOpenInviteDialog } =
-        useContext(AppContext);
+    const {
+        isSmallerDisplay,
+        familyManagerEmail,
+        members,
+        setOpenInviteDialog,
+    } = useContext(AppContext);
 
     return (
         <>
@@ -62,17 +66,21 @@ function FamilyMembers() {
                 container
                 spacing={0}
                 style={{
-                    marginTop: mediaQuery ? '72px' : '40px',
+                    marginTop: isSmallerDisplay ? '72px' : '40px',
                 }}>
                 <Grid item xs={12} md={6}>
-                    <ContentContainer mq={mediaQuery ? true : undefined}>
+                    <ContentContainer mq={isSmallerDisplay ? true : undefined}>
                         <div>
                             <div
                                 style={{
-                                    fontSize: mediaQuery ? '48px' : '32px',
+                                    fontSize: isSmallerDisplay
+                                        ? '48px'
+                                        : '32px',
                                     marginBottom: '16px',
                                     fontWeight: 700,
-                                    lineHeight: mediaQuery ? '52px' : '36px',
+                                    lineHeight: isSmallerDisplay
+                                        ? '52px'
+                                        : '36px',
                                 }}>
                                 Family
                                 <br />
@@ -80,16 +88,24 @@ function FamilyMembers() {
                             </div>
                             <div
                                 style={{
-                                    fontSize: mediaQuery ? '20px' : '16px',
-                                    lineHeight: mediaQuery ? '30px' : '24px',
-                                    marginBottom: mediaQuery ? '60px' : '30px',
+                                    fontSize: isSmallerDisplay
+                                        ? '20px'
+                                        : '16px',
+                                    lineHeight: isSmallerDisplay
+                                        ? '30px'
+                                        : '24px',
+                                    marginBottom: isSmallerDisplay
+                                        ? '60px'
+                                        : '30px',
                                     color: theme.palette.lightgray.main,
                                 }}>
                                 You can invite upto <b>5</b> members
                             </div>
                             <div
                                 style={{
-                                    fontSize: mediaQuery ? '16px' : '12px',
+                                    fontSize: isSmallerDisplay
+                                        ? '16px'
+                                        : '12px',
                                     color: theme.palette.primary.main,
                                     marginBottom: '8px',
                                 }}>
@@ -97,15 +113,17 @@ function FamilyMembers() {
                             </div>
                             <div
                                 style={{
-                                    fontSize: mediaQuery ? '24px' : '16px',
+                                    fontSize: isSmallerDisplay
+                                        ? '24px'
+                                        : '16px',
                                 }}>
                                 {familyManagerEmail}
                             </div>
-                            {mediaQuery && members.length === 1 && (
+                            {isSmallerDisplay && members.length === 1 && (
                                 <InviteButton
                                     variant="contained"
                                     onClick={() => setOpenInviteDialog(true)}
-                                    mq={mediaQuery}>
+                                    mq={isSmallerDisplay}>
                                     <BsPlusLg style={{ marginRight: '10px' }} />
                                     <b> Invite Member</b>
                                 </InviteButton>
@@ -113,13 +131,13 @@ function FamilyMembers() {
                         </div>
                     </ContentContainer>
                 </Grid>
-                {(mediaQuery || members.length === 1) && (
+                {(isSmallerDisplay || members.length === 1) && (
                     <Grid item xs={12} md={6}>
-                        <ImageContainer mq={mediaQuery}>
+                        <ImageContainer mq={isSmallerDisplay}>
                             <div
                                 style={{
                                     marginTop: '40px',
-                                    width: mediaQuery ? '400px' : '300px',
+                                    width: isSmallerDisplay ? '400px' : '300px',
                                     maxWidth: '100%',
                                     objectFit: 'contain',
                                 }}>
@@ -131,7 +149,7 @@ function FamilyMembers() {
                         </ImageContainer>
                     </Grid>
                 )}
-                {!mediaQuery && members.length === 1 && (
+                {!isSmallerDisplay && members.length === 1 && (
                     <Container
                         maxWidth={'lg'}
                         sx={{
@@ -140,7 +158,7 @@ function FamilyMembers() {
                         <InviteButton
                             variant="contained"
                             onClick={() => setOpenInviteDialog(true)}
-                            mq={mediaQuery}>
+                            mq={isSmallerDisplay}>
                             <b>Invite</b>
                         </InviteButton>
                         <div

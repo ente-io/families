@@ -14,7 +14,7 @@ const ImageContainer = styled('div')<{ mq: boolean }>(({ mq }) => ({
 }));
 
 function InviteAccepted({ familyManagerEmail, totalStorage }) {
-    const { mediaQuery } = useContext(AppContext);
+    const { isSmallerDisplay } = useContext(AppContext);
 
     const handleClick = () => {
         window.open('https://web.ente.io', '_self');
@@ -39,12 +39,12 @@ function InviteAccepted({ familyManagerEmail, totalStorage }) {
                         display: 'flex',
                         flexDirection: 'row',
                         alignItems: 'center',
-                        flexWrap: mediaQuery ? 'nowrap' : 'wrap',
+                        flexWrap: isSmallerDisplay ? 'nowrap' : 'wrap',
                     }}>
                     <div>
                         <div
                             style={{
-                                marginTop: mediaQuery ? '52px' : '32px',
+                                marginTop: isSmallerDisplay ? '52px' : '32px',
                                 color: '#a5a5a5',
                                 fontSize: '18px',
                             }}>
@@ -97,10 +97,10 @@ function InviteAccepted({ familyManagerEmail, totalStorage }) {
                             Open ente
                         </Button>
                     </div>
-                    <ImageContainer mq={mediaQuery}>
+                    <ImageContainer mq={isSmallerDisplay}>
                         <div
                             style={{
-                                width: mediaQuery ? '500px' : '400px',
+                                width: isSmallerDisplay ? '500px' : '400px',
                                 maxWidth: '90vw',
                                 objectFit: 'contain',
                             }}>

@@ -34,7 +34,7 @@ const ContentContainer = styled('div')<{ mq: boolean }>(({ mq }) => ({
 
 function Landing({ setPage }: { setPage: (page: number) => void }) {
     const {
-        mediaQuery,
+        isSmallerDisplay,
         setOpenMessageDialog,
         setMessage,
         authToken,
@@ -65,17 +65,21 @@ function Landing({ setPage }: { setPage: (page: number) => void }) {
                 container
                 spacing={0}
                 style={{
-                    marginTop: mediaQuery ? '72px' : '40px',
+                    marginTop: isSmallerDisplay ? '72px' : '40px',
                 }}>
                 <Grid item xs={12} md={6}>
-                    <ContentContainer mq={mediaQuery ? true : undefined}>
+                    <ContentContainer mq={isSmallerDisplay ? true : undefined}>
                         <div>
                             <div
                                 style={{
-                                    fontSize: mediaQuery ? '48px' : '32px',
+                                    fontSize: isSmallerDisplay
+                                        ? '48px'
+                                        : '32px',
                                     marginBottom: '16px',
                                     fontWeight: 700,
-                                    lineHeight: mediaQuery ? '52px' : '36px',
+                                    lineHeight: isSmallerDisplay
+                                        ? '52px'
+                                        : '36px',
                                 }}>
                                 Family
                                 <br />
@@ -83,8 +87,12 @@ function Landing({ setPage }: { setPage: (page: number) => void }) {
                             </div>
                             <div
                                 style={{
-                                    fontSize: mediaQuery ? '20px' : '16px',
-                                    lineHeight: mediaQuery ? '30px' : '24px',
+                                    fontSize: isSmallerDisplay
+                                        ? '20px'
+                                        : '16px',
+                                    lineHeight: isSmallerDisplay
+                                        ? '30px'
+                                        : '24px',
                                     marginBottom: '16px',
                                     color: theme.palette.lightgray.main,
                                 }}>
@@ -101,10 +109,10 @@ function Landing({ setPage }: { setPage: (page: number) => void }) {
                                 Each member gets their own private space.
                                 <br />
                             </div>
-                            {mediaQuery && (
+                            {isSmallerDisplay && (
                                 <GetStartedButton
                                     variant="contained"
-                                    mq={mediaQuery}
+                                    mq={isSmallerDisplay}
                                     onClick={onGetStartedClick}>
                                     <b>Get Started</b>
                                 </GetStartedButton>
@@ -113,10 +121,10 @@ function Landing({ setPage }: { setPage: (page: number) => void }) {
                     </ContentContainer>
                 </Grid>
                 <Grid item xs={12} md={6}>
-                    <ImageContainer mq={mediaQuery}>
+                    <ImageContainer mq={isSmallerDisplay}>
                         <div
                             style={{
-                                width: mediaQuery ? '500px' : '400px',
+                                width: isSmallerDisplay ? '500px' : '400px',
                                 maxWidth: '100%',
                                 objectFit: 'contain',
                             }}>
@@ -128,7 +136,7 @@ function Landing({ setPage }: { setPage: (page: number) => void }) {
                     </ImageContainer>
                 </Grid>
             </Grid>
-            {!mediaQuery && (
+            {!isSmallerDisplay && (
                 <Container
                     maxWidth={'lg'}
                     sx={{
@@ -136,7 +144,7 @@ function Landing({ setPage }: { setPage: (page: number) => void }) {
                     }}>
                     <GetStartedButton
                         variant="contained"
-                        mq={mediaQuery}
+                        mq={isSmallerDisplay}
                         onClick={onGetStartedClick}>
                         <b>Get Started</b>
                     </GetStartedButton>

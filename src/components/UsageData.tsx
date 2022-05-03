@@ -8,7 +8,7 @@ import { convertBytesToGBs, convertBytesToHumanReadable } from '../util/common';
 import CustomUsageLable from './CustomUsageLable';
 
 export default function UsageData() {
-    const { mediaQuery, members, totalStorage } = useContext(AppContext);
+    const { isSmallerDisplay, members, totalStorage } = useContext(AppContext);
 
     const [data, setData] = useState([]);
     const [usedStorage, setUsedStorage] = useState<number>(0);
@@ -37,8 +37,8 @@ export default function UsageData() {
                 <div
                     style={{
                         fontWeight: 'bold',
-                        fontSize: mediaQuery ? '20px' : '18px',
-                        marginBottom: mediaQuery ? '48px' : '24px',
+                        fontSize: isSmallerDisplay ? '20px' : '18px',
+                        marginBottom: isSmallerDisplay ? '48px' : '24px',
                     }}>
                     Total Usage
                 </div>
@@ -52,8 +52,8 @@ export default function UsageData() {
                     }}>
                     <div
                         style={{
-                            marginRight: mediaQuery ? '30px' : '0px',
-                            marginLeft: mediaQuery ? '30px' : '0px',
+                            marginRight: isSmallerDisplay ? '30px' : '0px',
+                            marginLeft: isSmallerDisplay ? '30px' : '0px',
                         }}>
                         <PieChart width={320} height={320}>
                             <Pie
