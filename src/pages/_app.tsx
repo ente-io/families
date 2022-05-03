@@ -2,7 +2,7 @@ import { GlobalStyles, ThemeProvider } from '@mui/material';
 import '../styles/global.css';
 import React from 'react';
 import theme from '../theme';
-import Head from 'next/Head';
+import Head from 'next/head';
 
 function App({ Component, pageProps }) {
     return (
