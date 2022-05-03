@@ -1,5 +1,5 @@
 import UserNotFoundMessage from '../components/utils/UserNotFoundMessage';
-import { Member } from '../pages';
+import { Member } from '../pages/_app';
 import HTTPService from './HTTPService';
 
 export const getEndpoint = () => {
