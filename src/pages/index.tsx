@@ -1,6 +1,5 @@
 import { CircularProgress, useMediaQuery } from '@mui/material';
 import Navbar from '../components/Navbar';
-import { ThemeProvider } from '@mui/material/styles';
 import Landing from '../components/Landing';
 import theme from '../theme';
 import FamilyMembers from '../components/FamilyMembers';
@@ -13,6 +12,7 @@ import ActionDialog, {
 import MessageDialog from '../components/MessageDialog';
 import InviteAccepted from '../components/InviteAccepted';
 import { acceptInvite, getMembers } from '../services/APIService';
+import { CenteredContainer } from '../styles/utils';
 
 export enum PageState {
     Landing,
@@ -101,29 +101,6 @@ function App() {
     const [authToken, setAuthToken] = useState('');
     const [familyManagerEmail, setFamilyManagerEmail] = useState('');
 
-    const handleAcceptInvite = async (inviteToken) => {
-        setIsLoading(true);
-        // const inviteInfoRes = await getInviteInfo(inviteToken);
-        // if (inviteInfoRes.success) {
-        //     setFamilyManagerEmail(inviteInfoRes.data.adminEmail);
-        // } else {
-        //     setMessage(inviteInfoRes.msg);
-        //     setOpenMessageDialog(true);
-        //     setIsLoading(false);
-        //     return;
-        // }
-        const acceptInviteRes = await acceptInvite(inviteToken);
-        setIsLoading(false);
-        if (acceptInviteRes.success) {
-            setFamilyManagerEmail(acceptInviteRes.data.adminEmail);
-            setTotalStorage(acceptInviteRes.data.storage);
-            setPage(PageState.InviteAccepted);
-        } else {
-            setMessage(acceptInviteRes.msg);
-            setMessageDialogView(true);
-        }
-    };
-
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
         const inviteToken = params.get('inviteToken');
@@ -146,9 +123,22 @@ function App() {
         }
     }, []);
 
+    const handleAcceptInvite = async (inviteToken) => {
+        setIsLoading(true);
+        const acceptInviteRes = await acceptInvite(inviteToken);
+        setIsLoading(false);
+        if (acceptInviteRes.success) {
+            setFamilyManagerEmail(acceptInviteRes.data.adminEmail);
+            setTotalStorage(acceptInviteRes.data.storage);
+            setPage(PageState.InviteAccepted);
+        } else {
+            setMessage(acceptInviteRes.msg);
+            setMessageDialogView(true);
+        }
+    };
+
     const syncMembers = async (authToken) => {
         const res = await getMembers(authToken);
-        console.log(res);
         if (res.success) {
             setMembers(res.data.members);
             setTotalStorage(res.data.storage);
@@ -173,74 +163,66 @@ function App() {
     }, [shouldSyncMembers]);
 
     return (
-        <ThemeProvider theme={theme}>
-            <AppContext.Provider
-                value={{
-                    ...defaultAppContext,
-                    isSmallerDisplay,
-                    familyManagerEmail,
-                    setFamilyManagerEmail,
-                    members,
-                    setMembers,
-                    shouldSyncMembers,
-                    setShouldSyncMembers,
-                    totalStorage,
-                    setTotalStorage,
-                    authToken,
-                    setAuthToken,
-                    inviteDialogView,
-                    setInviteDialogView,
-                    messageDialogView,
-                    setMessageDialogView,
-                    message,
-                    setMessage,
-                    actionDialogView,
-                    setActionDialogView,
-                    actionDialogOptions,
-                    setActionDialogOptions,
-                    setIsLoading,
-                }}>
-                <Navbar />
-                {!isLoading ? (
-                    <>
-                        {page === PageState.Landing ? (
-                            <Landing setPage={setPage} />
-                        ) : page === PageState.FamilyMembers ? (
-                            <FamilyMembers />
-                        ) : (
-                            <InviteAccepted
-                                familyManagerEmail={familyManagerEmail}
-                                totalStorage={totalStorage}
-                            />
-                        )}
-                        <InviteDialog
-                            open={inviteDialogView}
-                            setOpen={setInviteDialogView}
+        <AppContext.Provider
+            value={{
+                ...defaultAppContext,
+                isSmallerDisplay,
+                familyManagerEmail,
+                setFamilyManagerEmail,
+                members,
+                setMembers,
+                shouldSyncMembers,
+                setShouldSyncMembers,
+                totalStorage,
+                setTotalStorage,
+                authToken,
+                setAuthToken,
+                inviteDialogView,
+                setInviteDialogView,
+                messageDialogView,
+                setMessageDialogView,
+                message,
+                setMessage,
+                actionDialogView,
+                setActionDialogView,
+                actionDialogOptions,
+                setActionDialogOptions,
+                setIsLoading,
+            }}>
+            <Navbar />
+            {!isLoading ? (
+                <>
+                    {page === PageState.Landing ? (
+                        <Landing setPage={setPage} />
+                    ) : page === PageState.FamilyMembers ? (
+                        <FamilyMembers />
+                    ) : (
+                        <InviteAccepted
+                            familyManagerEmail={familyManagerEmail}
+                            totalStorage={totalStorage}
                         />
-                        <MessageDialog
-                            open={messageDialogView}
-                            setOpen={setMessageDialogView}
-                            msg={message}
-                        />
-                        <ActionDialog
-                            open={actionDialogView}
-                            setOpen={setActionDialogView}
-                            options={actionDialogOptions}
-                        />
-                    </>
-                ) : (
-                    <CircularProgress
-                        color="primary"
-                        size={60}
-                        style={{
-                            position: 'absolute',
-                            top: 'calc(50% - 30px)',
-                            left: 'calc(50% - 30px)',
-                        }}
+                    )}
+                    <InviteDialog
+                        open={inviteDialogView}
+                        setOpen={setInviteDialogView}
                     />
-                )}
-            </AppContext.Provider>
-        </ThemeProvider>
+                    <MessageDialog
+                        open={messageDialogView}
+                        setOpen={setMessageDialogView}
+                        msg={message}
+                    />
+                    <ActionDialog
+                        open={actionDialogView}
+                        setOpen={setActionDialogView}
+                        options={actionDialogOptions}
+                    />
+                </>
+            ) : (
+                <CenteredContainer style={{ width: '60px', height: '60px' }}>
+                    <CircularProgress color="primary" size={60} />
+                </CenteredContainer>
+            )}
+        </AppContext.Provider>
     );
 }
 
