@@ -8,7 +8,7 @@ import { BsPlusLg } from 'react-icons/bs';
 import { MAX_FAMILY_MEMBERS } from '../util/constants';
 
 export function MembersContainer() {
-    const { isSmallerDisplay, members, setOpenInviteDialog } =
+    const { isSmallerDisplay, members, setInviteDialogView } =
         useContext(AppContext);
 
     return (
@@ -66,7 +66,7 @@ export function MembersContainer() {
                     </div>
                     <Button
                         variant="contained"
-                        onClick={() => setOpenInviteDialog(true)}
+                        onClick={() => setInviteDialogView(true)}
                         style={{
                             textTransform: 'none',
                             height: '40px',

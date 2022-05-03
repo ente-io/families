@@ -57,7 +57,7 @@ function FamilyMembers() {
         isSmallerDisplay,
         familyManagerEmail,
         members,
-        setOpenInviteDialog,
+        setInviteDialogView,
     } = useContext(AppContext);
 
     return (
@@ -122,7 +122,7 @@ function FamilyMembers() {
                             {isSmallerDisplay && members.length === 1 && (
                                 <InviteButton
                                     variant="contained"
-                                    onClick={() => setOpenInviteDialog(true)}
+                                    onClick={() => setInviteDialogView(true)}
                                     mq={isSmallerDisplay}>
                                     <BsPlusLg style={{ marginRight: '10px' }} />
                                     <b> Invite Member</b>
@@ -157,7 +157,7 @@ function FamilyMembers() {
                         }}>
                         <InviteButton
                             variant="contained"
-                            onClick={() => setOpenInviteDialog(true)}
+                            onClick={() => setInviteDialogView(true)}
                             mq={isSmallerDisplay}>
                             <b>Invite</b>
                         </InviteButton>

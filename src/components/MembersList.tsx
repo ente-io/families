@@ -32,8 +32,8 @@ export function MembersList() {
         setShouldSyncMembers,
         authToken,
         setActionDialogOptions,
-        setOpenActionDialog,
-        setOpenMessageDialog,
+        setActionDialogView,
+        setMessageDialogView,
         setMessage,
     } = useContext(AppContext);
 
@@ -42,12 +42,12 @@ export function MembersList() {
             resendInviteOptions(
                 member,
                 authToken,
-                setOpenActionDialog,
+                setActionDialogView,
                 setMessage,
-                setOpenMessageDialog
+                setMessageDialogView
             )
         );
-        setOpenActionDialog(true);
+        setActionDialogView(true);
     };
 
     const handleRevokeInvite = (member: Member) => {
@@ -55,9 +55,9 @@ export function MembersList() {
             revokeInviteOptions(
                 member,
                 authToken,
-                setOpenActionDialog,
+                setActionDialogView,
                 setMessage,
-                setOpenMessageDialog,
+                setMessageDialogView,
                 setShouldSyncMembers
             )
         );
@@ -68,9 +68,9 @@ export function MembersList() {
             removeMemberOptions(
                 member,
                 authToken,
-                setOpenActionDialog,
+                setActionDialogView,
                 setMessage,
-                setOpenMessageDialog,
+                setMessageDialogView,
                 setShouldSyncMembers
             )
         );
@@ -82,7 +82,7 @@ export function MembersList() {
         } else {
             handleRemoveMember(member);
         }
-        setOpenActionDialog(true);
+        setActionDialogView(true);
     };
 
     return (

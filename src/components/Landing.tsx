@@ -35,7 +35,7 @@ const ContentContainer = styled('div')<{ mq: boolean }>(({ mq }) => ({
 function Landing({ setPage }: { setPage: (page: number) => void }) {
     const {
         isSmallerDisplay,
-        setOpenMessageDialog,
+        setMessageDialogView,
         setMessage,
         authToken,
         setIsLoading,
@@ -51,7 +51,7 @@ function Landing({ setPage }: { setPage: (page: number) => void }) {
                 setPage(PageState.FamilyMembers);
                 setShouldSyncMembers(true);
             } else {
-                setOpenMessageDialog(true);
+                setMessageDialogView(true);
                 setMessage(res.msg);
             }
         } else {

@@ -43,14 +43,14 @@ interface AppContextType {
     setTotalStorage: (storage: number) => void;
     authToken: string;
     setAuthToken: (token: string) => void;
-    openInviteDialog: boolean;
-    setOpenInviteDialog: (open: boolean) => void;
-    openMessageDialog: boolean;
-    setOpenMessageDialog: (open: boolean) => void;
+    inviteDialogView: boolean;
+    setInviteDialogView: (open: boolean) => void;
+    messageDialogView: boolean;
+    setMessageDialogView: (open: boolean) => void;
     message: string;
     setMessage: (message: string) => void;
-    openActionDialog: boolean;
-    setOpenActionDialog: (open: boolean) => void;
+    actionDialogView: boolean;
+    setActionDialogView: (open: boolean) => void;
     actionDialogOptions: ActionDialogOptions;
     setActionDialogOptions: (options: ActionDialogOptions) => void;
     setIsLoading: (isLoading: boolean) => void;
@@ -69,14 +69,14 @@ const defaultAppContext: AppContextType = {
     setTotalStorage: () => {},
     authToken: '',
     setAuthToken: () => {},
-    openInviteDialog: false,
-    setOpenInviteDialog: () => {},
-    openMessageDialog: false,
-    setOpenMessageDialog: () => {},
+    inviteDialogView: false,
+    setInviteDialogView: () => {},
+    messageDialogView: false,
+    setMessageDialogView: () => {},
     message: '',
     setMessage: () => {},
-    openActionDialog: false,
-    setOpenActionDialog: () => {},
+    actionDialogView: false,
+    setActionDialogView: () => {},
     actionDialogOptions: defaultActionDialogOptions,
     setActionDialogOptions: () => {},
     setIsLoading: () => {},
@@ -88,10 +88,10 @@ function App() {
     const isSmallerDisplay = useMediaQuery(theme.breakpoints.up('md'));
     const [page, setPage] = useState(PageState.Landing);
     const [isLoading, setIsLoading] = useState(false);
-    const [openInviteDialog, setOpenInviteDialog] = useState(false);
-    const [openMessageDialog, setOpenMessageDialog] = useState(false);
+    const [inviteDialogView, setInviteDialogView] = useState(false);
+    const [messageDialogView, setMessageDialogView] = useState(false);
     const [message, setMessage] = useState('');
-    const [openActionDialog, setOpenActionDialog] = useState(false);
+    const [actionDialogView, setActionDialogView] = useState(false);
     const [actionDialogOptions, setActionDialogOptions] = useState(
         defaultActionDialogOptions
     );
@@ -120,7 +120,7 @@ function App() {
             setPage(PageState.InviteAccepted);
         } else {
             setMessage(acceptInviteRes.msg);
-            setOpenMessageDialog(true);
+            setMessageDialogView(true);
         }
     };
 
@@ -161,7 +161,7 @@ function App() {
         } else {
             setPage(PageState.Landing);
             setMessage(res.msg);
-            setOpenMessageDialog(true);
+            setMessageDialogView(true);
         }
     };
 
@@ -188,14 +188,14 @@ function App() {
                     setTotalStorage,
                     authToken,
                     setAuthToken,
-                    openInviteDialog,
-                    setOpenInviteDialog,
-                    openMessageDialog,
-                    setOpenMessageDialog,
+                    inviteDialogView,
+                    setInviteDialogView,
+                    messageDialogView,
+                    setMessageDialogView,
                     message,
                     setMessage,
-                    openActionDialog,
-                    setOpenActionDialog,
+                    actionDialogView,
+                    setActionDialogView,
                     actionDialogOptions,
                     setActionDialogOptions,
                     setIsLoading,
@@ -214,17 +214,17 @@ function App() {
                             />
                         )}
                         <InviteDialog
-                            open={openInviteDialog}
-                            setOpen={setOpenInviteDialog}
+                            open={inviteDialogView}
+                            setOpen={setInviteDialogView}
                         />
                         <MessageDialog
-                            open={openMessageDialog}
-                            setOpen={setOpenMessageDialog}
+                            open={messageDialogView}
+                            setOpen={setMessageDialogView}
                             msg={message}
                         />
                         <ActionDialog
-                            open={openActionDialog}
-                            setOpen={setOpenActionDialog}
+                            open={actionDialogView}
+                            setOpen={setActionDialogView}
                             options={actionDialogOptions}
                         />
                     </>
