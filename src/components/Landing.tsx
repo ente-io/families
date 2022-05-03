@@ -1,10 +1,9 @@
 import { Grid, Button, Container } from '@mui/material';
 import { styled } from '@mui/system';
 import React, { useContext } from 'react';
-import { BsWindowSidebar } from 'react-icons/bs';
 import { AppContext, PageState } from '../pages';
 import { createFamily, getWebEndpoint } from '../services/APIService';
-import customTheme from '../theme';
+import theme from '../theme';
 
 const ImageContainer = styled('div')<{ mq: boolean }>(({ mq }) => ({
     display: 'flex',
@@ -87,13 +86,13 @@ function Landing({ setPage }: { setPage: (page: number) => void }) {
                                     fontSize: mediaQuery ? '20px' : '16px',
                                     lineHeight: mediaQuery ? '30px' : '24px',
                                     marginBottom: '16px',
-                                    color: customTheme.palette.lightgray.main,
+                                    color: theme.palette.lightgray.main,
                                 }}>
                                 Introducing{' '}
                                 <span
                                     style={{
                                         fontWeight: 'bold',
-                                        color: customTheme.palette.primary.main,
+                                        color: theme.palette.primary.main,
                                     }}>
                                     Family Sharing
                                 </span>

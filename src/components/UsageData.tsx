@@ -79,7 +79,7 @@ export default function UsageData() {
                                     fontSize="20px"
                                     fill="white"
                                 />
-                                {data.map((entry, index) => (
+                                {data.map((_, index) => (
                                     <Cell
                                         key={`cell-${index}`}
                                         fill={colors[index % colors.length]}

@@ -1,7 +1,7 @@
 import { Grid, Button, Container } from '@mui/material';
 import { styled } from '@mui/system';
-import React, { useContext, useEffect } from 'react';
-import customTheme from '../theme';
+import React, { useContext } from 'react';
+import theme from '../theme';
 import UsageData from './UsageData';
 import PersonIcon from './icons/PersonIcon';
 import { MembersContainer } from './MembersContainer';
@@ -83,14 +83,14 @@ function FamilyMembers() {
                                     fontSize: mediaQuery ? '20px' : '16px',
                                     lineHeight: mediaQuery ? '30px' : '24px',
                                     marginBottom: mediaQuery ? '60px' : '30px',
-                                    color: customTheme.palette.lightgray.main,
+                                    color: theme.palette.lightgray.main,
                                 }}>
                                 You can invite upto <b>5</b> members
                             </div>
                             <div
                                 style={{
                                     fontSize: mediaQuery ? '16px' : '12px',
-                                    color: customTheme.palette.primary.main,
+                                    color: theme.palette.primary.main,
                                     marginBottom: '8px',
                                 }}>
                                 Family Manager

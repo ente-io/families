@@ -1,10 +1,11 @@
 import { Button, Container } from '@mui/material';
 import React, { useContext } from 'react';
-import customTheme from '../theme';
+import theme from '../theme';
 import { MembersList } from './MembersList';
 import { PersonIconContainer } from './FamilyMembers';
 import { AppContext } from '../pages';
 import { BsPlusLg } from 'react-icons/bs';
+import { MAX_FAMILY_MEMBERS } from '../util/constants';
 
 export function MembersContainer() {
     const { mediaQuery, members, setOpenInviteDialog } = useContext(AppContext);
@@ -45,20 +46,22 @@ export function MembersContainer() {
                         {[...Array(members.length - 1)].map((_, index) => {
                             return (
                                 <PersonIconContainer
-                                    fill={customTheme.palette.primary.main}
+                                    fill={theme.palette.primary.main}
                                     key={index}
                                     mq={mediaQuery}
                                 />
                             );
                         })}
-                        {[...Array(6 - members.length)].map((_, index) => {
-                            return (
-                                <PersonIconContainer
-                                    key={index}
-                                    mq={mediaQuery}
-                                />
-                            );
-                        })}
+                        {[...Array(MAX_FAMILY_MEMBERS - members.length)].map(
+                            (_, index) => {
+                                return (
+                                    <PersonIconContainer
+                                        key={index}
+                                        mq={mediaQuery}
+                                    />
+                                );
+                            }
+                        )}
                     </div>
                     <Button
                         variant="contained"

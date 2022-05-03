@@ -20,8 +20,18 @@ function InviteSent({
 }) {
     const { mediaQuery } = useContext(AppContext);
 
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === 'Enter') {
+            setOpen(false);
+        }
+    };
+
     return (
-        <Dialog open={open} onClose={() => setOpen(false)} maxWidth="xs">
+        <Dialog
+            open={open}
+            onClose={() => setOpen(false)}
+            maxWidth="xs"
+            onKeyDown={handleKeyDown}>
             <div
                 style={{
                     backgroundColor: 'black',

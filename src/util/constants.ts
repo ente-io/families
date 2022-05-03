@@ -4,4 +4,7 @@ export const UsageChartColors = [
     '#FFBB28',
     '#FF8042',
     '#A020F0',
+    '#FF0000',
 ];
+
+export const MAX_FAMILY_MEMBERS = 6;

@@ -2,7 +2,7 @@ import { CircularProgress, useMediaQuery } from '@mui/material';
 import Navbar from '../components/Navbar';
 import { ThemeProvider } from '@mui/material/styles';
 import Landing from '../components/Landing';
-import customTheme from '../theme';
+import theme from '../theme';
 import FamilyMembers from '../components/FamilyMembers';
 import { useState, createContext, useEffect } from 'react';
 import InviteDialog from '../components/InviteDialog';
@@ -12,10 +12,7 @@ import ActionDialog, {
 } from '../components/ActionDialog';
 import MessageDialog from '../components/MessageDialog';
 import InviteAccepted from '../components/InviteAccepted';
-import {
-    acceptInvite,
-    getMembers,
-} from '../services/APIService';
+import { acceptInvite, getMembers } from '../services/APIService';
 import Head from 'next/head';
 
 export enum PageState {
@@ -89,7 +86,7 @@ const defaultAppContext: AppContextType = {
 export const AppContext = createContext(defaultAppContext);
 
 function App() {
-    const mediaQuery = useMediaQuery(customTheme.breakpoints.up('md'));
+    const mediaQuery = useMediaQuery(theme.breakpoints.up('md'));
     const [page, setPage] = useState(PageState.Landing);
     const [isLoading, setIsLoading] = useState(false);
     const [openInviteDialog, setOpenInviteDialog] = useState(false);
@@ -181,7 +178,7 @@ function App() {
             <Head>
                 <title>Family</title>
             </Head>
-            <ThemeProvider theme={customTheme}>
+            <ThemeProvider theme={theme}>
                 <AppContext.Provider
                     value={{
                         ...defaultAppContext,

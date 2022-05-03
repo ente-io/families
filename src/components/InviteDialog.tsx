@@ -9,7 +9,7 @@ import React, { useContext, useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
 import { AppContext } from '../pages';
 import { inviteMember } from '../services/APIService';
-import customTheme from '../theme';
+import theme from '../theme';
 import InviteSent from './InviteSent';
 
 const ImageContainer = styled('div')<{ mq: boolean }>(({ mq }) => ({
@@ -149,7 +149,7 @@ function InviteDialog({ open, setOpen }) {
                                         backgroundColor: '#e4e4e4',
                                         fontSize: '16px',
                                         color: isError
-                                            ? customTheme.palette.error.main
+                                            ? theme.palette.error.main
                                             : '#000',
                                     },
                                 }}
@@ -158,7 +158,7 @@ function InviteDialog({ open, setOpen }) {
                         {isError && (
                             <div
                                 style={{
-                                    color: customTheme.palette.error.main,
+                                    color: theme.palette.error.main,
                                     fontWeight: 500,
                                     fontSize: '12px',
                                     marginTop: '10px',
