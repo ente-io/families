@@ -2,10 +2,14 @@ import { GlobalStyles, ThemeProvider } from '@mui/material';
 import '../styles/global.css';
 import React from 'react';
 import theme from '../theme';
+import Head from 'next/Head';
 
 function App({ Component, pageProps }) {
     return (
         <>
+            <Head>
+                <title>Family</title>
+            </Head>
             <ThemeProvider theme={theme}>
                 <GlobalStyles
                     styles={{
