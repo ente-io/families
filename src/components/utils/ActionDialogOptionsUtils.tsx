@@ -5,15 +5,15 @@ import {
     revokeInvite,
 } from '../../services/APIService';
 import theme from '../../theme';
-import { ActionDialogOptions } from '../../types';
+import { ActionDialogOptions, Member } from '../../types';
 import constants from '../../util/strings/constants';
 
 export function resendInviteOptions(
-    member,
-    authToken,
-    setOpenActionDialog,
-    setMessage,
-    setOpenMessageDialog
+    member: Member,
+    authToken: string,
+    setOpenActionDialog: (value: boolean) => void,
+    setMessage: (msg: string) => void,
+    setOpenMessageDialog: (value: boolean) => void
 ): ActionDialogOptions {
     return {
         title: constants.RESEND_INVITE,
@@ -42,12 +42,12 @@ export function resendInviteOptions(
 }
 
 export function revokeInviteOptions(
-    member,
-    authToken,
-    setOpenActionDialog,
-    setMessage,
-    setOpenMessageDialog,
-    setShouldSyncMembers
+    member: Member,
+    authToken: string,
+    setOpenActionDialog: (value: boolean) => void,
+    setMessage: (msg: string) => void,
+    setOpenMessageDialog: (value: boolean) => void,
+    setShouldSyncMembers: (value: boolean) => void
 ): ActionDialogOptions {
     return {
         title: constants.REVOKE_INVITE,
@@ -84,12 +84,12 @@ export function revokeInviteOptions(
 }
 
 export function removeMemberOptions(
-    member,
-    authToken,
-    setOpenActionDialog,
-    setMessage,
-    setOpenMessageDialog,
-    setShouldSyncMembers
+    member: Member,
+    authToken: string,
+    setOpenActionDialog: (value: boolean) => void,
+    setMessage: (msg: string) => void,
+    setOpenMessageDialog: (value: boolean) => void,
+    setShouldSyncMembers: (value: boolean) => void
 ): ActionDialogOptions {
     return {
         title: constants.REMOVE_MEMBER,

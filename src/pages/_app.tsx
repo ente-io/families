@@ -69,10 +69,6 @@ function App({ Component, pageProps }) {
                     break;
                 }
             }
-            // TODO: handle this better
-            if (router.asPath !== '/members') {
-                router.push('/members');
-            }
         } else {
             router.push('/');
             setMessage(res.msg);

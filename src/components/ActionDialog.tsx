@@ -21,7 +21,7 @@ function ActionDialog({
 }) {
     const { isSmallerDisplay } = useContext(AppContext);
 
-    const handleClose = (e, reason) => {
+    const handleClose = (_, reason) => {
         if (reason === 'escapeKeyDown' || reason === 'backdropClick') {
             return;
         }
