@@ -1,6 +1,6 @@
 import { Grid, Container } from '@mui/material';
 import React, { useContext } from 'react';
-import { AppContext, PageState } from '../pages/_app';
+import { AppContext } from '../pages/_app';
 import { createFamily, getWebEndpoint } from '../services/APIService';
 import theme from '../theme';
 import constants from '../util/strings/constants';
@@ -10,7 +10,7 @@ import {
     ImageContainer,
 } from '../styles/Landing';
 
-function Landing({ setPage }: { setPage: (page: number) => void }) {
+function Landing({ setPageToMembers }: { setPageToMembers: () => void }) {
     const {
         isSmallerDisplay,
         setMessageDialogView,
@@ -26,7 +26,7 @@ function Landing({ setPage }: { setPage: (page: number) => void }) {
             const res = await createFamily(authToken);
             setIsLoading(false);
             if (res.success) {
-                setPage(PageState.FamilyMembers);
+                setPageToMembers();
                 setShouldSyncMembers(true);
             } else {
                 setMessageDialogView(true);

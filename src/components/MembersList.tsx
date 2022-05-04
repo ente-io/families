@@ -2,7 +2,8 @@ import { Tooltip } from '@mui/material';
 import React, { useContext } from 'react';
 import { BsTrash as TrashIcon } from 'react-icons/bs';
 import { IoReload as ResendIcon } from 'react-icons/io5';
-import { AppContext, Member } from '../pages/_app';
+import { AppContext } from '../pages/_app';
+import { Member } from "../types";
 import {
     removeMemberOptions,
     resendInviteOptions,

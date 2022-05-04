@@ -5,8 +5,8 @@ import {
     revokeInvite,
 } from '../../services/APIService';
 import theme from '../../theme';
+import { ActionDialogOptions } from '../../types';
 import constants from '../../util/strings/constants';
-import { ActionDialogOptions } from '../ActionDialog';
 
 export function resendInviteOptions(
     member,

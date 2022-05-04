@@ -3,58 +3,14 @@ import '../styles/global.css';
 import React, { createContext, useEffect, useState } from 'react';
 import theme from '../theme';
 import Head from 'next/head';
-import ActionDialog, {
-    ActionDialogOptions,
-    defaultActionDialogOptions,
-} from '../components/ActionDialog';
+import ActionDialog from '../components/ActionDialog';
 import { CenteredContainer } from '../styles/Utils';
 import InviteDialog from '../components/InviteDialog';
 import MessageDialog from '../components/MessageDialog';
 import Navbar from '../components/Navbar';
 import { useRouter } from 'next/router';
 import { getMembers } from '../services/APIService';
-
-export enum PageState {
-    Landing,
-    FamilyMembers,
-    InviteAccepted,
-}
-
-export type MemberStatusOptions = 'ACCEPTED' | 'INVITED' | 'SELF';
-
-export interface Member {
-    id: string;
-    email: string;
-    status: MemberStatusOptions;
-    usage: number;
-    isAdmin: boolean;
-}
-
-interface AppContextType {
-    isSmallerDisplay: boolean;
-    isUserAdmin: boolean;
-    members: Member[];
-    setMembers: (members: Member[]) => void;
-    shouldSyncMembers: boolean;
-    setShouldSyncMembers: (shouldSyncMembers: boolean) => void;
-    familyManagerEmail: string;
-    setFamilyManagerEmail: (email: string) => void;
-    totalStorage: number;
-    setTotalStorage: (storage: number) => void;
-    authToken: string;
-    setAuthToken: (token: string) => void;
-    inviteDialogView: boolean;
-    setInviteDialogView: (open: boolean) => void;
-    messageDialogView: boolean;
-    setMessageDialogView: (open: boolean) => void;
-    message: string;
-    setMessage: (message: string) => void;
-    actionDialogView: boolean;
-    setActionDialogView: (open: boolean) => void;
-    actionDialogOptions: ActionDialogOptions;
-    setActionDialogOptions: (options: ActionDialogOptions) => void;
-    setIsLoading: (isLoading: boolean) => void;
-}
+import { AppContextType, defaultActionDialogOptions } from '../types';
 
 const defaultAppContext: AppContextType = {
     isSmallerDisplay: false,

@@ -8,24 +8,7 @@ import {
 import React, { useContext } from 'react';
 import { AppContext } from '../pages/_app';
 import { IoMdClose } from 'react-icons/io';
-
-export interface ActionDialogOptions {
-    msg: string | JSX.Element;
-    defaultText: string;
-    warningText?: string;
-    onDefaultClick: () => void;
-    onWarningClick?: () => void;
-    title: string;
-}
-
-export const defaultActionDialogOptions: ActionDialogOptions = {
-    msg: '',
-    defaultText: '',
-    warningText: '',
-    onDefaultClick: () => {},
-    onWarningClick: () => {},
-    title: '',
-};
+import { ActionDialogOptions } from '../types';
 
 function ActionDialog({
     open,

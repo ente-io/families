@@ -1,5 +1,5 @@
 import UserNotFoundMessage from '../components/utils/UserNotFoundMessage';
-import { Member } from '../pages/_app';
+import { Member } from "../types";
 import constants from '../util/strings/constants';
 import HTTPService from './HTTPService';
 

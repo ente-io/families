@@ -54,7 +54,7 @@ function Home() {
     return (
         <>
             <Landing
-                setPage={() => {
+                setPageToMembers={() => {
                     router.push('/members');
                 }}
             />
