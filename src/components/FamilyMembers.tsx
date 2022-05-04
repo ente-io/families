@@ -7,6 +7,7 @@ import PersonIcon from './icons/PersonIcon';
 import { MembersContainer } from './MembersContainer';
 import { AppContext } from '../pages/_app';
 import { BsPlusLg } from 'react-icons/bs';
+import constants from '../util/strings/constants';
 
 const ImageContainer = styled('div')<{ mq: boolean }>(({ mq }) => ({
     display: 'flex',
@@ -82,9 +83,9 @@ function FamilyMembers() {
                                         ? '52px'
                                         : '36px',
                                 }}>
-                                Family
+                                {constants.FAMILY}
                                 <br />
-                                Members
+                                {constants.MEMBERS}
                             </div>
                             <div
                                 style={{
@@ -99,7 +100,8 @@ function FamilyMembers() {
                                         : '30px',
                                     color: theme.palette.lightgray.main,
                                 }}>
-                                You can invite upto <b>5</b> members
+                                {constants.INVITE_UPTO} <b>5</b>{' '}
+                                {constants.MEMBERS_LOWERCASE}
                             </div>
                             <div
                                 style={{
@@ -109,7 +111,7 @@ function FamilyMembers() {
                                     color: theme.palette.primary.main,
                                     marginBottom: '8px',
                                 }}>
-                                Family Manager
+                                {constants.FAMILY_MANAGER}
                             </div>
                             <div
                                 style={{
@@ -166,7 +168,7 @@ function FamilyMembers() {
                                 fontSize: '12px',
                                 color: '#9F9F9F',
                             }}>
-                            Invite your loved ones to share your storage plan.
+                            {constants.INVITE_YOUR_LOVED_ONES}
                         </div>
                     </Container>
                 )}

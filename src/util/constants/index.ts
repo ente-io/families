@@ -1,3 +1,4 @@
+// Colors for the usage doughnut chart
 export const UsageChartColors = [
     '#0088FE',
     '#00C49F',

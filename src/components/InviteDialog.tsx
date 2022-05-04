@@ -10,6 +10,7 @@ import { IoMdClose } from 'react-icons/io';
 import { AppContext } from '../pages/_app';
 import { inviteMember } from '../services/APIService';
 import theme from '../theme';
+import constants from '../util/strings/constants';
 import InviteSent from './InviteSent';
 
 const ImageContainer = styled('div')<{ mq: boolean }>(({ mq }) => ({
@@ -44,7 +45,7 @@ function InviteDialog({ open, setOpen }) {
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!re.test(email)) {
             setIsError(true);
-            setErrorMsg('Please enter a valid email address');
+            setErrorMsg(constants.ENTER_VALID_EMAIL);
             return;
         }
 
@@ -181,13 +182,11 @@ function InviteDialog({ open, setOpen }) {
                                 marginTop: '20px',
                                 marginBottom: '20px',
                             }}>
-                            Invite
+                            {constants.INVITE}
                         </Button>
+                        <TextContainer>{constants.PRIVATE_SPACE}</TextContainer>
                         <TextContainer>
-                            Private space will be allocated
-                        </TextContainer>
-                        <TextContainer>
-                            Your data will not be shared
+                            {constants.DATA_NOT_SHARED}
                         </TextContainer>
                     </div>
                 </div>

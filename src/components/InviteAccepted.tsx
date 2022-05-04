@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import { AppContext } from '../pages/_app';
 import theme from '../theme';
 import { convertBytesToHumanReadable } from '../util/common';
+import constants from '../util/strings/constants';
 
 const ImageContainer = styled('div')<{ mq: boolean }>(({ mq }) => ({
     marginLeft: mq ? '16px' : '0px',
@@ -14,7 +15,8 @@ const ImageContainer = styled('div')<{ mq: boolean }>(({ mq }) => ({
 }));
 
 function InviteAccepted() {
-    const { isSmallerDisplay, familyManagerEmail, totalStorage } = useContext(AppContext);
+    const { isSmallerDisplay, familyManagerEmail, totalStorage } =
+        useContext(AppContext);
 
     const handleClick = () => {
         window.open('https://web.ente.io', '_self');
@@ -32,7 +34,7 @@ function InviteAccepted() {
                         fontSize: '40px',
                         fontWeight: 700,
                     }}>
-                    Congratulations!
+                    {constants.CONGRATULATIONS}
                 </div>
                 <div
                     style={{
@@ -48,7 +50,7 @@ function InviteAccepted() {
                                 color: '#a5a5a5',
                                 fontSize: '18px',
                             }}>
-                            You have successfully joined{' '}
+                            {constants.SUCCESSFULLY_JOINED}{' '}
                             <span
                                 style={{
                                     color: theme.palette.primary.main,
@@ -56,7 +58,7 @@ function InviteAccepted() {
                                 }}>
                                 {familyManagerEmail}
                             </span>
-                            's family on <b>ente</b>.
+                            {constants.FAMILY_ON} <b>{constants.ENTE}</b>.
                         </div>
                         <div
                             style={{
@@ -64,7 +66,7 @@ function InviteAccepted() {
                                 color: '#a5a5a5',
                                 fontSize: '18px',
                             }}>
-                            You now have access to{' '}
+                            {constants.YOU_NOW_HAVE_ACCESS}{' '}
                             <span
                                 style={{
                                     color: '#fff',
@@ -72,7 +74,7 @@ function InviteAccepted() {
                                 }}>
                                 {convertBytesToHumanReadable(totalStorage)}
                             </span>{' '}
-                            of shared storage.
+                            {constants.OF_SHARED_STORAGE}
                         </div>
                         <div
                             style={{
@@ -80,8 +82,8 @@ function InviteAccepted() {
                                 color: '#a5a5a5',
                                 fontSize: '18px',
                             }}>
-                            Please open your <b>ente</b> app to backup photos
-                            and videos.
+                            {constants.PLEASE_OPEN_ENTE} <b>{constants.ENTE}</b>{' '}
+                            {constants.BACKUP_PHOTOS_AND_VIDEOS}
                         </div>
                         <Button
                             variant="contained"
@@ -94,7 +96,7 @@ function InviteAccepted() {
                                 marginTop: '30px',
                                 width: '200px',
                             }}>
-                            Open ente
+                            {constants.OPEN_ENTE}
                         </Button>
                     </div>
                     <ImageContainer mq={isSmallerDisplay}>

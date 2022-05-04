@@ -6,6 +6,7 @@ import { PersonIconContainer } from './FamilyMembers';
 import { AppContext } from '../pages/_app';
 import { BsPlusLg } from 'react-icons/bs';
 import { MAX_FAMILY_MEMBERS } from '../util/constants';
+import constants from '../util/strings/constants';
 
 export function MembersContainer() {
     const { isSmallerDisplay, members, setInviteDialogView } =
@@ -72,7 +73,7 @@ export function MembersContainer() {
                             height: '40px',
                         }}>
                         <BsPlusLg style={{ marginRight: '10px' }} />
-                        <b> Invite member</b>
+                        <b> {constants.INVITE_MEMBER}</b>
                     </Button>
                 </div>
                 <MembersList />

@@ -4,6 +4,7 @@ import React, { useContext } from 'react';
 import { AppContext, PageState } from '../pages/_app';
 import { createFamily, getWebEndpoint } from '../services/APIService';
 import theme from '../theme';
+import constants from '../util/strings/constants';
 
 const ImageContainer = styled('div')<{ mq: boolean }>(({ mq }) => ({
     display: 'flex',
@@ -81,9 +82,9 @@ function Landing({ setPage }: { setPage: (page: number) => void }) {
                                         ? '52px'
                                         : '36px',
                                 }}>
-                                Family
+                                {constants.FAMILY}
                                 <br />
-                                Sharing
+                                {constants.SHARING}
                             </div>
                             <div
                                 style={{
@@ -96,17 +97,16 @@ function Landing({ setPage }: { setPage: (page: number) => void }) {
                                     marginBottom: '16px',
                                     color: theme.palette.lightgray.main,
                                 }}>
-                                Introducing{' '}
+                                {constants.INTRODUCING}{' '}
                                 <span
                                     style={{
                                         fontWeight: 'bold',
                                         color: theme.palette.primary.main,
                                     }}>
-                                    Family Sharing
+                                    {constants.FAMILY_SHARING}
                                 </span>
-                                . <br /> Share your plan with your family
-                                members. <br />
-                                Each member gets their own private space.
+                                . <br /> {constants.SHARE_YOUR_PLAN} <br />
+                                {constants.EACH_MEMBER_GETS_OWN_SPACE}
                                 <br />
                             </div>
                             {isSmallerDisplay && (
@@ -114,7 +114,7 @@ function Landing({ setPage }: { setPage: (page: number) => void }) {
                                     variant="contained"
                                     mq={isSmallerDisplay}
                                     onClick={onGetStartedClick}>
-                                    <b>Get Started</b>
+                                    <b>{constants.GET_STARTED}</b>
                                 </GetStartedButton>
                             )}
                         </div>
@@ -146,7 +146,7 @@ function Landing({ setPage }: { setPage: (page: number) => void }) {
                         variant="contained"
                         mq={isSmallerDisplay}
                         onClick={onGetStartedClick}>
-                        <b>Get Started</b>
+                        <b>{constants.GET_STARTED}</b>
                     </GetStartedButton>
                 </Container>
             )}

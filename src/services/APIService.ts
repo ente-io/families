@@ -1,5 +1,6 @@
 import UserNotFoundMessage from '../components/utils/UserNotFoundMessage';
 import { Member } from '../pages/_app';
+import constants from '../util/strings/constants';
 import HTTPService from './HTTPService';
 
 export const getEndpoint = () => {
@@ -34,18 +35,18 @@ export async function createFamily(authToken: string): Promise<{
         } else if (res.status === 402) {
             return {
                 success: false,
-                msg: 'Sorry, you need to upgrade your account to create a family.',
+                msg: constants.SORRY_YOU_NEED_TO_UPGRADE,
             };
         } else {
             return {
                 success: false,
-                msg: 'Sorry, something went wrong.',
+                msg: constants.SORRY_SOMETHING_WENT_WRONG,
             };
         }
     } catch (e) {
         return {
             success: false,
-            msg: 'Sorry, something went wrong.',
+            msg: constants.SORRY_SOMETHING_WENT_WRONG,
         };
     }
 }
@@ -70,9 +71,9 @@ export async function acceptInvite(inviteToken: string): Promise<{
                 data: res.data,
             };
         }
-        let message = 'Sorry, something went wrong.'
+        let message = constants.SORRY_SOMETHING_WENT_WRONG;
         if (res.status == 404) {
-            message = 'Sorry, invite token seems to be invalid'
+            message = constants.SORRY_INVITE_TOKEN_INVALID;
         }
         // TODO: add case for invite expired
         return {
@@ -82,7 +83,7 @@ export async function acceptInvite(inviteToken: string): Promise<{
     } catch (e) {
         return {
             success: false,
-            msg: 'Sorry, something went wrong.',
+            msg: constants.SORRY_SOMETHING_WENT_WRONG,
         };
     }
 }
@@ -112,12 +113,12 @@ export async function getMembers(authToken: string): Promise<{
         }
         return {
             success: false,
-            msg: 'Sorry, something went wrong.',
+            msg: constants.SORRY_SOMETHING_WENT_WRONG,
         };
     } catch (e) {
         return {
             success: false,
-            msg: 'Sorry, something went wrong.',
+            msg: constants.SORRY_SOMETHING_WENT_WRONG,
         };
     }
 }
@@ -150,17 +151,17 @@ export async function inviteMember(
         } else if (res.status === 412) {
             return {
                 success: false,
-                msg: 'You have reached the maximum number of family members.',
+                msg: constants.REACHED_MAX_FAMILY_SIZE,
             };
         }
         return {
             success: false,
-            msg: 'Oops, something went wrong.',
+            msg: constants.OOPS_SOMETHING_WENT_WRONG,
         };
     } catch (e) {
         return {
             success: false,
-            msg: 'Oops, something went wrong.',
+            msg: constants.OOPS_SOMETHING_WENT_WRONG,
         };
     }
 }
@@ -190,12 +191,12 @@ export async function revokeInvite(
 
         return {
             success: false,
-            msg: 'Sorry, something went wrong.',
+            msg: constants.SORRY_SOMETHING_WENT_WRONG,
         };
     } catch (e) {
         return {
             success: false,
-            msg: 'Sorry, something went wrong.',
+            msg: constants.SORRY_SOMETHING_WENT_WRONG,
         };
     }
 }
@@ -225,12 +226,12 @@ export async function removeMember(
 
         return {
             success: false,
-            msg: 'Sorry, something went wrong.',
+            msg: constants.SORRY_SOMETHING_WENT_WRONG,
         };
     } catch (e) {
         return {
             success: false,
-            msg: 'Sorry, something went wrong.',
+            msg: constants.SORRY_SOMETHING_WENT_WRONG,
         };
     }
 }
@@ -252,12 +253,12 @@ export async function getInviteInfo(inviteToken: string) {
 
         return {
             success: false,
-            msg: 'Sorry, something went wrong.',
+            msg: constants.SORRY_SOMETHING_WENT_WRONG,
         };
     } catch (e) {
         return {
             success: false,
-            msg: 'Sorry, something went wrong.',
+            msg: constants.SORRY_SOMETHING_WENT_WRONG,
         };
     }
 }

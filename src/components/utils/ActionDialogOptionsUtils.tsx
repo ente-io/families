@@ -5,6 +5,7 @@ import {
     revokeInvite,
 } from '../../services/APIService';
 import theme from '../../theme';
+import constants from '../../util/strings/constants';
 import { ActionDialogOptions } from '../ActionDialog';
 
 export function resendInviteOptions(
@@ -15,10 +16,10 @@ export function resendInviteOptions(
     setOpenMessageDialog
 ): ActionDialogOptions {
     return {
-        title: 'Resend Invite?',
+        title: constants.RESEND_INVITE,
         msg: (
             <>
-                Are you sure that you want to resend an invite to{' '}
+                {constants.RESEND_INVITE_MESSAGE}{' '}
                 <span
                     style={{
                         color: theme.palette.primary.main,
@@ -28,12 +29,12 @@ export function resendInviteOptions(
                 ?
             </>
         ),
-        defaultText: 'Invite',
+        defaultText: constants.INVITE,
         onDefaultClick: async () => {
             const res = await inviteMember(authToken, member.email);
             setOpenActionDialog(false);
             if (!res.success) {
-                setMessage('Sorry, something went wrong.');
+                setMessage(constants.SORRY_SOMETHING_WENT_WRONG);
                 setOpenMessageDialog(true);
             }
         },
@@ -49,10 +50,10 @@ export function revokeInviteOptions(
     setShouldSyncMembers
 ): ActionDialogOptions {
     return {
-        title: 'Revoke Invite?',
+        title: constants.REVOKE_INVITE,
         msg: (
             <>
-                Are you sure that you want to revoke invite to{' '}
+                {constants.REVOKE_INVITE_MESSAGE}{' '}
                 <span
                     style={{
                         color: theme.palette.primary.main,
@@ -62,20 +63,20 @@ export function revokeInviteOptions(
                 ?
             </>
         ),
-        defaultText: 'Cancel',
+        defaultText: constants.CANCEL,
         onDefaultClick: async () => {
             setOpenActionDialog(false);
         },
-        warningText: 'Revoke',
+        warningText: constants.REVOKE,
         onWarningClick: async () => {
             const res = await revokeInvite(authToken, member.id);
             setOpenActionDialog(false);
             if (res.success) {
-                setMessage('Invite revoked.');
+                setMessage(constants.INVITE_REVOKED);
                 setOpenMessageDialog(true);
                 setShouldSyncMembers(true);
             } else {
-                setMessage('Sorry, something went wrong.');
+                setMessage(constants.SORRY_SOMETHING_WENT_WRONG);
                 setOpenMessageDialog(true);
             }
         },
@@ -91,10 +92,10 @@ export function removeMemberOptions(
     setShouldSyncMembers
 ): ActionDialogOptions {
     return {
-        title: 'Remove member?',
+        title: constants.REMOVE_MEMBER,
         msg: (
             <>
-                Are you sure that you want to remove{' '}
+                {constants.REMOVE_MEMBER_MESSAGE}{' '}
                 <span
                     style={{
                         color: theme.palette.primary.main,
@@ -104,20 +105,20 @@ export function removeMemberOptions(
                 ?
             </>
         ),
-        defaultText: 'Cancel',
+        defaultText: constants.CANCEL,
         onDefaultClick: async () => {
             setOpenActionDialog(false);
         },
-        warningText: 'Remove',
+        warningText: constants.REMOVE,
         onWarningClick: async () => {
             const res = await removeMember(authToken, member.id);
             setOpenActionDialog(false);
             if (res.success) {
-                setMessage('Member removed.');
+                setMessage(constants.MEMBER_REMOVED);
                 setOpenMessageDialog(true);
                 setShouldSyncMembers(true);
             } else {
-                setMessage('Sorry, something went wrong.');
+                setMessage(constants.SORRY_SOMETHING_WENT_WRONG);
                 setOpenMessageDialog(true);
             }
         },

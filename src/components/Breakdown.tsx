@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { AppContext } from '../pages/_app';
 import { UsageChartColors as colors } from '../util/constants';
+import constants from '../util/strings/constants';
 import { UsageEntry } from './UsageEntry';
 
 export function Breakdown() {
@@ -19,7 +20,7 @@ export function Breakdown() {
                     marginBottom: '32px',
                     fontWeight: 'bold',
                 }}>
-                Breakdown
+                {constants.BREAKDOWN}
             </div>
             <div
                 style={{

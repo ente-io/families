@@ -1,4 +1,5 @@
 import React from 'react';
+import constants from '../util/strings/constants';
 
 function CustomUsageLable({ usedStorage, totalStorageInGBs }) {
     return (
@@ -27,7 +28,7 @@ function CustomUsageLable({ usedStorage, totalStorageInGBs }) {
                 fill="#8b8b8b"
                 fontSize="20"
                 fontWeight="bold">
-                used
+                {constants.USED}
             </text>
         </svg>
     );

@@ -6,6 +6,7 @@ import { UsageChartColors as colors } from '../util/constants';
 import { AppContext } from '../pages/_app';
 import { convertBytesToGBs, convertBytesToHumanReadable } from '../util/common';
 import CustomUsageLable from './CustomUsageLable';
+import constants from '../util/strings/constants';
 
 export default function UsageData() {
     const { isSmallerDisplay, members, totalStorage } = useContext(AppContext);
@@ -40,7 +41,7 @@ export default function UsageData() {
                         fontSize: isSmallerDisplay ? '20px' : '18px',
                         marginBottom: isSmallerDisplay ? '48px' : '24px',
                     }}>
-                    Total Usage
+                    {constants.TOTAL_USAGE}
                 </div>
                 <div
                     style={{

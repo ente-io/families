@@ -1,11 +1,12 @@
 import React from 'react';
+import constants from '../../util/strings/constants';
 
 function UserNotFoundMessage() {
     return (
         <>
-            Could not find user with that email address
+            {constants.COULD_NOT_FIND_USER}
             <br />
-            Please ask them to sign up @ ente.io
+            {constants.PLEASE_ASK_THEM_TO_SIGN_UP}
         </>
     );
 }

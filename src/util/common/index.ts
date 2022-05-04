@@ -11,6 +11,10 @@ export function convertBytesToHumanReadable(
     return (bytes / Math.pow(1024, i)).toFixed(precision) + ' ' + sizes[i];
 }
 
-export function convertBytesToGBs(bytes): string {
+export function convertBytesToGBs(bytes: number): string {
     return (bytes / (1024 * 1024 * 1024)).toFixed(0);
+}
+
+export function runningInBrowser() {
+    return typeof window !== 'undefined';
 }

@@ -1,6 +1,7 @@
 import { DialogActions, Button, Dialog, styled } from '@mui/material';
 import React, { useContext } from 'react';
 import { AppContext } from '../pages/_app';
+import constants from '../util/strings/constants';
 
 const ImageContainer = styled('div')<{ mq: boolean }>(({ mq }) => ({
     marginRight: mq ? '48px' : '48px',
@@ -49,7 +50,7 @@ function InviteSent({
                             height={'100%'}
                             width={'100%'}></img>
                     </div>
-                    <div>Invite sent</div>
+                    <div>{constants.INVITE_SENT}</div>
                 </ImageContainer>
                 <DialogActions>
                     <Button
@@ -57,7 +58,7 @@ function InviteSent({
                         style={{
                             textTransform: 'none',
                         }}>
-                        ok
+                        {constants.OK}
                     </Button>
                 </DialogActions>
             </div>
