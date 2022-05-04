@@ -18,3 +18,9 @@
     font-weight: 700;
     font-style: normal;
 }
+
+body {
+    background-color: #212121;
+    color: #fff;
+    font-family: 'Inter';
+}

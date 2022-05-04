@@ -1,9 +1,4 @@
-import {
-    CircularProgress,
-    GlobalStyles,
-    ThemeProvider,
-    useMediaQuery,
-} from '@mui/material';
+import { CircularProgress, ThemeProvider, useMediaQuery } from '@mui/material';
 import '../styles/global.css';
 import React, { createContext, useEffect, useState } from 'react';
 import theme from '../theme';
@@ -186,15 +181,6 @@ function App({ Component, pageProps }) {
                     setIsLoading,
                 }}>
                 <ThemeProvider theme={theme}>
-                    <GlobalStyles
-                        styles={{
-                            body: {
-                                backgroundColor: '#212121',
-                                color: '#fff',
-                                fontFamily: 'Inter',
-                            },
-                        }}
-                    />
                     <Navbar />
                     {isLoading ? (
                         <CenteredContainer
