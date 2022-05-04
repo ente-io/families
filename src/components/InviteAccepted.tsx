@@ -1,18 +1,10 @@
-import { Button, Container, styled } from '@mui/material';
+import { Button, Container } from '@mui/material';
 import React, { useContext } from 'react';
 import { AppContext } from '../pages/_app';
 import theme from '../theme';
 import { convertBytesToHumanReadable } from '../util/common';
 import constants from '../util/strings/constants';
-
-const ImageContainer = styled('div')<{ mq: boolean }>(({ mq }) => ({
-    marginLeft: mq ? '16px' : '0px',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: mq ? 'flex-start' : 'center',
-    justifyContent: 'center',
-    marginTop: mq ? '0px' : '24px',
-}));
+import { ImageContainer } from '../styles/InviteAccepted';
 
 function InviteAccepted() {
     const { isSmallerDisplay, familyManagerEmail, totalStorage } =

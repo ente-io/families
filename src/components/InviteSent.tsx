@@ -1,16 +1,8 @@
-import { DialogActions, Button, Dialog, styled } from '@mui/material';
+import { DialogActions, Button, Dialog } from '@mui/material';
 import React, { useContext } from 'react';
 import { AppContext } from '../pages/_app';
 import constants from '../util/strings/constants';
-
-const ImageContainer = styled('div')<{ mq: boolean }>(({ mq }) => ({
-    marginRight: mq ? '48px' : '48px',
-    marginLeft: mq ? '48px' : '48px',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    marginBottom: '16px',
-}));
+import { ImageContainer } from '../styles/InviteSent';
 
 function InviteSent({
     open,

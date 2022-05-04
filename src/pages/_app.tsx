@@ -12,7 +12,7 @@ import ActionDialog, {
     ActionDialogOptions,
     defaultActionDialogOptions,
 } from '../components/ActionDialog';
-import { CenteredContainer } from '../styles/utils';
+import { CenteredContainer } from '../styles/Utils';
 import InviteDialog from '../components/InviteDialog';
 import MessageDialog from '../components/MessageDialog';
 import Navbar from '../components/Navbar';

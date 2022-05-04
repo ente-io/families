@@ -2,7 +2,6 @@ import {
     DialogContent,
     Button,
     Dialog,
-    styled,
     TextField,
 } from '@mui/material';
 import React, { useContext, useState } from 'react';
@@ -11,23 +10,8 @@ import { AppContext } from '../pages/_app';
 import { inviteMember } from '../services/APIService';
 import theme from '../theme';
 import constants from '../util/strings/constants';
+import { ImageContainer, TextContainer } from '../styles/InviteDialog';
 import InviteSent from './InviteSent';
-
-const ImageContainer = styled('div')<{ mq: boolean }>(({ mq }) => ({
-    marginRight: mq ? '52px' : '48px',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-end',
-    justifyContent: 'center',
-    marginBottom: '-16px',
-}));
-
-const TextContainer = styled('div')(() => ({
-    marginTop: '2px',
-    marginBottom: '2px',
-    color: '#9f9f9f',
-    fontSize: '12px',
-}));
 
 function InviteDialog({ open, setOpen }) {
     const { isSmallerDisplay, authToken, setShouldSyncMembers } =
