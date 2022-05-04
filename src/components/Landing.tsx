@@ -4,7 +4,11 @@ import { AppContext, PageState } from '../pages/_app';
 import { createFamily, getWebEndpoint } from '../services/APIService';
 import theme from '../theme';
 import constants from '../util/strings/constants';
-import { ContentContainer, GetStartedButton, ImageContainer } from '../styles/Landing';
+import {
+    ContentContainer,
+    GetStartedButton,
+    ImageContainer,
+} from '../styles/Landing';
 
 function Landing({ setPage }: { setPage: (page: number) => void }) {
     const {
@@ -85,7 +89,7 @@ function Landing({ setPage }: { setPage: (page: number) => void }) {
                             {isSmallerDisplay && (
                                 <GetStartedButton
                                     variant="contained"
-                                    mq={isSmallerDisplay}
+                                    mq={isSmallerDisplay ? true : undefined}
                                     onClick={onGetStartedClick}>
                                     <b>{constants.GET_STARTED}</b>
                                 </GetStartedButton>
@@ -94,7 +98,7 @@ function Landing({ setPage }: { setPage: (page: number) => void }) {
                     </ContentContainer>
                 </Grid>
                 <Grid item xs={12} md={6}>
-                    <ImageContainer mq={isSmallerDisplay}>
+                    <ImageContainer mq={isSmallerDisplay ? true : undefined}>
                         <div
                             style={{
                                 width: isSmallerDisplay ? '500px' : '400px',
@@ -117,7 +121,7 @@ function Landing({ setPage }: { setPage: (page: number) => void }) {
                     }}>
                     <GetStartedButton
                         variant="contained"
-                        mq={isSmallerDisplay}
+                        mq={isSmallerDisplay ? true : undefined}
                         onClick={onGetStartedClick}>
                         <b>{constants.GET_STARTED}</b>
                     </GetStartedButton>
