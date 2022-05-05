@@ -27,7 +27,12 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-icons": "^4.3.1",
-    "recharts": "^2.1.9"
+    "recharts": "^2.1.9",
+    "workbox-precaching": "^6.5.3",
+    "workbox-recipes": "^6.5.3",
+    "workbox-routing": "^6.5.3",
+    "workbox-strategies": "^6.5.3",
+    "workbox-window": "^6.5.3"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^12.1.6",
