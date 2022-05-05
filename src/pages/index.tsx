@@ -37,7 +37,7 @@ function Home() {
         }
     }, []);
 
-    const handleAcceptInvite = async (inviteToken) => {
+    const handleAcceptInvite = async (inviteToken: string) => {
         setIsLoading(true);
         const acceptInviteRes = await acceptInvite(inviteToken);
         setIsLoading(false);

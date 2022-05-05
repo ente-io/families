@@ -1,5 +1,5 @@
 import UserNotFoundMessage from '../components/utils/UserNotFoundMessage';
-import { Member } from "../types";
+import { Member } from '../types';
 import constants from '../util/strings/constants';
 import HTTPService from './HTTPService';
 
@@ -221,33 +221,6 @@ export async function removeMember(
         if (res.status === 200) {
             return {
                 success: true,
-            };
-        }
-
-        return {
-            success: false,
-            msg: constants.SORRY_SOMETHING_WENT_WRONG,
-        };
-    } catch (e) {
-        return {
-            success: false,
-            msg: constants.SORRY_SOMETHING_WENT_WRONG,
-        };
-    }
-}
-
-export async function getInviteInfo(inviteToken: string) {
-    try {
-        const res = await HTTPService.get(
-            `${getEndpoint()}/family/invite-info/${inviteToken}`,
-            undefined,
-            {}
-        );
-
-        if (res.status === 200) {
-            return {
-                success: true,
-                data: res.data,
             };
         }
 

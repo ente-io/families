@@ -58,7 +58,7 @@ function App({ Component, pageProps }) {
 
     const router = useRouter();
 
-    const syncMembers = async (authToken) => {
+    const syncMembers = async (authToken: string) => {
         const res = await getMembers(authToken);
         if (res.success) {
             setMembers(res.data.members);
