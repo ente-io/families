@@ -8,7 +8,7 @@ import {
     ContentContainer,
     InviteButton,
     ImageContainer,
-} from '../styles/FamilyMembers';
+} from '../components/styledComponents/FamilyMembers';
 import theme from '../theme';
 import constants from '../util/strings/constants';
 import { AppContext } from './_app';

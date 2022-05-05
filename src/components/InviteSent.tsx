@@ -2,7 +2,7 @@ import { DialogActions, Button, Dialog } from '@mui/material';
 import React, { useContext } from 'react';
 import { AppContext } from '../pages/_app';
 import constants from '../util/strings/constants';
-import { ImageContainer } from '../styles/InviteSent';
+import { ImageContainer } from './styledComponents/InviteSent';
 
 function InviteSent({
     open,

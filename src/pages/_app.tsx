@@ -4,7 +4,7 @@ import React, { createContext, useEffect, useState } from 'react';
 import theme from '../theme';
 import Head from 'next/head';
 import ActionDialog from '../components/ActionDialog';
-import { CenteredContainer } from '../styles/Utils';
+import { CenteredContainer } from '../components/styledComponents/Utils';
 import MessageDialog from '../components/MessageDialog';
 import Navbar from '../components/Navbar';
 import { useRouter } from 'next/router';

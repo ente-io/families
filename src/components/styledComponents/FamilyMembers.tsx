@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
 import { styled } from '@mui/system';
 import React from 'react';
-import PersonIcon from '../components/icons/PersonIcon';
+import PersonIcon from '../icons/PersonIcon';
 
 export const ImageContainer = styled('div')<{ mq: boolean; }>(({ mq }) => ({
     display: 'flex',

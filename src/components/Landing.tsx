@@ -8,7 +8,7 @@ import {
     ContentContainer,
     GetStartedButton,
     ImageContainer,
-} from '../styles/Landing';
+} from './styledComponents/Landing';
 
 function Landing({ setPageToMembers }: { setPageToMembers: () => void }) {
     const {

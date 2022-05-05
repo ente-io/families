@@ -1,6 +1,6 @@
 import { Container, Button } from '@mui/material';
 import React, { useContext } from 'react';
-import { ImageContainer } from '../styles/InviteAccepted';
+import { ImageContainer } from '../components/styledComponents/InviteAccepted';
 import theme from '../theme';
 import { convertBytesToHumanReadable } from '../util/common';
 import constants from '../util/strings/constants';

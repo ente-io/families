@@ -1,7 +1,7 @@
 import { Container } from '@mui/material';
 import React, { useContext } from 'react';
 import { AppContext } from '../pages/_app';
-import { LogoImage } from '../styles/Navbar';
+import { LogoImage } from './styledComponents/Navbar';
 
 function Navbar() {
     const { isSmallerDisplay } = useContext(AppContext);

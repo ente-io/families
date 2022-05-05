@@ -5,7 +5,7 @@ import { AppContext } from '../pages/_app';
 import { inviteMember } from '../services/APIService';
 import theme from '../theme';
 import constants from '../util/strings/constants';
-import { ImageContainer, TextContainer } from '../styles/InviteDialog';
+import { ImageContainer, TextContainer } from './styledComponents/InviteDialog';
 import InviteSent from './InviteSent';
 
 function InviteDialog({ open, setOpen }) {
