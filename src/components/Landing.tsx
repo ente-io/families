@@ -17,7 +17,7 @@ function Landing({ setPageToMembers }: { setPageToMembers: () => void }) {
         setMessage,
         authToken,
         setIsLoading,
-        setShouldSyncMembers,
+        syncMembers
     } = useContext(AppContext);
 
     const onGetStartedClick = async () => {
@@ -27,7 +27,7 @@ function Landing({ setPageToMembers }: { setPageToMembers: () => void }) {
             setIsLoading(false);
             if (res.success) {
                 setPageToMembers();
-                setShouldSyncMembers(true);
+                syncMembers();
             } else {
                 setMessageDialogView(true);
                 setMessage(res.msg);

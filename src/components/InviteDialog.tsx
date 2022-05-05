@@ -1,9 +1,4 @@
-import {
-    DialogContent,
-    Button,
-    Dialog,
-    TextField,
-} from '@mui/material';
+import { DialogContent, Button, Dialog, TextField } from '@mui/material';
 import React, { useContext, useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
 import { AppContext } from '../pages/_app';
@@ -14,8 +9,7 @@ import { ImageContainer, TextContainer } from '../styles/InviteDialog';
 import InviteSent from './InviteSent';
 
 function InviteDialog({ open, setOpen }) {
-    const { isSmallerDisplay, authToken, setShouldSyncMembers } =
-        useContext(AppContext);
+    const { isSmallerDisplay, authToken, syncMembers } = useContext(AppContext);
     const [email, setEmail] = useState('');
     const [isError, setIsError] = useState(false);
     const [errorMsg, setErrorMsg] = useState<string | JSX.Element>('');
@@ -37,7 +31,7 @@ function InviteDialog({ open, setOpen }) {
         if (res.success) {
             setOpen(false);
             setIsInviteSent(true);
-            setShouldSyncMembers(true);
+            syncMembers();
             setEmail('');
         } else {
             setIsError(true);

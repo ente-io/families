@@ -6,13 +6,19 @@ import { MembersContainer } from './MembersContainer';
 import { AppContext } from '../pages/_app';
 import { BsPlusLg } from 'react-icons/bs';
 import constants from '../util/strings/constants';
-import { ContentContainer, InviteButton, ImageContainer } from '../styles/FamilyMembers';
+import {
+    ContentContainer,
+    InviteButton,
+    ImageContainer,
+} from '../styles/FamilyMembers';
+import InviteDialog from './InviteDialog';
 
 function FamilyMembers() {
     const {
         isSmallerDisplay,
         familyManagerEmail,
         members,
+        inviteDialogView,
         setInviteDialogView,
     } = useContext(AppContext);
 
@@ -141,6 +147,10 @@ function FamilyMembers() {
                     </div>
                 </>
             )}
+            <InviteDialog
+                open={inviteDialogView}
+                setOpen={setInviteDialogView}
+            />
         </>
     );
 }

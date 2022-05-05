@@ -8,7 +8,7 @@ import {
     removeMemberOptions,
     resendInviteOptions,
     revokeInviteOptions,
-} from './utils/ActionDialogOptionsUtils';
+} from '../util/options/ActionDialogOptionsUtils';
 
 const StatusMap = {
     SELF: 'Admin',
@@ -30,7 +30,7 @@ export function MembersList() {
     const {
         isSmallerDisplay,
         members,
-        setShouldSyncMembers,
+        syncMembers,
         authToken,
         setActionDialogOptions,
         setActionDialogView,
@@ -59,7 +59,7 @@ export function MembersList() {
                 setActionDialogView,
                 setMessage,
                 setMessageDialogView,
-                setShouldSyncMembers
+                syncMembers
             )
         );
     };
@@ -72,7 +72,7 @@ export function MembersList() {
                 setActionDialogView,
                 setMessage,
                 setMessageDialogView,
-                setShouldSyncMembers
+                syncMembers
             )
         );
     };

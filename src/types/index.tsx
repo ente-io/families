@@ -3,8 +3,7 @@ export interface AppContextType {
     isUserAdmin: boolean;
     members: Member[];
     setMembers: (members: Member[]) => void;
-    shouldSyncMembers: boolean;
-    setShouldSyncMembers: (shouldSyncMembers: boolean) => void;
+    syncMembers: (token?: string) => void;
     familyManagerEmail: string;
     setFamilyManagerEmail: (email: string) => void;
     totalStorage: number;
@@ -50,4 +49,29 @@ export const defaultActionDialogOptions: ActionDialogOptions = {
     onDefaultClick: () => {},
     onWarningClick: () => {},
     title: '',
+};
+
+export const defaultAppContext: AppContextType = {
+    isSmallerDisplay: false,
+    isUserAdmin: false,
+    members: [],
+    setMembers: () => {},
+    syncMembers: () => {},
+    familyManagerEmail: '',
+    setFamilyManagerEmail: () => {},
+    totalStorage: 0,
+    setTotalStorage: () => {},
+    authToken: '',
+    setAuthToken: () => {},
+    inviteDialogView: false,
+    setInviteDialogView: () => {},
+    messageDialogView: false,
+    setMessageDialogView: () => {},
+    message: '',
+    setMessage: () => {},
+    actionDialogView: false,
+    setActionDialogView: () => {},
+    actionDialogOptions: defaultActionDialogOptions,
+    setActionDialogOptions: () => {},
+    setIsLoading: () => {},
 };

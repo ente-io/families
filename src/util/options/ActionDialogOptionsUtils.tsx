@@ -6,7 +6,7 @@ import {
 } from '../../services/APIService';
 import theme from '../../theme';
 import { ActionDialogOptions, Member } from '../../types';
-import constants from '../../util/strings/constants';
+import constants from '../strings/constants';
 
 export function resendInviteOptions(
     member: Member,
@@ -47,7 +47,7 @@ export function revokeInviteOptions(
     setOpenActionDialog: (value: boolean) => void,
     setMessage: (msg: string) => void,
     setOpenMessageDialog: (value: boolean) => void,
-    setShouldSyncMembers: (value: boolean) => void
+    syncMembers: () => void
 ): ActionDialogOptions {
     return {
         title: constants.REVOKE_INVITE,
@@ -74,7 +74,7 @@ export function revokeInviteOptions(
             if (res.success) {
                 setMessage(constants.INVITE_REVOKED);
                 setOpenMessageDialog(true);
-                setShouldSyncMembers(true);
+                syncMembers();
             } else {
                 setMessage(constants.SORRY_SOMETHING_WENT_WRONG);
                 setOpenMessageDialog(true);
@@ -89,7 +89,7 @@ export function removeMemberOptions(
     setOpenActionDialog: (value: boolean) => void,
     setMessage: (msg: string) => void,
     setOpenMessageDialog: (value: boolean) => void,
-    setShouldSyncMembers: (value: boolean) => void
+    syncMembers: () => void
 ): ActionDialogOptions {
     return {
         title: constants.REMOVE_MEMBER,
@@ -116,7 +116,7 @@ export function removeMemberOptions(
             if (res.success) {
                 setMessage(constants.MEMBER_REMOVED);
                 setOpenMessageDialog(true);
-                setShouldSyncMembers(true);
+                syncMembers();
             } else {
                 setMessage(constants.SORRY_SOMETHING_WENT_WRONG);
                 setOpenMessageDialog(true);

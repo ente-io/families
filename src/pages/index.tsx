@@ -12,7 +12,7 @@ function Home() {
         setTotalStorage,
         setMessage,
         setMessageDialogView,
-        setShouldSyncMembers,
+        syncMembers,
     } = useContext(AppContext);
 
     const router = useRouter();
@@ -27,13 +27,10 @@ function Home() {
         if (token) {
             setAuthToken(token);
         }
-        if (
-            (params.get('familyCreated') &&
-                params.get('familyCreated') === 'true') || // handle both flag till internal APK is released
-            (params.get('isFamilyCreated') &&
-                params.get('isFamilyCreated') === 'true')
-        ) {
-            setShouldSyncMembers(true);
+        const isFamilyCreated =
+            params.get('isFamilyCreated') ?? params.get('familyCreated'); // handle both flag till internal APK is released
+        if (isFamilyCreated === 'true') {
+            syncMembers(token); // passing token as state of authToken might not be updated
             router.push('/members');
         }
     }, []);

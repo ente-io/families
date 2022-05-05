@@ -5,38 +5,12 @@ import theme from '../theme';
 import Head from 'next/head';
 import ActionDialog from '../components/ActionDialog';
 import { CenteredContainer } from '../styles/Utils';
-import InviteDialog from '../components/InviteDialog';
 import MessageDialog from '../components/MessageDialog';
 import Navbar from '../components/Navbar';
 import { useRouter } from 'next/router';
 import { getMembers } from '../services/APIService';
-import { AppContextType, defaultActionDialogOptions } from '../types';
-
-const defaultAppContext: AppContextType = {
-    isSmallerDisplay: false,
-    isUserAdmin: false,
-    members: [],
-    setMembers: () => {},
-    shouldSyncMembers: false,
-    setShouldSyncMembers: () => {},
-    familyManagerEmail: '',
-    setFamilyManagerEmail: () => {},
-    totalStorage: 0,
-    setTotalStorage: () => {},
-    authToken: '',
-    setAuthToken: () => {},
-    inviteDialogView: false,
-    setInviteDialogView: () => {},
-    messageDialogView: false,
-    setMessageDialogView: () => {},
-    message: '',
-    setMessage: () => {},
-    actionDialogView: false,
-    setActionDialogView: () => {},
-    actionDialogOptions: defaultActionDialogOptions,
-    setActionDialogOptions: () => {},
-    setIsLoading: () => {},
-};
+import { defaultActionDialogOptions, defaultAppContext } from '../types';
+import constants from '../util/strings/constants';
 
 export const AppContext = createContext(defaultAppContext);
 
@@ -51,15 +25,14 @@ function App({ Component, pageProps }) {
         defaultActionDialogOptions
     );
     const [members, setMembers] = useState([]);
-    const [shouldSyncMembers, setShouldSyncMembers] = useState(false);
     const [totalStorage, setTotalStorage] = useState(0);
     const [authToken, setAuthToken] = useState('');
     const [familyManagerEmail, setFamilyManagerEmail] = useState('');
 
     const router = useRouter();
 
-    const syncMembers = async (authToken: string) => {
-        const res = await getMembers(authToken);
+    const syncMembers = async (token?: string) => {
+        const res = await getMembers(authToken || token);
         if (res.success) {
             setMembers(res.data.members);
             setTotalStorage(res.data.storage);
@@ -75,13 +48,6 @@ function App({ Component, pageProps }) {
             setMessageDialogView(true);
         }
     };
-
-    useEffect(() => {
-        if (shouldSyncMembers) {
-            syncMembers(authToken);
-            setShouldSyncMembers(false);
-        }
-    }, [shouldSyncMembers]);
 
     // handles loading across pages
     useEffect(() => {
@@ -104,7 +70,11 @@ function App({ Component, pageProps }) {
     return (
         <>
             <Head>
-                <title>Family</title>
+                <title>{constants.FAMILY_TITLE}</title>
+                <meta
+                    name="viewport"
+                    content="initial-scale=1, width=device-width"
+                />
             </Head>
             <AppContext.Provider
                 value={{
@@ -114,8 +84,7 @@ function App({ Component, pageProps }) {
                     setFamilyManagerEmail,
                     members,
                     setMembers,
-                    shouldSyncMembers,
-                    setShouldSyncMembers,
+                    syncMembers,
                     totalStorage,
                     setTotalStorage,
                     authToken,
@@ -142,10 +111,6 @@ function App({ Component, pageProps }) {
                     ) : (
                         <Component {...pageProps} />
                     )}
-                    <InviteDialog
-                        open={inviteDialogView}
-                        setOpen={setInviteDialogView}
-                    />
                     <MessageDialog
                         open={messageDialogView}
                         setOpen={setMessageDialogView}

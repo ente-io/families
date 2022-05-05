@@ -1,5 +1,6 @@
 const englishConstants = {
     ENTE: 'ente',
+    FAMILY_TITLE: 'Family | ente.io',
     FAMILY: 'Family',
     SHARING: 'Sharing',
     MEMBERS: 'Members',
@@ -34,7 +35,8 @@ const englishConstants = {
     RESEND_INVITE: 'Resend invite?',
     RESEND_INVITE_MESSAGE: 'Are you sure you want to resend an invite to',
     SORRY_SOMETHING_WENT_WRONG: 'Sorry, something went wrong.',
-    SORRY_YOU_NEED_TO_UPGRADE: 'Sorry, you need to upgrade your account to create a family.',
+    SORRY_YOU_NEED_TO_UPGRADE:
+        'Sorry, you need to upgrade your account to create a family.',
     SORRY_INVITE_TOKEN_INVALID: 'Sorry, the invite token seems to be invalid.',
     REVOKE_INVITE: 'Revoke invite?',
     REVOKE_INVITE_MESSAGE: 'Are you sure you want to revoke invite to',
@@ -47,7 +49,8 @@ const englishConstants = {
     MEMBER_REMOVED: 'Member removed',
     COULD_NOT_FIND_USER: 'Could not find user with that email address',
     PLEASE_ASK_THEM_TO_SIGN_UP: 'Please ask them to sign up @ ente.io',
-    REACHED_MAX_FAMILY_SIZE: 'You have reached the maximum number of family members.',
+    REACHED_MAX_FAMILY_SIZE:
+        'You have reached the maximum number of family members.',
     OOPS_SOMETHING_WENT_WRONG: 'Oops, something went wrong.',
 };
 
