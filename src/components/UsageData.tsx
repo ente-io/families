@@ -5,7 +5,7 @@ import { Breakdown } from './Breakdown';
 import { UsageChartColors as colors } from '../util/constants';
 import { AppContext } from '../pages/_app';
 import { convertBytesToGBs, convertBytesToHumanReadable } from '../util/common';
-import CustomUsageLable from './CustomUsageLable';
+import CustomUsageLabel from './CustomUsageLabel';
 import constants from '../util/strings/constants';
 
 export default function UsageData() {
@@ -67,7 +67,7 @@ export default function UsageData() {
                                 dataKey="value">
                                 <Label
                                     content={
-                                        <CustomUsageLable
+                                        <CustomUsageLabel
                                             usedStorage={convertBytesToHumanReadable(
                                                 usedStorage
                                             )}

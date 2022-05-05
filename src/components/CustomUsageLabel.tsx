@@ -1,7 +1,7 @@
 import React from 'react';
 import constants from '../util/strings/constants';
 
-function CustomUsageLable({ usedStorage, totalStorageInGBs }) {
+function CustomUsageLabel({ usedStorage, totalStorageInGBs }) {
     return (
         <svg>
             <defs>
@@ -34,4 +34,4 @@ function CustomUsageLable({ usedStorage, totalStorageInGBs }) {
     );
 }
 
-export default CustomUsageLable;
+export default CustomUsageLabel;
