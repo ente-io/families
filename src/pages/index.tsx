@@ -34,6 +34,7 @@ function Home() {
                 params.get('isFamilyCreated') === 'true')
         ) {
             setShouldSyncMembers(true);
+            router.push('/members');
         }
     }, []);
 
