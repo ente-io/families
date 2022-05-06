@@ -1,0 +1,26 @@
+@font-face {
+    font-family: 'Inter';
+    src: url(/fonts/Inter-Regular.ttf) format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url(/fonts/Inter-Medium.ttf) format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url(/fonts/Inter-Bold.ttf) format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+body {
+    background-color: #212121;
+    color: #fff;
+    font-family: 'Inter';
+}
