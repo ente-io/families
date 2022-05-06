@@ -7,13 +7,12 @@ import { logError } from '../util/sentry';
 
 function Home() {
     const {
-        setAuthToken,
+        authToken,
         setIsLoading,
         setFamilyManagerEmail,
         setTotalStorage,
         setMessage,
         setMessageDialogView,
-        syncMembers,
     } = useContext(AppContext);
 
     const router = useRouter();
@@ -21,19 +20,15 @@ function Home() {
     useEffect(() => {
         try {
             const params = new URLSearchParams(window.location.search);
-            const inviteToken = params.get('inviteToken');
-            if (inviteToken) {
-                handleAcceptInvite(inviteToken);
-            }
             const token = params.get('token');
-            if (token) {
-                setAuthToken(token);
-            }
             const isFamilyCreated =
                 params.get('isFamilyCreated') ?? params.get('familyCreated'); // handle both flag till internal APK is released
             if (isFamilyCreated === 'true') {
-                syncMembers(token); // passing token as state of authToken might not be updated
-                router.push('/members');
+                router.replace({ pathname: '/members', query: { token } });
+            }
+            const inviteToken = params.get('inviteToken');
+            if (inviteToken) {
+                handleAcceptInvite(inviteToken);
             }
         } catch (e) {
             logError(e, 'failed to set initial query params state');
@@ -48,7 +43,7 @@ function Home() {
             if (acceptInviteRes.success) {
                 setFamilyManagerEmail(acceptInviteRes.data.adminEmail);
                 setTotalStorage(acceptInviteRes.data.storage);
-                router.push('/invite');
+                router.replace({ pathname: '/invite' });
             } else {
                 setMessage(acceptInviteRes.msg);
                 setMessageDialogView(true);
@@ -58,13 +53,16 @@ function Home() {
         }
     };
 
+    const setPageToMembers = () => {
+        router.replace({
+            pathname: '/members',
+            query: { token: authToken },
+        });
+    };
+
     return (
         <>
-            <Landing
-                setPageToMembers={() => {
-                    router.push('/members');
-                }}
-            />
+            <Landing setPageToMembers={setPageToMembers} />
         </>
     );
 }

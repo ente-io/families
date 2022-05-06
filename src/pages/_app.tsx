@@ -32,6 +32,19 @@ function App({ Component, pageProps }) {
 
     const router = useRouter();
 
+    useEffect(() => {
+        try {
+            const params = new URLSearchParams(window.location.search);
+            const token = params.get('token');
+            if (token) {
+                setAuthToken(token);
+                syncMembers(token); // passing token as state of authToken might not be updated
+            }
+        } catch (e) {
+            logError(e, 'failed to set initial query params state');
+        }
+    }, []);
+
     const syncMembers = async (token?: string) => {
         try {
             const res = await getMembers(authToken || token);
@@ -45,7 +58,7 @@ function App({ Component, pageProps }) {
                     }
                 }
             } else {
-                router.push('/');
+                router.replace({ pathname: '/' });
                 setMessage(res.msg);
                 setMessageDialogView(true);
             }
