@@ -8,10 +8,12 @@ import {
     ContentContainer,
     InviteButton,
     ImageContainer,
+    NoMembersInviteLine,
 } from '../components/styledComponents/FamilyMembers';
 import theme from '../theme';
 import constants from '../util/strings/constants';
 import { AppContext } from './_app';
+import FooterPattern from '../components/icons/FooterPattern';
 
 function Members() {
     const {
@@ -94,6 +96,8 @@ function Members() {
                                     width: isLargerDisplay ? '400px' : '300px',
                                     maxWidth: '100%',
                                     objectFit: 'contain',
+                                    background: 'url(/images/ellipse.png)',
+                                    backgroundSize: 'cover',
                                 }}>
                                 <img
                                     src="images/add_family.png"
@@ -142,6 +146,18 @@ function Members() {
                 open={inviteDialogView}
                 setOpen={setInviteDialogView}
             />
+            {members?.length === 1 && isLargerDisplay && (
+                <>
+                    <NoMembersInviteLine>
+                        {constants.INVITE_YOUR_LOVED_ONES}
+                    </NoMembersInviteLine>
+                    <FooterPattern
+                        width={'100%'}
+                        height={'100%'}
+                        viewBox={'0 0 2158 394'}
+                    />
+                </>
+            )}
         </>
     );
 }

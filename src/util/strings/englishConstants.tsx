@@ -12,8 +12,7 @@ const englishConstants = {
     GET_STARTED: 'Get Started',
     INVITE_UPTO: 'You can invite upto',
     FAMILY_MANAGER: 'Family Manager',
-    INVITE_YOUR_LOVED_ONES:
-        'Invite your loved ones to share your storage plan.',
+    INVITE_YOUR_LOVED_ONES: 'Invite your loved ones to share your storage plan',
     BREAKDOWN: 'Breakdown',
     CONGRATULATIONS: 'Congratulations!',
     SUCCESSFULLY_JOINED: 'You have successfully joined',
