@@ -11,7 +11,7 @@ function InviteSent({
     open: boolean;
     setOpen: (open: boolean) => void;
 }) {
-    const { isSmallerDisplay } = useContext(AppContext);
+    const { isLargerDisplay } = useContext(AppContext);
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
         if (e.key === 'Enter') {
@@ -30,10 +30,10 @@ function InviteSent({
                     backgroundColor: 'black',
                     color: 'white',
                 }}>
-                <ImageContainer mq={isSmallerDisplay}>
+                <ImageContainer mq={isLargerDisplay}>
                     <div
                         style={{
-                            width: isSmallerDisplay ? '300px' : '300px',
+                            width: isLargerDisplay ? '300px' : '300px',
                             maxWidth: '100%',
                             objectFit: 'contain',
                         }}>

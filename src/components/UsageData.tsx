@@ -9,7 +9,7 @@ import CustomUsageLabel from './CustomUsageLabel';
 import constants from '../util/strings/constants';
 
 export default function UsageData() {
-    const { isSmallerDisplay, members, totalStorage } = useContext(AppContext);
+    const { isLargerDisplay, members, totalStorage } = useContext(AppContext);
 
     const [data, setData] = useState([]);
     const [usedStorage, setUsedStorage] = useState<number>(0);
@@ -38,8 +38,8 @@ export default function UsageData() {
                 <div
                     style={{
                         fontWeight: 'bold',
-                        fontSize: isSmallerDisplay ? '20px' : '18px',
-                        marginBottom: isSmallerDisplay ? '48px' : '24px',
+                        fontSize: isLargerDisplay ? '20px' : '18px',
+                        marginBottom: isLargerDisplay ? '48px' : '24px',
                     }}>
                     {constants.TOTAL_USAGE}
                 </div>
@@ -53,8 +53,8 @@ export default function UsageData() {
                     }}>
                     <div
                         style={{
-                            marginRight: isSmallerDisplay ? '30px' : '0px',
-                            marginLeft: isSmallerDisplay ? '30px' : '0px',
+                            marginRight: isLargerDisplay ? '30px' : '0px',
+                            marginLeft: isLargerDisplay ? '30px' : '0px',
                         }}>
                         <PieChart width={320} height={320}>
                             <Pie

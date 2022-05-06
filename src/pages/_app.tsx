@@ -19,7 +19,7 @@ export const AppContext = createContext(defaultAppContext);
 const clientSideEmotionCache = createEmotionCache();
 
 function App({ Component, pageProps }) {
-    const isSmallerDisplay = useMediaQuery(theme.breakpoints.up('md'));
+    const isLargerDisplay = useMediaQuery(theme.breakpoints.up('md'));
     const [isLoading, setIsLoading] = useState(false);
     const [inviteDialogView, setInviteDialogView] = useState(false);
     const [messageDialogView, setMessageDialogView] = useState(false);
@@ -100,7 +100,7 @@ function App({ Component, pageProps }) {
             <AppContext.Provider
                 value={{
                     ...defaultAppContext,
-                    isSmallerDisplay,
+                    isLargerDisplay,
                     familyManagerEmail,
                     setFamilyManagerEmail,
                     members,

@@ -5,13 +5,13 @@ import constants from '../util/strings/constants';
 import { UsageEntry } from './UsageEntry';
 
 export function Breakdown() {
-    const { members, isSmallerDisplay } = useContext(AppContext);
+    const { members, isLargerDisplay } = useContext(AppContext);
     return (
         <div
             style={{
                 color: '#848484',
-                width: isSmallerDisplay ? '50%' : '100%',
-                marginLeft: isSmallerDisplay ? '40px' : '0',
+                width: isLargerDisplay ? '50%' : '100%',
+                marginLeft: isLargerDisplay ? '40px' : '0',
             }}>
             <div
                 style={{
@@ -26,13 +26,13 @@ export function Breakdown() {
                 style={{
                     display: 'flex',
                     flexDirection: 'column',
-                    alignItems: isSmallerDisplay ? 'flex-start' : 'center',
+                    alignItems: isLargerDisplay ? 'flex-start' : 'center',
                 }}>
                 {members.map((entry, index) => (
                     <UsageEntry
                         key={index}
                         index={index}
-                        isSmallerDisplay={isSmallerDisplay}
+                        isLargerDisplay={isLargerDisplay}
                         entry={entry}
                         colors={colors}
                     />

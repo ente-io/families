@@ -10,7 +10,7 @@ import InviteSent from './InviteSent';
 import { logError } from '../util/sentry';
 
 function InviteDialog({ open, setOpen }) {
-    const { isSmallerDisplay, authToken, syncMembers } = useContext(AppContext);
+    const { isLargerDisplay, authToken, syncMembers } = useContext(AppContext);
     const [email, setEmail] = useState('');
     const [isError, setIsError] = useState(false);
     const [errorMsg, setErrorMsg] = useState<string | JSX.Element>('');
@@ -68,7 +68,7 @@ function InviteDialog({ open, setOpen }) {
                     style={{
                         backgroundColor: 'black',
                         color: 'white',
-                        width: isSmallerDisplay ? '400px' : '300px',
+                        width: isLargerDisplay ? '400px' : '300px',
                     }}>
                     <DialogContent>
                         <div
@@ -84,10 +84,10 @@ function InviteDialog({ open, setOpen }) {
                                 }}
                             />
                         </div>
-                        <ImageContainer mq={isSmallerDisplay}>
+                        <ImageContainer mq={isLargerDisplay}>
                             <div
                                 style={{
-                                    width: isSmallerDisplay ? '80px' : '50px',
+                                    width: isLargerDisplay ? '80px' : '50px',
                                     maxWidth: '100%',
                                     objectFit: 'contain',
                                 }}>
@@ -161,7 +161,7 @@ function InviteDialog({ open, setOpen }) {
                                 textTransform: 'none',
                                 fontWeight: 'bold',
                                 fontSize: '16px',
-                                width: isSmallerDisplay ? '50%' : '60%',
+                                width: isLargerDisplay ? '50%' : '60%',
                                 marginTop: '20px',
                                 marginBottom: '20px',
                             }}>

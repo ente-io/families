@@ -7,7 +7,7 @@ import constants from '../util/strings/constants';
 import { AppContext } from './_app';
 
 function Invite() {
-    const { isSmallerDisplay, familyManagerEmail, totalStorage } =
+    const { isLargerDisplay, familyManagerEmail, totalStorage } =
         useContext(AppContext);
 
     const handleClick = () => {
@@ -31,12 +31,12 @@ function Invite() {
                     display: 'flex',
                     flexDirection: 'row',
                     alignItems: 'center',
-                    flexWrap: isSmallerDisplay ? 'nowrap' : 'wrap',
+                    flexWrap: isLargerDisplay ? 'nowrap' : 'wrap',
                 }}>
                 <div>
                     <div
                         style={{
-                            marginTop: isSmallerDisplay ? '52px' : '32px',
+                            marginTop: isLargerDisplay ? '52px' : '32px',
                             color: '#a5a5a5',
                             fontSize: '18px',
                         }}>
@@ -89,10 +89,10 @@ function Invite() {
                         {constants.OPEN_ENTE}
                     </Button>
                 </div>
-                <ImageContainer mq={isSmallerDisplay}>
+                <ImageContainer mq={isLargerDisplay}>
                     <div
                         style={{
-                            width: isSmallerDisplay ? '500px' : '400px',
+                            width: isLargerDisplay ? '500px' : '400px',
                             maxWidth: '90vw',
                             objectFit: 'contain',
                         }}>

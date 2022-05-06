@@ -15,7 +15,7 @@ import { AppContext } from './_app';
 
 function Members() {
     const {
-        isSmallerDisplay,
+        isLargerDisplay,
         familyManagerEmail,
         members,
         inviteDialogView,
@@ -27,19 +27,17 @@ function Members() {
                 container
                 spacing={0}
                 style={{
-                    marginTop: isSmallerDisplay ? '72px' : '40px',
+                    marginTop: isLargerDisplay ? '72px' : '40px',
                 }}>
                 <Grid item xs={12} md={6}>
-                    <ContentContainer mq={isSmallerDisplay ? true : undefined}>
+                    <ContentContainer mq={isLargerDisplay ? true : undefined}>
                         <div>
                             <div
                                 style={{
-                                    fontSize: isSmallerDisplay
-                                        ? '48px'
-                                        : '32px',
+                                    fontSize: isLargerDisplay ? '48px' : '32px',
                                     marginBottom: '16px',
                                     fontWeight: 700,
-                                    lineHeight: isSmallerDisplay
+                                    lineHeight: isLargerDisplay
                                         ? '52px'
                                         : '36px',
                                 }}>
@@ -49,13 +47,11 @@ function Members() {
                             </div>
                             <div
                                 style={{
-                                    fontSize: isSmallerDisplay
-                                        ? '20px'
-                                        : '16px',
-                                    lineHeight: isSmallerDisplay
+                                    fontSize: isLargerDisplay ? '20px' : '16px',
+                                    lineHeight: isLargerDisplay
                                         ? '30px'
                                         : '24px',
-                                    marginBottom: isSmallerDisplay
+                                    marginBottom: isLargerDisplay
                                         ? '60px'
                                         : '30px',
                                     color: theme.palette.lightgray.main,
@@ -65,9 +61,7 @@ function Members() {
                             </div>
                             <div
                                 style={{
-                                    fontSize: isSmallerDisplay
-                                        ? '16px'
-                                        : '12px',
+                                    fontSize: isLargerDisplay ? '16px' : '12px',
                                     color: theme.palette.primary.main,
                                     marginBottom: '8px',
                                 }}>
@@ -75,17 +69,15 @@ function Members() {
                             </div>
                             <div
                                 style={{
-                                    fontSize: isSmallerDisplay
-                                        ? '24px'
-                                        : '16px',
+                                    fontSize: isLargerDisplay ? '24px' : '16px',
                                 }}>
                                 {familyManagerEmail}
                             </div>
-                            {isSmallerDisplay && members.length === 1 && (
+                            {isLargerDisplay && members.length === 1 && (
                                 <InviteButton
                                     variant="contained"
                                     onClick={() => setInviteDialogView(true)}
-                                    mq={isSmallerDisplay}>
+                                    mq={isLargerDisplay}>
                                     <BsPlusLg style={{ marginRight: '10px' }} />
                                     <b> Invite Member</b>
                                 </InviteButton>
@@ -93,13 +85,13 @@ function Members() {
                         </div>
                     </ContentContainer>
                 </Grid>
-                {(isSmallerDisplay || members.length === 1) && (
+                {(isLargerDisplay || members.length === 1) && (
                     <Grid item xs={12} md={6}>
-                        <ImageContainer mq={isSmallerDisplay}>
+                        <ImageContainer mq={isLargerDisplay}>
                             <div
                                 style={{
                                     marginTop: '40px',
-                                    width: isSmallerDisplay ? '400px' : '300px',
+                                    width: isLargerDisplay ? '400px' : '300px',
                                     maxWidth: '100%',
                                     objectFit: 'contain',
                                 }}>
@@ -111,7 +103,7 @@ function Members() {
                         </ImageContainer>
                     </Grid>
                 )}
-                {!isSmallerDisplay && members.length === 1 && (
+                {!isLargerDisplay && members.length === 1 && (
                     <Container
                         maxWidth={'lg'}
                         sx={{
@@ -120,7 +112,7 @@ function Members() {
                         <InviteButton
                             variant="contained"
                             onClick={() => setInviteDialogView(true)}
-                            mq={isSmallerDisplay}>
+                            mq={isLargerDisplay}>
                             <b>Invite</b>
                         </InviteButton>
                         <div

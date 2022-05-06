@@ -2,7 +2,7 @@ import React from 'react';
 import { FaCircle } from 'react-icons/fa';
 import { convertBytesToHumanReadable } from '../util/common';
 
-export function UsageEntry({ colors, index, isSmallerDisplay, entry }) {
+export function UsageEntry({ colors, index, isLargerDisplay, entry }) {
     return (
         <div
             style={{
@@ -11,7 +11,7 @@ export function UsageEntry({ colors, index, isSmallerDisplay, entry }) {
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 marginBottom: '16px',
-                width: isSmallerDisplay ? '80%' : '90%',
+                width: isLargerDisplay ? '80%' : '90%',
             }}>
             <div
                 style={{
@@ -22,7 +22,7 @@ export function UsageEntry({ colors, index, isSmallerDisplay, entry }) {
                 <FaCircle color={colors[index % colors.length]} />
                 <div
                     style={{
-                        fontSize: isSmallerDisplay ? '16px' : '12px',
+                        fontSize: isLargerDisplay ? '16px' : '12px',
                         marginLeft: '10px',
                     }}>
                     {entry.email}
@@ -31,7 +31,7 @@ export function UsageEntry({ colors, index, isSmallerDisplay, entry }) {
             <div
                 style={{
                     color: '#fff',
-                    fontSize: isSmallerDisplay ? '16px' : '12px',
+                    fontSize: isLargerDisplay ? '16px' : '12px',
                 }}>
                 {convertBytesToHumanReadable(entry.usage)}
             </div>

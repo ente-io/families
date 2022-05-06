@@ -1,5 +1,5 @@
 export interface AppContextType {
-    isSmallerDisplay: boolean;
+    isLargerDisplay: boolean;
     isUserAdmin: boolean;
     members: Member[];
     setMembers: (members: Member[]) => void;
@@ -52,7 +52,7 @@ export const defaultActionDialogOptions: ActionDialogOptions = {
 };
 
 export const defaultAppContext: AppContextType = {
-    isSmallerDisplay: false,
+    isLargerDisplay: false,
     isUserAdmin: false,
     members: [],
     setMembers: () => {},

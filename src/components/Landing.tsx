@@ -13,7 +13,7 @@ import {
 
 function Landing({ setPageToMembers }: { setPageToMembers: () => void }) {
     const {
-        isSmallerDisplay,
+        isLargerDisplay,
         setMessageDialogView,
         setMessage,
         authToken,
@@ -48,19 +48,17 @@ function Landing({ setPageToMembers }: { setPageToMembers: () => void }) {
                 container
                 spacing={0}
                 style={{
-                    marginTop: isSmallerDisplay ? '72px' : '40px',
+                    marginTop: isLargerDisplay ? '72px' : '40px',
                 }}>
                 <Grid item xs={12} md={6}>
-                    <ContentContainer mq={isSmallerDisplay ? true : undefined}>
+                    <ContentContainer mq={isLargerDisplay ? true : undefined}>
                         <div>
                             <div
                                 style={{
-                                    fontSize: isSmallerDisplay
-                                        ? '48px'
-                                        : '32px',
+                                    fontSize: isLargerDisplay ? '48px' : '32px',
                                     marginBottom: '16px',
                                     fontWeight: 700,
-                                    lineHeight: isSmallerDisplay
+                                    lineHeight: isLargerDisplay
                                         ? '52px'
                                         : '36px',
                                 }}>
@@ -70,10 +68,8 @@ function Landing({ setPageToMembers }: { setPageToMembers: () => void }) {
                             </div>
                             <div
                                 style={{
-                                    fontSize: isSmallerDisplay
-                                        ? '20px'
-                                        : '16px',
-                                    lineHeight: isSmallerDisplay
+                                    fontSize: isLargerDisplay ? '20px' : '16px',
+                                    lineHeight: isLargerDisplay
                                         ? '30px'
                                         : '24px',
                                     marginBottom: '16px',
@@ -91,10 +87,10 @@ function Landing({ setPageToMembers }: { setPageToMembers: () => void }) {
                                 {constants.EACH_MEMBER_GETS_OWN_SPACE}
                                 <br />
                             </div>
-                            {isSmallerDisplay && (
+                            {isLargerDisplay && (
                                 <GetStartedButton
                                     variant="contained"
-                                    mq={isSmallerDisplay ? true : undefined}
+                                    mq={isLargerDisplay ? true : undefined}
                                     onClick={onGetStartedClick}>
                                     <b>{constants.GET_STARTED}</b>
                                 </GetStartedButton>
@@ -103,10 +99,10 @@ function Landing({ setPageToMembers }: { setPageToMembers: () => void }) {
                     </ContentContainer>
                 </Grid>
                 <Grid item xs={12} md={6}>
-                    <ImageContainer mq={isSmallerDisplay ? true : undefined}>
+                    <ImageContainer mq={isLargerDisplay ? true : undefined}>
                         <div
                             style={{
-                                width: isSmallerDisplay ? '500px' : '400px',
+                                width: isLargerDisplay ? '500px' : '400px',
                                 maxWidth: '100%',
                                 objectFit: 'contain',
                             }}>
@@ -118,7 +114,7 @@ function Landing({ setPageToMembers }: { setPageToMembers: () => void }) {
                     </ImageContainer>
                 </Grid>
             </Grid>
-            {!isSmallerDisplay && (
+            {!isLargerDisplay && (
                 <Container
                     maxWidth={'lg'}
                     sx={{
@@ -126,7 +122,7 @@ function Landing({ setPageToMembers }: { setPageToMembers: () => void }) {
                     }}>
                     <GetStartedButton
                         variant="contained"
-                        mq={isSmallerDisplay ? true : undefined}
+                        mq={isLargerDisplay ? true : undefined}
                         onClick={onGetStartedClick}>
                         <b>{constants.GET_STARTED}</b>
                     </GetStartedButton>

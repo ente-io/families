@@ -9,7 +9,7 @@ import { MAX_FAMILY_MEMBERS } from '../util/constants';
 import constants from '../util/strings/constants';
 
 export function MembersContainer() {
-    const { isSmallerDisplay, members, setInviteDialogView } =
+    const { isLargerDisplay, members, setInviteDialogView } =
         useContext(AppContext);
 
     return (
@@ -36,7 +36,7 @@ export function MembersContainer() {
                         justifyContent: 'space-between',
                         width: '90%',
                         marginBottom: '24px',
-                        marginTop: isSmallerDisplay ? '48px' : '24px',
+                        marginTop: isLargerDisplay ? '48px' : '24px',
                     }}>
                     <div
                         style={{
@@ -50,7 +50,7 @@ export function MembersContainer() {
                                 <PersonIconContainer
                                     fill={theme.palette.primary.main}
                                     key={index}
-                                    mq={isSmallerDisplay}
+                                    mq={isLargerDisplay}
                                 />
                             );
                         })}
@@ -59,7 +59,7 @@ export function MembersContainer() {
                                 return (
                                     <PersonIconContainer
                                         key={index}
-                                        mq={isSmallerDisplay}
+                                        mq={isLargerDisplay}
                                     />
                                 );
                             }
@@ -79,7 +79,7 @@ export function MembersContainer() {
                 <MembersList />
                 <div
                     style={{
-                        marginBottom: isSmallerDisplay ? '48px' : '32px',
+                        marginBottom: isLargerDisplay ? '48px' : '32px',
                     }}></div>
             </div>
         </Container>

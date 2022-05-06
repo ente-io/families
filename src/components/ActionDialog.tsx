@@ -19,7 +19,7 @@ function ActionDialog({
     setOpen: (open: boolean) => void;
     options: ActionDialogOptions;
 }) {
-    const { isSmallerDisplay } = useContext(AppContext);
+    const { isLargerDisplay } = useContext(AppContext);
 
     const handleClose = (_, reason) => {
         if (reason === 'escapeKeyDown' || reason === 'backdropClick') {
@@ -71,8 +71,8 @@ function ActionDialog({
                     <div
                         style={{
                             display: 'flex',
-                            flexDirection: isSmallerDisplay ? 'row' : 'column',
-                            alignItems: isSmallerDisplay ? 'auto' : 'center',
+                            flexDirection: isLargerDisplay ? 'row' : 'column',
+                            alignItems: isLargerDisplay ? 'auto' : 'center',
                             justifyContent: 'flex-end',
                         }}>
                         {options.warningText && (
@@ -81,12 +81,12 @@ function ActionDialog({
                                 color="warning"
                                 onClick={options.onWarningClick}
                                 style={{
-                                    marginRight: isSmallerDisplay
+                                    marginRight: isLargerDisplay
                                         ? '20px'
                                         : '0px',
                                     textTransform: 'none',
-                                    width: isSmallerDisplay ? 'auto' : '90%',
-                                    marginBottom: isSmallerDisplay
+                                    width: isLargerDisplay ? 'auto' : '90%',
+                                    marginBottom: isLargerDisplay
                                         ? '0px'
                                         : '12px',
                                 }}>
@@ -98,8 +98,8 @@ function ActionDialog({
                             onClick={options.onDefaultClick}
                             style={{
                                 textTransform: 'none',
-                                width: isSmallerDisplay ? 'auto' : '90%',
-                                marginRight: isSmallerDisplay ? '24px' : '0px',
+                                width: isLargerDisplay ? 'auto' : '90%',
+                                marginRight: isLargerDisplay ? '24px' : '0px',
                             }}>
                             {options.defaultText}
                         </Button>

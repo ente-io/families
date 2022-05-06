@@ -4,19 +4,19 @@ import { AppContext } from '../pages/_app';
 import { LogoImage } from './styledComponents/Navbar';
 
 function Navbar() {
-    const { isSmallerDisplay } = useContext(AppContext);
+    const { isLargerDisplay } = useContext(AppContext);
 
     return (
         <>
-            {isSmallerDisplay && (
+            {isLargerDisplay && (
                 <Container
                     maxWidth={'xl'}
                     sx={{
-                        textAlign: isSmallerDisplay ? 'start' : 'center',
+                        textAlign: isLargerDisplay ? 'start' : 'center',
                     }}>
                     <div
                         style={{
-                            marginLeft: isSmallerDisplay ? '2vw' : '0vw',
+                            marginLeft: isLargerDisplay ? '2vw' : '0vw',
                         }}>
                         <LogoImage alt="logo" src="./icon.svg" />
                     </div>
