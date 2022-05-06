@@ -3,12 +3,13 @@ import React, { useContext } from 'react';
 import { BsTrash as TrashIcon } from 'react-icons/bs';
 import { IoReload as ResendIcon } from 'react-icons/io5';
 import { AppContext } from '../pages/_app';
-import { Member } from "../types";
+import { Member } from '../types';
 import {
     removeMemberOptions,
     resendInviteOptions,
     revokeInviteOptions,
 } from '../util/options/ActionDialogOptionsUtils';
+import { logError } from '../util/sentry';
 
 const StatusMap = {
     SELF: 'Admin',
@@ -39,42 +40,54 @@ export function MembersList() {
     } = useContext(AppContext);
 
     const handleResendInvite = (member: Member) => {
-        setActionDialogOptions(
-            resendInviteOptions(
-                member,
-                authToken,
-                setActionDialogView,
-                setMessage,
-                setMessageDialogView
-            )
-        );
-        setActionDialogView(true);
+        try {
+            setActionDialogOptions(
+                resendInviteOptions(
+                    member,
+                    authToken,
+                    setActionDialogView,
+                    setMessage,
+                    setMessageDialogView
+                )
+            );
+            setActionDialogView(true);
+        } catch (e) {
+            logError(e, 'failed to resend invite');
+        }
     };
 
     const handleRevokeInvite = (member: Member) => {
-        setActionDialogOptions(
-            revokeInviteOptions(
-                member,
-                authToken,
-                setActionDialogView,
-                setMessage,
-                setMessageDialogView,
-                syncMembers
-            )
-        );
+        try {
+            setActionDialogOptions(
+                revokeInviteOptions(
+                    member,
+                    authToken,
+                    setActionDialogView,
+                    setMessage,
+                    setMessageDialogView,
+                    syncMembers
+                )
+            );
+        } catch (e) {
+            logError(e, 'failed to revoke invite');
+        }
     };
 
     const handleRemoveMember = (member: Member) => {
-        setActionDialogOptions(
-            removeMemberOptions(
-                member,
-                authToken,
-                setActionDialogView,
-                setMessage,
-                setMessageDialogView,
-                syncMembers
-            )
-        );
+        try {
+            setActionDialogOptions(
+                removeMemberOptions(
+                    member,
+                    authToken,
+                    setActionDialogView,
+                    setMessage,
+                    setMessageDialogView,
+                    syncMembers
+                )
+            );
+        } catch (e) {
+            logError(e, 'failed to remove member');
+        }
     };
 
     const handleTrashClick = (member: Member) => {

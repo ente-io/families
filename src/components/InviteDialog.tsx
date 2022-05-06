@@ -7,6 +7,7 @@ import theme from '../theme';
 import constants from '../util/strings/constants';
 import { ImageContainer, TextContainer } from './styledComponents/InviteDialog';
 import InviteSent from './InviteSent';
+import { logError } from '../util/sentry';
 
 function InviteDialog({ open, setOpen }) {
     const { isSmallerDisplay, authToken, syncMembers } = useContext(AppContext);
@@ -16,26 +17,30 @@ function InviteDialog({ open, setOpen }) {
     const [isInviteSent, setIsInviteSent] = useState(false);
 
     const handleInviteClick = async () => {
-        if (email.length === 0) {
-            return;
-        }
+        try {
+            if (email.length === 0) {
+                return;
+            }
 
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!re.test(email)) {
-            setIsError(true);
-            setErrorMsg(constants.ENTER_VALID_EMAIL);
-            return;
-        }
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!re.test(email)) {
+                setIsError(true);
+                setErrorMsg(constants.ENTER_VALID_EMAIL);
+                return;
+            }
 
-        const res = await inviteMember(authToken, email);
-        if (res.success) {
-            setOpen(false);
-            setIsInviteSent(true);
-            syncMembers();
-            setEmail('');
-        } else {
-            setIsError(true);
-            setErrorMsg(res.msg);
+            const res = await inviteMember(authToken, email);
+            if (res.success) {
+                setOpen(false);
+                setIsInviteSent(true);
+                syncMembers();
+                setEmail('');
+            } else {
+                setIsError(true);
+                setErrorMsg(res.msg);
+            }
+        } catch (e) {
+            logError(e, 'failed to invite member');
         }
     };
 

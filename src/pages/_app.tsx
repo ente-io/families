@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 import { getMembers } from '../services/APIService';
 import { defaultActionDialogOptions, defaultAppContext } from '../types';
 import constants from '../util/strings/constants';
+import { logError } from '../util/sentry';
 
 export const AppContext = createContext(defaultAppContext);
 
@@ -32,20 +33,24 @@ function App({ Component, pageProps }) {
     const router = useRouter();
 
     const syncMembers = async (token?: string) => {
-        const res = await getMembers(authToken || token);
-        if (res.success) {
-            setMembers(res.data.members);
-            setTotalStorage(res.data.storage);
-            for (const member of res.data.members) {
-                if (member.isAdmin) {
-                    setFamilyManagerEmail(member.email);
-                    break;
+        try {
+            const res = await getMembers(authToken || token);
+            if (res.success) {
+                setMembers(res.data.members);
+                setTotalStorage(res.data.storage);
+                for (const member of res.data.members) {
+                    if (member.isAdmin) {
+                        setFamilyManagerEmail(member.email);
+                        break;
+                    }
                 }
+            } else {
+                router.push('/');
+                setMessage(res.msg);
+                setMessageDialogView(true);
             }
-        } else {
-            router.push('/');
-            setMessage(res.msg);
-            setMessageDialogView(true);
+        } catch (e) {
+            logError(e, 'failed to sync members');
         }
     };
 

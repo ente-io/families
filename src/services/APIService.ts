@@ -1,5 +1,6 @@
 import UserNotFoundMessage from '../components/utils/UserNotFoundMessage';
 import { Member } from '../types';
+import { logError } from '../util/sentry';
 import constants from '../util/strings/constants';
 import HTTPService from './HTTPService';
 
@@ -44,6 +45,7 @@ export async function createFamily(authToken: string): Promise<{
             };
         }
     } catch (e) {
+        logError(e, 'createFamily failed');
         return {
             success: false,
             msg: constants.SORRY_SOMETHING_WENT_WRONG,
@@ -81,6 +83,7 @@ export async function acceptInvite(inviteToken: string): Promise<{
             msg: message,
         };
     } catch (e) {
+        logError(e, 'acceptInvite failed');
         return {
             success: false,
             msg: constants.SORRY_SOMETHING_WENT_WRONG,
@@ -116,6 +119,7 @@ export async function getMembers(authToken: string): Promise<{
             msg: constants.SORRY_SOMETHING_WENT_WRONG,
         };
     } catch (e) {
+        logError(e, 'getMembers failed');
         return {
             success: false,
             msg: constants.SORRY_SOMETHING_WENT_WRONG,
@@ -159,6 +163,7 @@ export async function inviteMember(
             msg: constants.OOPS_SOMETHING_WENT_WRONG,
         };
     } catch (e) {
+        logError(e, 'inviteMember failed');
         return {
             success: false,
             msg: constants.OOPS_SOMETHING_WENT_WRONG,
@@ -194,6 +199,7 @@ export async function revokeInvite(
             msg: constants.SORRY_SOMETHING_WENT_WRONG,
         };
     } catch (e) {
+        logError(e, 'revokeInvite failed');
         return {
             success: false,
             msg: constants.SORRY_SOMETHING_WENT_WRONG,
@@ -229,6 +235,7 @@ export async function removeMember(
             msg: constants.SORRY_SOMETHING_WENT_WRONG,
         };
     } catch (e) {
+        logError(e, 'removeMember failed');
         return {
             success: false,
             msg: constants.SORRY_SOMETHING_WENT_WRONG,

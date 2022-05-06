@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import { AppContext } from '../pages/_app';
 import { createFamily, getWebEndpoint } from '../services/APIService';
 import theme from '../theme';
+import { logError } from '../util/sentry';
 import constants from '../util/strings/constants';
 import {
     ContentContainer,
@@ -17,23 +18,27 @@ function Landing({ setPageToMembers }: { setPageToMembers: () => void }) {
         setMessage,
         authToken,
         setIsLoading,
-        syncMembers
+        syncMembers,
     } = useContext(AppContext);
 
     const onGetStartedClick = async () => {
-        if (authToken) {
-            setIsLoading(true);
-            const res = await createFamily(authToken);
-            setIsLoading(false);
-            if (res.success) {
-                setPageToMembers();
-                syncMembers();
+        try {
+            if (authToken) {
+                setIsLoading(true);
+                const res = await createFamily(authToken);
+                setIsLoading(false);
+                if (res.success) {
+                    setPageToMembers();
+                    syncMembers();
+                } else {
+                    setMessageDialogView(true);
+                    setMessage(res.msg);
+                }
             } else {
-                setMessageDialogView(true);
-                setMessage(res.msg);
+                window.location.href = getWebEndpoint() + '?redirect=families';
             }
-        } else {
-            window.location.href = getWebEndpoint() + '?redirect=families';
+        } catch (e) {
+            logError(e, 'getStarted click failed');
         }
     };
 
