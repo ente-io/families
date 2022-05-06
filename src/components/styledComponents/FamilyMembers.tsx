@@ -6,9 +6,23 @@ import PersonIcon from '../icons/PersonIcon';
 export const ImageContainer = styled('div')<{ mq: boolean }>(({ mq }) => ({
     display: 'flex',
     flexDirection: 'column',
-    alignItems: mq ? 'flex-start' : 'center',
+    alignItems: 'center',
     justifyContent: 'center',
+    maxWidth: mq ? 'min(100%, 500px)' : '100%',
 }));
+
+export const BgImageContainer = styled('div')<{ mq: boolean }>(({ mq }) => ({
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    background: 'url(/images/ellipse.png)',
+    backgroundSize: 'contain',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    width: mq ? '500px' : '300px',
+    maxWidth: '100%',
+}));
+
 export const InviteButton = styled(Button)<{ mq: boolean }>(({ mq }) => ({
     width: mq ? '70%' : '250px',
     maxWidth: '100%',
@@ -17,6 +31,7 @@ export const InviteButton = styled(Button)<{ mq: boolean }>(({ mq }) => ({
     marginTop: mq ? '64px' : '0px',
     marginBottom: '32px',
 }));
+
 export const ContentContainer = styled('div')<{ mq: boolean }>(({ mq }) => ({
     fontSize: mq ? '32px' : '16px',
     lineHeight: '20px',

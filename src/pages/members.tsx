@@ -9,6 +9,7 @@ import {
     InviteButton,
     ImageContainer,
     NoMembersInviteLine,
+    BgImageContainer,
 } from '../components/styledComponents/FamilyMembers';
 import theme from '../theme';
 import constants from '../util/strings/constants';
@@ -90,20 +91,22 @@ function Members() {
                 {(isLargerDisplay || members.length === 1) && (
                     <Grid item xs={12} md={6}>
                         <ImageContainer mq={isLargerDisplay}>
-                            <div
-                                style={{
-                                    marginTop: '40px',
-                                    width: isLargerDisplay ? '400px' : '300px',
-                                    maxWidth: '100%',
-                                    objectFit: 'contain',
-                                    background: 'url(/images/ellipse.png)',
-                                    backgroundSize: 'cover',
-                                }}>
-                                <img
-                                    src="images/add_family.png"
-                                    height={'100%'}
-                                    width={'100%'}></img>
-                            </div>
+                            <BgImageContainer mq={isLargerDisplay}>
+                                <div
+                                    style={{
+                                        marginTop: '40px',
+                                        width: isLargerDisplay
+                                            ? '400px'
+                                            : '300px',
+                                        maxWidth: '100%',
+                                        objectFit: 'contain',
+                                    }}>
+                                    <img
+                                        src="images/add_family.png"
+                                        height={'100%'}
+                                        width={'100%'}></img>
+                                </div>
+                            </BgImageContainer>
                         </ImageContainer>
                     </Grid>
                 )}
