@@ -12,8 +12,11 @@ import { getMembers } from '../services/APIService';
 import { defaultActionDialogOptions, defaultAppContext } from '../types';
 import constants from '../util/strings/constants';
 import { logError } from '../util/sentry';
+import createEmotionCache from '../util/createEmotionCache';
+import { CacheProvider } from '@emotion/react';
 
 export const AppContext = createContext(defaultAppContext);
+const clientSideEmotionCache = createEmotionCache();
 
 function App({ Component, pageProps }) {
     const isSmallerDisplay = useMediaQuery(theme.breakpoints.up('md'));
@@ -86,7 +89,7 @@ function App({ Component, pageProps }) {
     }, [router]);
 
     return (
-        <>
+        <CacheProvider value={clientSideEmotionCache}>
             <Head>
                 <title>{constants.FAMILY_TITLE}</title>
                 <meta
@@ -141,7 +144,7 @@ function App({ Component, pageProps }) {
                     />
                 </ThemeProvider>
             </AppContext.Provider>
-        </>
+        </CacheProvider>
     );
 }
 
