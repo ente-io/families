@@ -1,8 +1,10 @@
 import React from 'react';
 
 export default function FooterPatternIcon(props) {
+    const id = Math.floor(Math.random() * 1e6);
     return (
         <svg
+            id={id.toString()}
             width={props.width}
             height={props.height}
             viewBox={props.viewBox}
@@ -10,10 +12,11 @@ export default function FooterPatternIcon(props) {
             xmlns="http://www.w3.org/2000/svg">
             <defs>
                 <pattern
-                    id="footerPattern"
+                    id={'footerPattern' + id.toString()}
                     patternUnits="userSpaceOnUse"
                     width="1079"
-                    height="197">
+                    height="197"
+                    x={props.x}>
                     <g clip-path="url(#clip0_825_8311)">
                         <path
                             d="M691.884 11.108C695.251 10.3577 698.443 11.0901 700.624 13.1051C702.219 14.592 703.936 17.3459 703.555 22.3207C705.635 21.9895 709.753 21.6865 712.967 23.7136C715.139 25.0957 716.515 27.2749 717.035 30.2297C717.776 34.3203 716.461 38.5769 713.46 41.9038C710.02 45.7011 702.914 49.9929 688.543 48.9096L688.155 48.8719L687.91 48.5795C687.755 48.4081 684.129 44.1347 681.89 37.9545C678.861 29.6806 679.832 22.0039 684.691 15.7502C686.518 13.3731 689.06 11.7281 691.884 11.108ZM683.598 37.2591C685.4 42.2431 688.238 46.0152 689.07 47.0713C699.516 47.7982 707.665 45.5079 712.057 40.6424C714.671 37.7493 715.811 34.0614 715.187 30.5305C714.786 28.3711 713.891 26.7187 712.449 25.6099C712.301 25.4965 712.137 25.3705 711.977 25.2735C708.279 22.9264 702.774 24.3545 702.716 24.3621L701.363 24.7307L701.562 23.3187C702.121 19.3675 701.364 16.2817 699.367 14.4343C697.653 12.8302 695.059 12.2703 692.293 12.8828C689.9 13.4171 687.725 14.8224 686.163 16.8552C681.644 22.6663 680.786 29.5172 683.598 37.2591Z"
@@ -1188,7 +1191,11 @@ export default function FooterPatternIcon(props) {
                     </defs>
                 </pattern>
             </defs>
-            <rect width="100%" height="100%" fill="url(#footerPattern)" />
+            <rect
+                width="100%"
+                height="100%"
+                fill={'url(#footerPattern' + id.toString() + ')'}
+            />
         </svg>
     );
 }
@@ -1197,4 +1204,5 @@ FooterPatternIcon.defaultProps = {
     height: 197,
     width: 1079,
     viewBox: '0 0 1079 197',
+    x: 0,
 };
