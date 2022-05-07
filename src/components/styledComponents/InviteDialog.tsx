@@ -9,8 +9,13 @@ export const ImageContainer = styled('div')<{ mq: boolean; }>(({ mq }) => ({
     marginBottom: '-16px',
 }));
 export const TextContainer = styled('div')(() => ({
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    textAlign: 'center',
     marginTop: '2px',
     marginBottom: '2px',
     color: '#9f9f9f',
     fontSize: '12px',
+    width: '90%',
 }));

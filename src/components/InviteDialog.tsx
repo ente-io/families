@@ -68,7 +68,7 @@ function InviteDialog({ open, setOpen }) {
                     style={{
                         backgroundColor: 'black',
                         color: 'white',
-                        width: isLargerDisplay ? '400px' : '300px',
+                        width: '300px',
                     }}>
                     <DialogContent>
                         <div
@@ -169,9 +169,8 @@ function InviteDialog({ open, setOpen }) {
                             {constants.INVITE}
                         </Button>
                         <TextContainer>
-                            {constants.INVITED_MEMBER_SHARE_PLAN}
+                            {constants.INVITE_MEMBER_DIALOG_COPY}
                         </TextContainer>
-                        <TextContainer>{constants.PRIVATE_SPACE}</TextContainer>
                     </div>
                 </div>
             </Dialog>
