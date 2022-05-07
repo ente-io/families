@@ -8,8 +8,8 @@ import { AppContext } from './_app';
 import { useRouter } from 'next/router';
 import { logError } from '../util/sentry';
 import { Grid, Container } from '@mui/material';
-import { ImageContainer } from '../components/styledComponents/InviteDialog';
 import {
+    ImageContainer,
     ContentContainer,
     GetStartedButton,
 } from '../components/styledComponents/Landing';
