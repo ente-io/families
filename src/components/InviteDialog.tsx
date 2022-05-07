@@ -168,10 +168,10 @@ function InviteDialog({ open, setOpen }) {
                             }}>
                             {constants.INVITE}
                         </Button>
-                        <TextContainer>{constants.PRIVATE_SPACE}</TextContainer>
                         <TextContainer>
-                            {constants.DATA_NOT_SHARED}
+                            {constants.INVITED_MEMBER_SHARE_PLAN}
                         </TextContainer>
+                        <TextContainer>{constants.PRIVATE_SPACE}</TextContainer>
                     </div>
                 </div>
             </Dialog>
