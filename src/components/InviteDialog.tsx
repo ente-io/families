@@ -128,6 +128,7 @@ function InviteDialog({ open, setOpen }) {
                                 }}
                                 onChange={handleTextChange}
                                 onKeyDown={handleKeyPress}
+                                autoComplete="off"
                                 sx={{
                                     input: {
                                         backgroundColor: '#e4e4e4',

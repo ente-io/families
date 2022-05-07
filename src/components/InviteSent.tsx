@@ -33,7 +33,8 @@ function InviteSent({
                 <ImageContainer mq={isLargerDisplay}>
                     <div
                         style={{
-                            width: isLargerDisplay ? '300px' : '300px',
+                            height: 'min(300px, 100vw)',
+                            width: '300px',
                             maxWidth: '100%',
                             objectFit: 'contain',
                         }}>
