@@ -14,7 +14,8 @@ import {
 import theme from '../theme';
 import constants from '../util/strings/constants';
 import { AppContext } from './_app';
-import FooterPattern from '../components/icons/FooterPattern';
+import FooterPatternIcon from '../components/icons/FooterPatternIcon';
+import FooterPattern from '../components/FooterPattern';
 
 function Members() {
     const {
@@ -154,11 +155,7 @@ function Members() {
                     <NoMembersInviteLine>
                         {constants.INVITE_YOUR_LOVED_ONES}
                     </NoMembersInviteLine>
-                    <FooterPattern
-                        width={'100%'}
-                        height={'100%'}
-                        viewBox={'0 0 2158 394'}
-                    />
+                    <FooterPattern />
                 </>
             )}
         </>

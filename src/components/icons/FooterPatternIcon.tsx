@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function FooterPattern(props) {
+export default function FooterPatternIcon(props) {
     return (
         <svg
             width={props.width}
@@ -1193,7 +1193,7 @@ export default function FooterPattern(props) {
     );
 }
 
-FooterPattern.defaultProps = {
+FooterPatternIcon.defaultProps = {
     height: 197,
     width: 1079,
     viewBox: '0 0 1079 197',
