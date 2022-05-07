@@ -1,5 +1,5 @@
 import { DialogContent, Button, Dialog, TextField } from '@mui/material';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useRef } from 'react';
 import { IoMdClose } from 'react-icons/io';
 import { AppContext } from '../pages/_app';
 import { inviteMember } from '../services/APIService';
@@ -15,6 +15,7 @@ function InviteDialog({ open, setOpen }) {
     const [isError, setIsError] = useState(false);
     const [errorMsg, setErrorMsg] = useState<string | JSX.Element>('');
     const [isInviteSent, setIsInviteSent] = useState(false);
+    const inputEmailRef = useRef<HTMLInputElement>(null);
 
     const handleInviteClick = async () => {
         try {
@@ -22,8 +23,7 @@ function InviteDialog({ open, setOpen }) {
                 return;
             }
 
-            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!re.test(email)) {
+            if (!inputEmailRef.current.checkValidity()) {
                 setIsError(true);
                 setErrorMsg(constants.ENTER_VALID_EMAIL);
                 return;
@@ -114,6 +114,7 @@ function InviteDialog({ open, setOpen }) {
                                 width: '90%',
                             }}>
                             <TextField
+                                type={'email'}
                                 error={isError}
                                 hiddenLabel
                                 placeholder="member@family.com"
@@ -128,6 +129,7 @@ function InviteDialog({ open, setOpen }) {
                                 }}
                                 onChange={handleTextChange}
                                 onKeyDown={handleKeyPress}
+                                inputRef={inputEmailRef}
                                 sx={{
                                     input: {
                                         backgroundColor: '#e4e4e4',
