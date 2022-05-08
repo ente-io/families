@@ -157,6 +157,11 @@ export async function inviteMember(
                 success: false,
                 msg: constants.REACHED_MAX_FAMILY_SIZE,
             };
+        } else if (res.status === 406) {
+            return {
+                success: false,
+                msg: constants.USER_ALREADY_IN_FAMILY,
+            };
         }
         return {
             success: false,
