@@ -45,9 +45,10 @@ function Home() {
             if (inviteToken) {
                 handleAcceptInvite(inviteToken);
             }
-            setIsReady(true);
         } catch (e) {
             logError(e, 'failed to set initial query params state');
+        } finally {
+            setIsReady(true);
         }
     }, []);
 
