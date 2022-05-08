@@ -108,8 +108,9 @@ export function MembersList() {
                             <div
                                 style={{
                                     fontSize: isLargerDisplay ? '16px' : '12px',
-                                    color: '#7d7d7d',
+                                    color: '#848484',
                                     fontWeight: 'bold',
+                                    letterSpacing: '0.4px',
                                     marginBottom: '4px',
                                 }}>
                                 {StatusMap[member.status]}
@@ -173,8 +174,8 @@ export function MembersList() {
                             {index !== members.length - 1 && (
                                 <div
                                     style={{
-                                        height: '2px',
-                                        backgroundColor: '#7d7d7d',
+                                        height: '1px',
+                                        backgroundColor: '#7D7D7D',
                                         marginBottom: '16px',
                                     }}></div>
                             )}
