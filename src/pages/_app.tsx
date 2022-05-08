@@ -130,7 +130,7 @@ function App({ Component, pageProps }) {
                     {isLoading ? (
                         <CenteredContainer
                             style={{ width: '60px', height: '60px' }}>
-                            <CircularProgress color="primary" size={60} />
+                            <CircularProgress color="primary" size={40} />
                         </CenteredContainer>
                     ) : (
                         <Component {...pageProps} />

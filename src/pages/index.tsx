@@ -1,4 +1,4 @@
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import {
     acceptInvite,
     createFamily,
@@ -7,7 +7,7 @@ import {
 import { AppContext } from './_app';
 import { useRouter } from 'next/router';
 import { logError } from '../util/sentry';
-import { Grid, Container } from '@mui/material';
+import { Grid, Container, CircularProgress } from '@mui/material';
 import {
     ImageContainer,
     ContentContainer,
@@ -15,6 +15,7 @@ import {
 } from '../components/styledComponents/Landing';
 import theme from '../theme';
 import constants from '../util/strings/constants';
+import { CenteredContainer } from '../components/styledComponents/Utils';
 
 function Home() {
     const {
@@ -29,6 +30,7 @@ function Home() {
     } = useContext(AppContext);
 
     const router = useRouter();
+    const [isReady, setIsReady] = useState(false);
 
     useEffect(() => {
         try {
@@ -45,14 +47,14 @@ function Home() {
             }
         } catch (e) {
             logError(e, 'failed to set initial query params state');
+        } finally {
+            setIsReady(true);
         }
     }, []);
 
     const handleAcceptInvite = async (inviteToken: string) => {
         try {
-            setIsLoading(true);
             const acceptInviteRes = await acceptInvite(inviteToken);
-            setIsLoading(false);
             if (acceptInviteRes.success) {
                 setFamilyManagerEmail(acceptInviteRes.data.adminEmail);
                 setTotalStorage(acceptInviteRes.data.storage);
@@ -94,7 +96,11 @@ function Home() {
         }
     };
 
-    return (
+    return !isReady ? (
+        <CenteredContainer style={{ width: '60px', height: '60px' }}>
+            <CircularProgress color="primary" size={40} />
+        </CenteredContainer>
+    ) : (
         <>
             <Grid
                 container
