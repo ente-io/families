@@ -20,7 +20,7 @@ const clientSideEmotionCache = createEmotionCache();
 
 function App({ Component, pageProps }) {
     const isLargerDisplay = useMediaQuery(theme.breakpoints.up('md'));
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [inviteDialogView, setInviteDialogView] = useState(false);
     const [messageDialogView, setMessageDialogView] = useState(false);
     const [message, setMessage] = useState('');
@@ -47,6 +47,19 @@ function App({ Component, pageProps }) {
             logError(e, 'failed to set initial query params state');
         }
     }, []);
+
+    useEffect(() => {
+        if (document.readyState === 'complete') {
+            handleDoneLoading();
+            return;
+        }
+        window.addEventListener('load', handleDoneLoading);
+        return () => window.removeEventListener('load', handleDoneLoading);
+    }, []);
+
+    const handleDoneLoading = () => {
+        setIsLoading(false);
+    };
 
     const syncMembers = async (token?: string) => {
         try {
@@ -127,14 +140,24 @@ function App({ Component, pageProps }) {
                 }}>
                 <ThemeProvider theme={theme}>
                     <Navbar />
-                    {isLoading ? (
-                        <CenteredContainer
-                            style={{ width: '60px', height: '60px' }}>
-                            <CircularProgress color="primary" size={60} />
-                        </CenteredContainer>
-                    ) : (
-                        <Component {...pageProps} />
+                    {isLoading && (
+                        <div
+                            style={{
+                                position: 'fixed',
+                                top: 0,
+                                left: 0,
+                                width: '100%',
+                                height: '100%',
+                                backgroundColor: '#212121',
+                                zIndex: 999,
+                            }}>
+                            <CenteredContainer
+                                style={{ width: '60px', height: '60px' }}>
+                                <CircularProgress color="primary" size={60} />
+                            </CenteredContainer>
+                        </div>
                     )}
+                    <Component {...pageProps} />
                     <MessageDialog
                         open={messageDialogView}
                         setOpen={setMessageDialogView}
