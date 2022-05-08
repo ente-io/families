@@ -119,7 +119,7 @@ function InviteDialog({ open, setOpen }) {
                         <div
                             style={{
                                 marginTop: '24px',
-                                width: '90%',
+                                width: '85%',
                             }}>
                             <TextField
                                 error={isError}
@@ -144,6 +144,7 @@ function InviteDialog({ open, setOpen }) {
                                         color: isError
                                             ? theme.palette.error.main
                                             : '#000',
+                                        borderRadius: '8px',
                                     },
                                 }}
                             />
