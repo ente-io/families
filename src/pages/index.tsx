@@ -37,23 +37,30 @@ function Home() {
     const [isReady, setIsReady] = useState(false);
 
     useEffect(() => {
-        try {
-            const params = new URLSearchParams(window.location.search);
-            const token = params.get('token');
-            const isFamilyCreated =
-                params.get('isFamilyCreated') ?? params.get('familyCreated'); // handle both flag till internal APK is released
-            if (isFamilyCreated === 'true') {
-                router.replace({ pathname: '/members', query: { token } });
+        const main = async () => {
+            try {
+                const params = new URLSearchParams(window.location.search);
+                const token = params.get('token');
+                const isFamilyCreated =
+                    params.get('isFamilyCreated') ??
+                    params.get('familyCreated'); // handle both flag till internal APK is released
+                if (isFamilyCreated === 'true') {
+                    await router.replace({
+                        pathname: '/members',
+                        query: { token },
+                    });
+                }
+                const inviteToken = params.get('inviteToken');
+                if (inviteToken) {
+                    await handleAcceptInvite(inviteToken);
+                }
+            } catch (e) {
+                logError(e, 'failed to set initial query params state');
+            } finally {
+                setIsReady(true);
             }
-            const inviteToken = params.get('inviteToken');
-            if (inviteToken) {
-                handleAcceptInvite(inviteToken);
-            }
-        } catch (e) {
-            logError(e, 'failed to set initial query params state');
-        } finally {
-            setIsReady(true);
-        }
+        };
+        main();
     }, []);
 
     const handleAcceptInvite = async (inviteToken: string) => {
@@ -62,7 +69,7 @@ function Home() {
             if (acceptInviteRes.success) {
                 setFamilyManagerEmail(acceptInviteRes.data.adminEmail);
                 setTotalStorage(acceptInviteRes.data.storage);
-                router.replace({ pathname: '/invite' });
+                await router.replace({ pathname: '/invite' });
             } else {
                 setMessage(acceptInviteRes.msg);
                 setMessageDialogView(true);
