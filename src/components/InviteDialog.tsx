@@ -122,6 +122,7 @@ function InviteDialog({ open, setOpen }) {
                                 width: '85%',
                             }}>
                             <TextField
+                                type={'email'}
                                 error={isError}
                                 hiddenLabel
                                 placeholder="member@family.com"
