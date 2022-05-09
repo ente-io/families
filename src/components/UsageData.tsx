@@ -4,7 +4,11 @@ import { PieChart, Pie, Label, Cell } from 'recharts';
 import { Breakdown } from './Breakdown';
 import { UsageChartColors as colors } from '../util/constants';
 import { AppContext } from '../pages/_app';
-import { convertBytesToGBs, convertBytesToHumanReadable } from '../util/common';
+import {
+    convertBytesToGBs,
+    convertBytesToHumanReadable,
+    sortMembersByUsageDesc,
+} from '../util/common';
 import CustomUsageLabel from './CustomUsageLabel';
 import constants from '../util/strings/constants';
 
@@ -14,14 +18,15 @@ export default function UsageData() {
     const [data, setData] = useState([]);
     const [usedStorage, setUsedStorage] = useState<number>(0);
     useEffect(() => {
+        const sortedMembers = sortMembersByUsageDesc(members);
         setData([
-            ...members.map((member) => ({
+            ...sortedMembers.map((member) => ({
                 email: member.email,
                 value: member.usage,
             })),
         ]);
         let used = 0;
-        for (const member of members) {
+        for (const member of sortedMembers) {
             used += member.usage;
         }
         setUsedStorage(used);

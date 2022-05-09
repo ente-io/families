@@ -56,10 +56,7 @@ function App({ Component, pageProps }) {
         try {
             const res = await getMembers(authToken || token);
             if (res.success) {
-                const sortedMembers = res.data.members.sort(
-                    (a, b) => b.usage - a.usage
-                );
-                setMembers(sortedMembers);
+                setMembers(res.data.members);
                 setTotalStorage(res.data.storage);
                 for (const member of res.data.members) {
                     if (member.isAdmin) {
