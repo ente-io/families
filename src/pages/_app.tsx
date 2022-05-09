@@ -1,10 +1,13 @@
-import { CircularProgress, ThemeProvider, useMediaQuery } from '@mui/material';
+import { ThemeProvider, useMediaQuery } from '@mui/material';
 import '../styles/global.css';
 import React, { createContext, useEffect, useState } from 'react';
 import theme from '../theme';
 import Head from 'next/head';
 import ActionDialog from '../components/ActionDialog';
-import { CenteredContainer } from '../components/styledComponents/Utils';
+import {
+    CenteredContainer,
+    OverlayContainer,
+} from '../components/styledComponents/Utils';
 import MessageDialog from '../components/MessageDialog';
 import Navbar from '../components/Navbar';
 import { useRouter } from 'next/router';
@@ -14,6 +17,7 @@ import constants from '../util/strings/constants';
 import { logError } from '../util/sentry';
 import createEmotionCache from '../util/createEmotionCache';
 import { CacheProvider } from '@emotion/react';
+import EnteLoader from '../components/EnteLoader';
 
 export const AppContext = createContext(defaultAppContext);
 const clientSideEmotionCache = createEmotionCache();
@@ -64,6 +68,7 @@ function App({ Component, pageProps }) {
                     }
                 }
             } else {
+                setAuthToken('');
                 router.replace({ pathname: '/' });
                 setMessage(res.msg);
                 setMessageDialogView(true);
@@ -126,15 +131,15 @@ function App({ Component, pageProps }) {
                     setIsLoading,
                 }}>
                 <ThemeProvider theme={theme}>
-                    <Navbar />
-                    {isLoading ? (
-                        <CenteredContainer
-                            style={{ width: '60px', height: '60px' }}>
-                            <CircularProgress color="primary" size={40} />
-                        </CenteredContainer>
-                    ) : (
-                        <Component {...pageProps} />
+                    {isLoading && (
+                        <OverlayContainer>
+                            <CenteredContainer>
+                                <EnteLoader />
+                            </CenteredContainer>
+                        </OverlayContainer>
                     )}
+                    <Navbar />
+                    <Component {...pageProps} />
                     <MessageDialog
                         open={messageDialogView}
                         setOpen={setMessageDialogView}
