@@ -38,6 +38,8 @@ const englishConstants = {
     SORRY_YOU_NEED_TO_UPGRADE:
         'Sorry, you need to upgrade your account to create a family.',
     SORRY_INVITE_TOKEN_INVALID: 'Sorry, the invite token seems to be invalid.',
+    USER_ALREADY_IN_FAMILY:
+        'The user you invited is already a member of a family plan.',
     REVOKE_INVITE: 'Revoke invite?',
     REVOKE_INVITE_MESSAGE: 'Are you sure you want to revoke invite to',
     REVOKE: 'Revoke',
