@@ -162,6 +162,11 @@ export async function inviteMember(
                 success: false,
                 msg: constants.USER_ALREADY_IN_FAMILY,
             };
+        } else if (res.status === 409) {
+            return {
+                success: false,
+                msg: constants.USER_ALREADY_HAS_SUBSCRIPTION,
+            };
         }
         return {
             success: false,

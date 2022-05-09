@@ -39,6 +39,8 @@ const englishConstants = {
     SORRY_INVITE_TOKEN_INVALID: 'Sorry, the invite token seems to be invalid.',
     USER_ALREADY_IN_FAMILY:
         'The user you invited is already a member of a family plan.',
+    USER_ALREADY_HAS_SUBSCRIPTION:
+        'The user you invited already has an active plan. To join the family, they need to first end their subscription.',
     REVOKE_INVITE: 'Revoke invite?',
     REVOKE_INVITE_MESSAGE: 'Are you sure you want to revoke invite to',
     REVOKE: 'Revoke',
