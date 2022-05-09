@@ -100,7 +100,7 @@ function Home() {
         }
     };
 
-    return isReady ? (
+    return !isReady ? (
         <OverlayContainer>
             <CenteredContainer>
                 <EnteLoader />
