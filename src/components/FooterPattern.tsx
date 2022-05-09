@@ -24,7 +24,7 @@ function FooterPattern() {
                     style={{
                         marginTop: '-25px',
                     }}>
-                    <FooterPatternIcon x="-100" />
+                    <FooterPatternIcon x="-100" viewBox="0 0 2158 175" />
                 </div>
             </div>
         </RelativePosContainer>
