@@ -5,7 +5,12 @@ import { AppContext } from '../pages/_app';
 import { inviteMember } from '../services/APIService';
 import theme from '../theme';
 import constants from '../util/strings/constants';
-import { ImageContainer, TextContainer } from './styledComponents/InviteDialog';
+import {
+    CloseButtonContainer,
+    ErrorContainer,
+    ImageContainer,
+    TextContainer,
+} from './styledComponents/InviteDialog';
 import InviteSent from './InviteSent';
 import { logError } from '../util/sentry';
 
@@ -63,27 +68,29 @@ function InviteDialog({ open, setOpen }) {
                 onClose={() => {
                     setOpen(false);
                 }}
-                maxWidth="xs">
+                maxWidth="xs"
+                PaperProps={{
+                    style: {
+                        borderRadius: 10,
+                        background: '#000',
+                    },
+                }}>
                 <div
                     style={{
                         backgroundColor: 'black',
                         color: 'white',
-                        width: isLargerDisplay ? '400px' : '300px',
+                        width: '300px',
                     }}>
                     <DialogContent>
-                        <div
-                            style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'flex-end',
-                            }}>
+                        <CloseButtonContainer>
                             <IoMdClose
+                                size={18}
                                 onClick={() => setOpen(false)}
                                 style={{
                                     cursor: 'pointer',
                                 }}
                             />
-                        </div>
+                        </CloseButtonContainer>
                         <ImageContainer mq={isLargerDisplay}>
                             <div
                                 style={{
@@ -106,12 +113,13 @@ function InviteDialog({ open, setOpen }) {
                             width: '100%',
                             backgroundColor: '#fff',
                             color: '#000',
+                            paddingTop: '4px',
                             paddingBottom: '20px',
                         }}>
                         <div
                             style={{
                                 marginTop: '24px',
-                                width: '90%',
+                                width: '85%',
                             }}>
                             <TextField
                                 error={isError}
@@ -136,22 +144,16 @@ function InviteDialog({ open, setOpen }) {
                                         color: isError
                                             ? theme.palette.error.main
                                             : '#000',
+                                        borderRadius: '8px',
                                     },
                                 }}
                             />
                         </div>
                         {isError && (
-                            <div
-                                style={{
-                                    color: theme.palette.error.main,
-                                    fontWeight: 500,
-                                    fontSize: '12px',
-                                    marginTop: '10px',
-                                    width: '90%',
-                                    textAlign: 'center',
-                                }}>
+                            <ErrorContainer
+                                style={{ color: theme.palette.error.main }}>
                                 {errorMsg}
-                            </div>
+                            </ErrorContainer>
                         )}
                         <Button
                             disabled={isError}
@@ -168,9 +170,8 @@ function InviteDialog({ open, setOpen }) {
                             }}>
                             {constants.INVITE}
                         </Button>
-                        <TextContainer>{constants.PRIVATE_SPACE}</TextContainer>
                         <TextContainer>
-                            {constants.DATA_NOT_SHARED}
+                            {constants.INVITE_MEMBER_DIALOG_COPY}
                         </TextContainer>
                     </div>
                 </div>

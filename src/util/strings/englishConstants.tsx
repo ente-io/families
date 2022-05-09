@@ -27,8 +27,8 @@ const englishConstants = {
     INVITE: 'Invite',
     INVITE_SENT: 'Invite sent',
     INVITE_MEMBER: 'Invite member',
-    PRIVATE_SPACE: 'Private space will be allocated',
-    DATA_NOT_SHARED: 'Your data will not be shared',
+    INVITE_MEMBER_DIALOG_COPY:
+        'Invited members will share your plan, but each member will get their own private space.',
     OK: 'OK',
     TOTAL_USAGE: 'Total Usage',
     USED: 'used',
