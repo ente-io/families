@@ -1201,8 +1201,8 @@ export default function FooterPatternIcon(props) {
 }
 
 FooterPatternIcon.defaultProps = {
-    height: 197,
-    width: 1079,
-    viewBox: '0 0 1079 197',
+    height: '100%',
+    width: '100%',
+    viewBox: '0 0 2158 197',
     x: 0,
 };
