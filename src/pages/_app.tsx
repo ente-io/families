@@ -68,6 +68,7 @@ function App({ Component, pageProps }) {
                     }
                 }
             } else {
+                setAuthToken('');
                 router.replace({ pathname: '/' });
                 setMessage(res.msg);
                 setMessageDialogView(true);
