@@ -7,7 +7,7 @@ import {
 import { AppContext } from './_app';
 import { useRouter } from 'next/router';
 import { logError } from '../util/sentry';
-import { Grid, Container, CircularProgress } from '@mui/material';
+import { Grid, Container } from '@mui/material';
 import {
     ImageContainer,
     ContentContainer,
@@ -16,6 +16,7 @@ import {
 import theme from '../theme';
 import constants from '../util/strings/constants';
 import { CenteredContainer } from '../components/styledComponents/Utils';
+import EnteLoader from '../components/EnteLoader';
 
 function Home() {
     const {
@@ -97,8 +98,8 @@ function Home() {
     };
 
     return !isReady ? (
-        <CenteredContainer style={{ width: '60px', height: '60px' }}>
-            <CircularProgress color="primary" size={40} />
+        <CenteredContainer>
+            <EnteLoader />
         </CenteredContainer>
     ) : (
         <>

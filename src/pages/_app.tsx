@@ -1,4 +1,4 @@
-import { CircularProgress, ThemeProvider, useMediaQuery } from '@mui/material';
+import { ThemeProvider, useMediaQuery } from '@mui/material';
 import '../styles/global.css';
 import React, { createContext, useEffect, useState } from 'react';
 import theme from '../theme';
@@ -17,6 +17,7 @@ import constants from '../util/strings/constants';
 import { logError } from '../util/sentry';
 import createEmotionCache from '../util/createEmotionCache';
 import { CacheProvider } from '@emotion/react';
+import EnteLoader from '../components/EnteLoader';
 
 export const AppContext = createContext(defaultAppContext);
 const clientSideEmotionCache = createEmotionCache();
@@ -131,9 +132,8 @@ function App({ Component, pageProps }) {
                 <ThemeProvider theme={theme}>
                     {isLoading && (
                         <OverlayContainer>
-                            <CenteredContainer
-                                style={{ width: '60px', height: '60px' }}>
-                                <CircularProgress color="primary" size={40} />
+                            <CenteredContainer>
+                                <EnteLoader />
                             </CenteredContainer>
                         </OverlayContainer>
                     )}
