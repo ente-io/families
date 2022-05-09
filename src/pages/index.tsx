@@ -15,7 +15,10 @@ import {
 } from '../components/styledComponents/Landing';
 import theme from '../theme';
 import constants from '../util/strings/constants';
-import { CenteredContainer } from '../components/styledComponents/Utils';
+import {
+    CenteredContainer,
+    OverlayContainer,
+} from '../components/styledComponents/Utils';
 import EnteLoader from '../components/EnteLoader';
 
 function Home() {
@@ -97,10 +100,12 @@ function Home() {
         }
     };
 
-    return !isReady ? (
-        <CenteredContainer>
-            <EnteLoader />
-        </CenteredContainer>
+    return isReady ? (
+        <OverlayContainer>
+            <CenteredContainer>
+                <EnteLoader />
+            </CenteredContainer>
+        </OverlayContainer>
     ) : (
         <>
             <Grid
