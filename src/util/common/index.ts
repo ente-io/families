@@ -1,3 +1,5 @@
+import { Member } from "../../types";
+
 export function convertBytesToHumanReadable(
     bytes: number,
     precision = 2
@@ -17,4 +19,9 @@ export function convertBytesToGBs(bytes: number): string {
 
 export function runningInBrowser() {
     return typeof window !== 'undefined';
+}
+
+export function sortMembersByUsageDesc(members: Member[]): Member[] {
+    const sortedMembers = members.sort((a, b) => b.usage - a.usage);
+    return sortedMembers;
 }
