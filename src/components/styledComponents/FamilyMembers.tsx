@@ -3,13 +3,27 @@ import { styled } from '@mui/system';
 import React from 'react';
 import PersonIcon from '../icons/PersonIcon';
 
-export const ImageContainer = styled('div')<{ mq: boolean; }>(({ mq }) => ({
+export const ImageContainer = styled('div')<{ mq: boolean }>(({ mq }) => ({
     display: 'flex',
     flexDirection: 'column',
-    alignItems: mq ? 'flex-start' : 'center',
+    alignItems: 'center',
     justifyContent: 'center',
+    maxWidth: mq ? 'min(100%, 500px)' : '100%',
 }));
-export const InviteButton = styled(Button)<{ mq: boolean; }>(({ mq }) => ({
+
+export const BgImageContainer = styled('div')<{ mq: boolean }>(({ mq }) => ({
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    background: 'url(/images/ellipse.png)',
+    backgroundSize: 'contain',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    width: mq ? '500px' : '300px',
+    maxWidth: '100%',
+}));
+
+export const InviteButton = styled(Button)<{ mq: boolean }>(({ mq }) => ({
     width: mq ? '70%' : '250px',
     maxWidth: '100%',
     fontSize: '20px',
@@ -17,7 +31,8 @@ export const InviteButton = styled(Button)<{ mq: boolean; }>(({ mq }) => ({
     marginTop: mq ? '64px' : '0px',
     marginBottom: '32px',
 }));
-export const ContentContainer = styled('div')<{ mq: boolean; }>(({ mq }) => ({
+
+export const ContentContainer = styled('div')<{ mq: boolean }>(({ mq }) => ({
     fontSize: mq ? '32px' : '16px',
     lineHeight: '20px',
     display: 'flex',
@@ -28,8 +43,19 @@ export const ContentContainer = styled('div')<{ mq: boolean; }>(({ mq }) => ({
     marginTop: mq ? '48px' : '16px',
 }));
 
+export const NoMembersInviteLine = styled('div')(() => ({
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    fontSize: '18px',
+    color: '#6C6C6C',
+    marginTop: '40px',
+    marginBottom: '32px',
+}));
+
 export const PersonIconContainer = ({
-    fill, mq,
+    fill,
+    mq,
 }: {
     fill?: string;
     mq: boolean;

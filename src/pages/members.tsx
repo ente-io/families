@@ -8,10 +8,14 @@ import {
     ContentContainer,
     InviteButton,
     ImageContainer,
+    NoMembersInviteLine,
+    BgImageContainer,
 } from '../components/styledComponents/FamilyMembers';
 import theme from '../theme';
 import constants from '../util/strings/constants';
 import { AppContext } from './_app';
+import FooterPatternIcon from '../components/icons/FooterPatternIcon';
+import FooterPattern from '../components/FooterPattern';
 
 function Members() {
     const {
@@ -88,18 +92,22 @@ function Members() {
                 {(isLargerDisplay || members.length === 1) && (
                     <Grid item xs={12} md={6}>
                         <ImageContainer mq={isLargerDisplay}>
-                            <div
-                                style={{
-                                    marginTop: '40px',
-                                    width: isLargerDisplay ? '400px' : '300px',
-                                    maxWidth: '100%',
-                                    objectFit: 'contain',
-                                }}>
-                                <img
-                                    src="images/add_family.png"
-                                    height={'100%'}
-                                    width={'100%'}></img>
-                            </div>
+                            <BgImageContainer mq={isLargerDisplay}>
+                                <div
+                                    style={{
+                                        marginTop: '40px',
+                                        width: isLargerDisplay
+                                            ? '400px'
+                                            : '300px',
+                                        maxWidth: '100%',
+                                        objectFit: 'contain',
+                                    }}>
+                                    <img
+                                        src="images/add_family.png"
+                                        height={'100%'}
+                                        width={'100%'}></img>
+                                </div>
+                            </BgImageContainer>
                         </ImageContainer>
                     </Grid>
                 )}
@@ -142,6 +150,14 @@ function Members() {
                 open={inviteDialogView}
                 setOpen={setInviteDialogView}
             />
+            {members?.length === 1 && isLargerDisplay && (
+                <>
+                    <NoMembersInviteLine>
+                        {constants.INVITE_YOUR_LOVED_ONES}
+                    </NoMembersInviteLine>
+                    <FooterPattern />
+                </>
+            )}
         </>
     );
 }
