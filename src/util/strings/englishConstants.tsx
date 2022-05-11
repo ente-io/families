@@ -32,17 +32,17 @@ const englishConstants = {
     TOTAL_USAGE: 'Total Usage',
     USED: 'used',
     RESEND_INVITE: 'Resend invite?',
-    RESEND_INVITE_MESSAGE: 'Are you sure you want to resend an invite to',
+    RESEND_INVITE_MESSAGE: 'Are you sure you want to resend the invitation to',
     SORRY_SOMETHING_WENT_WRONG: 'Sorry, something went wrong.',
     SORRY_YOU_NEED_TO_UPGRADE:
         'Sorry, you need to upgrade your account to create a family.',
     SORRY_INVITE_TOKEN_INVALID: 'Sorry, the invite token seems to be invalid.',
     USER_ALREADY_IN_FAMILY:
-        'The user you invited is already a member of a family plan.',
+        'The customer you invited is already a member of a family.',
     USER_ALREADY_HAS_SUBSCRIPTION:
-        'The user you invited already has an active plan. To join the family, they need to first end their subscription.',
+        'The customer you invited already has an active subscription. To join your family, please ask them to cancel their subscription.',
     REVOKE_INVITE: 'Revoke invite?',
-    REVOKE_INVITE_MESSAGE: 'Are you sure you want to revoke invite to',
+    REVOKE_INVITE_MESSAGE: 'Are you sure you want to revoke the invitation sent to',
     REVOKE: 'Revoke',
     CANCEL: 'Cancel',
     INVITE_REVOKED: 'Invite revoked',
@@ -50,7 +50,7 @@ const englishConstants = {
     REMOVE_MEMBER_MESSAGE: 'Are you sure you want to remove',
     REMOVE: 'Remove',
     MEMBER_REMOVED: 'Member removed',
-    COULD_NOT_FIND_USER: 'Could not find user with that email address',
+    COULD_NOT_FIND_USER: 'Could not find a customer with that email address',
     PLEASE_ASK_THEM_TO_SIGN_UP: 'Please ask them to sign up @ ente.io',
     REACHED_MAX_FAMILY_SIZE:
         'You have reached the maximum number of family members.',
