@@ -22,7 +22,7 @@ export function UsageEntry({ colors, index, isLargerDisplay, entry }) {
                 <FaCircle color={colors[index % colors.length]} />
                 <div
                     style={{
-                        fontSize: isLargerDisplay ? '16px' : '12px',
+                        fontSize: isLargerDisplay ? '16px' : '14px',
                         marginLeft: '10px',
                     }}>
                     {entry.email}
@@ -31,7 +31,7 @@ export function UsageEntry({ colors, index, isLargerDisplay, entry }) {
             <div
                 style={{
                     color: '#fff',
-                    fontSize: isLargerDisplay ? '16px' : '12px',
+                    fontSize: isLargerDisplay ? '16px' : '14px',
                 }}>
                 {convertBytesToHumanReadable(entry.usage)}
             </div>

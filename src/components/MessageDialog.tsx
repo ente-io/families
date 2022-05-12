@@ -21,7 +21,8 @@ function MessageDialog({
             open={open}
             onClose={() => setOpen(false)}
             fullWidth={true}
-            maxWidth="xs">
+            maxWidth="xs"
+            >
             <div
                 style={{
                     backgroundColor: 'black',
