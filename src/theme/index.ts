@@ -34,6 +34,14 @@ const theme = createTheme({
                 },
             },
         },
+        MuiDialog: {
+            styleOverrides: {
+                paper: {
+                    borderRadius: '10',
+                    backgroundColor: '#000',
+                },
+            },
+        },
     },
 });
 

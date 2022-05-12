@@ -68,13 +68,7 @@ function InviteDialog({ open, setOpen }) {
                 onClose={() => {
                     setOpen(false);
                 }}
-                maxWidth="xs"
-                PaperProps={{
-                    style: {
-                        borderRadius: 10,
-                        background: '#000',
-                    },
-                }}>
+                maxWidth="xs">
                 <div
                     style={{
                         backgroundColor: 'black',

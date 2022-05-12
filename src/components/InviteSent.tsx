@@ -24,13 +24,7 @@ function InviteSent({
             open={open}
             onClose={() => setOpen(false)}
             maxWidth="xs"
-            onKeyDown={handleKeyDown}
-            PaperProps={{
-                style: {
-                    borderRadius: 10,
-                    background: '#000',
-                },
-            }}>
+            onKeyDown={handleKeyDown}>
             <div
                 style={{
                     backgroundColor: 'black',
