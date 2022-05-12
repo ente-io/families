@@ -100,7 +100,11 @@ function Home() {
                     setMessage(res.msg);
                 }
             } else {
-                window.location.href = getWebEndpoint() + '?redirect=families';
+                window.location.href = 'ente://home';
+                setTimeout(function () {
+                    window.location.href =
+                        getWebEndpoint() + '?redirect=families';
+                }, 250);
             }
         } catch (e) {
             logError(e, 'getStarted click failed');
