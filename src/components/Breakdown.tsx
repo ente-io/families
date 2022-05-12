@@ -21,6 +21,7 @@ export function Breakdown() {
                     marginTop: '24px',
                     marginBottom: '32px',
                     fontWeight: 'bold',
+                    letterSpacing: '0.4px',
                 }}>
                 {constants.BREAKDOWN}
             </div>

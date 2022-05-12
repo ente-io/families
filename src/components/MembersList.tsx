@@ -1,5 +1,5 @@
 import { Tooltip } from '@mui/material';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { BsTrash as TrashIcon } from 'react-icons/bs';
 import { IoReload as ResendIcon } from 'react-icons/io5';
 import { AppContext } from '../pages/_app';
@@ -38,6 +38,16 @@ export function MembersList() {
         setMessageDialogView,
         setMessage,
     } = useContext(AppContext);
+
+    const [membersWithoutAdmin, setMembersWithoutAdmin] = useState<Member[]>(
+        []
+    );
+
+    useEffect(() => {
+        setMembersWithoutAdmin(
+            members.filter((member) => member.status !== 'SELF')
+        );
+    }, [members]);
 
     const handleResendInvite = (member: Member) => {
         try {
@@ -101,87 +111,82 @@ export function MembersList() {
 
     return (
         <>
-            {members.map(
-                (member, index) =>
-                    member.status !== 'SELF' && (
-                        <div style={{ width: '90%' }} key={index}>
-                            <div
-                                style={{
-                                    fontSize: isLargerDisplay ? '16px' : '12px',
-                                    color: '#848484',
-                                    fontWeight: 'bold',
-                                    letterSpacing: '0.4px',
-                                    marginBottom: '4px',
-                                }}>
-                                {StatusMap[member.status]}
-                            </div>
-                            <div
-                                style={{
-                                    display: 'flex',
-                                    flexDirection: 'row',
-                                    justifyContent: 'space-between',
-                                    fontSize: isLargerDisplay ? '24px' : '16px',
-                                    marginBottom:
-                                        index === members.length - 1
-                                            ? '0px'
-                                            : '16px',
-                                }}>
-                                <div>{member.email}</div>
-                                <div
-                                    style={{
-                                        display: 'flex',
-                                        flexDirection: 'row',
-                                        color: '#7d7d7d',
-                                    }}>
-                                    {member.status !== 'ACCEPTED' && (
-                                        <Tooltip
-                                            title="Resend Invite"
-                                            placement="top"
-                                            componentsProps={tooltipProps}>
-                                            <div
-                                                style={{
-                                                    marginLeft: '8px',
-                                                    cursor: 'pointer',
-                                                }}
-                                                onClick={() =>
-                                                    handleResendInvite(member)
-                                                }>
-                                                <ResendIcon />
-                                            </div>
-                                        </Tooltip>
-                                    )}
-                                    <Tooltip
-                                        title={
-                                            member.status === 'INVITED'
-                                                ? 'Revoke Invite'
-                                                : 'Remove Member'
-                                        }
-                                        placement="top"
-                                        componentsProps={tooltipProps}>
-                                        <div
-                                            style={{
-                                                marginLeft: '8px',
-                                                cursor: 'pointer',
-                                            }}
-                                            onClick={() =>
-                                                handleTrashClick(member)
-                                            }>
-                                            <TrashIcon />
-                                        </div>
-                                    </Tooltip>
-                                </div>
-                            </div>
-                            {index !== members.length - 1 && (
-                                <div
-                                    style={{
-                                        height: '1px',
-                                        backgroundColor: '#7D7D7D',
-                                        marginBottom: '16px',
-                                    }}></div>
+            {membersWithoutAdmin.map((member, index) => (
+                <div style={{ width: '90%' }} key={index}>
+                    <div
+                        style={{
+                            fontSize: isLargerDisplay ? '16px' : '12px',
+                            color: '#848484',
+                            fontWeight: 'bold',
+                            letterSpacing: '0.4px',
+                            marginBottom: '4px',
+                        }}>
+                        {StatusMap[member.status]}
+                    </div>
+                    <div
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            fontSize: isLargerDisplay ? '24px' : '16px',
+                            marginBottom:
+                                index === membersWithoutAdmin.length - 1
+                                    ? '0px'
+                                    : '16px',
+                        }}>
+                        <div>{member.email}</div>
+                        <div
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                                color: '#7d7d7d',
+                            }}>
+                            {member.status !== 'ACCEPTED' && (
+                                <Tooltip
+                                    title="Resend Invite"
+                                    placement="top"
+                                    componentsProps={tooltipProps}>
+                                    <div
+                                        style={{
+                                            marginLeft: '8px',
+                                            cursor: 'pointer',
+                                        }}
+                                        onClick={() =>
+                                            handleResendInvite(member)
+                                        }>
+                                        <ResendIcon />
+                                    </div>
+                                </Tooltip>
                             )}
+                            <Tooltip
+                                title={
+                                    member.status === 'INVITED'
+                                        ? 'Revoke Invite'
+                                        : 'Remove Member'
+                                }
+                                placement="top"
+                                componentsProps={tooltipProps}>
+                                <div
+                                    style={{
+                                        marginLeft: '8px',
+                                        cursor: 'pointer',
+                                    }}
+                                    onClick={() => handleTrashClick(member)}>
+                                    <TrashIcon />
+                                </div>
+                            </Tooltip>
                         </div>
-                    )
-            )}
+                    </div>
+                    {index !== membersWithoutAdmin.length - 1 && (
+                        <div
+                            style={{
+                                height: '1px',
+                                backgroundColor: 'rgb(234, 234, 234)',
+                                marginBottom: '16px',
+                            }}></div>
+                    )}
+                </div>
+            ))}
         </>
     );
 }

@@ -20,6 +20,7 @@ import {
     OverlayContainer,
 } from '../components/styledComponents/Utils';
 import EnteLoader from '../components/EnteLoader';
+import { isDeviceMobile } from '../util/common/deviceDetection';
 
 function Home() {
     const {
