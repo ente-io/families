@@ -20,6 +20,7 @@ import {
     OverlayContainer,
 } from '../components/styledComponents/Utils';
 import EnteLoader from '../components/EnteLoader';
+import { isDeviceMobile } from '../util/common/deviceDetection';
 
 function Home() {
     const {
@@ -100,11 +101,16 @@ function Home() {
                     setMessage(res.msg);
                 }
             } else {
-                window.location.href = 'ente://home';
-                setTimeout(function () {
+                if (isDeviceMobile()) {
+                    window.location.href = 'ente://home';
+                    setTimeout(function () {
+                        window.location.href =
+                            getWebEndpoint() + '?redirect=families';
+                    }, 250);
+                } else {
                     window.location.href =
                         getWebEndpoint() + '?redirect=families';
-                }, 250);
+                }
             }
         } catch (e) {
             logError(e, 'getStarted click failed');
