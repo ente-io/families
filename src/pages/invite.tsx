@@ -1,8 +1,10 @@
 import { Container, Button } from '@mui/material';
 import React, { useContext } from 'react';
 import { ImageContainer } from '../components/styledComponents/InviteAccepted';
+import { getWebEndpoint } from '../services/APIService';
 import theme from '../theme';
 import { convertBytesToHumanReadable } from '../util/common';
+import { isDeviceMobile } from '../util/common/deviceDetection';
 import constants from '../util/strings/constants';
 import { AppContext } from './_app';
 
@@ -11,7 +13,14 @@ function Invite() {
         useContext(AppContext);
 
     const handleClick = () => {
-        window.open('https://web.ente.io', '_self');
+        if (isDeviceMobile()) {
+            window.location.href = 'ente://home';
+            setTimeout(function () {
+                window.location.href = getWebEndpoint() + '?redirect=families';
+            }, 250);
+        } else {
+            window.location.href = getWebEndpoint() + '?redirect=families';
+        }
     };
     return (
         <Container

@@ -101,16 +101,7 @@ function Home() {
                     setMessage(res.msg);
                 }
             } else {
-                if (isDeviceMobile()) {
-                    window.location.href = 'ente://home';
-                    setTimeout(function () {
-                        window.location.href =
-                            getWebEndpoint() + '?redirect=families';
-                    }, 250);
-                } else {
-                    window.location.href =
-                        getWebEndpoint() + '?redirect=families';
-                }
+                window.location.href = getWebEndpoint() + '?redirect=families';
             }
         } catch (e) {
             logError(e, 'getStarted click failed');
