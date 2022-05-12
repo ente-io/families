@@ -16,10 +16,10 @@ function Invite() {
         if (isDeviceMobile()) {
             window.location.href = 'ente://home';
             setTimeout(function () {
-                window.location.href = getWebEndpoint() + '?redirect=families';
+                window.location.href = getWebEndpoint();
             }, 250);
         } else {
-            window.location.href = getWebEndpoint() + '?redirect=families';
+            window.location.href = getWebEndpoint();
         }
     };
     return (
