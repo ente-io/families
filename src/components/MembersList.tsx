@@ -1,5 +1,5 @@
 import { Tooltip } from '@mui/material';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { BsTrash as TrashIcon } from 'react-icons/bs';
 import { IoReload as ResendIcon } from 'react-icons/io5';
 import { AppContext } from '../pages/_app';
@@ -38,6 +38,16 @@ export function MembersList() {
         setMessageDialogView,
         setMessage,
     } = useContext(AppContext);
+
+    const [membersWithoutAdmin, setMembersWithoutAdmin] = useState<Member[]>(
+        []
+    );
+
+    useEffect(() => {
+        setMembersWithoutAdmin(
+            members.filter((member) => member.status !== 'SELF')
+        );
+    }, [members]);
 
     const handleResendInvite = (member: Member) => {
         try {
@@ -101,7 +111,7 @@ export function MembersList() {
 
     return (
         <>
-            {members.map(
+            {membersWithoutAdmin.map(
                 (member, index) =>
                     member.status !== 'SELF' && (
                         <div style={{ width: '90%' }} key={index}>
@@ -122,7 +132,7 @@ export function MembersList() {
                                     justifyContent: 'space-between',
                                     fontSize: isLargerDisplay ? '24px' : '16px',
                                     marginBottom:
-                                        index === members.length - 1
+                                        index === membersWithoutAdmin.length - 1
                                             ? '0px'
                                             : '16px',
                                 }}>
@@ -171,7 +181,7 @@ export function MembersList() {
                                     </Tooltip>
                                 </div>
                             </div>
-                            {index !== members.length - 1 && (
+                            {index !== membersWithoutAdmin.length - 1 && (
                                 <div
                                     style={{
                                         height: '1px',
