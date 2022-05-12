@@ -175,7 +175,7 @@ export function MembersList() {
                                 <div
                                     style={{
                                         height: '1px',
-                                        backgroundColor: '#7D7D7D',
+                                        backgroundColor: 'rgb(234, 234, 234)',
                                         marginBottom: '16px',
                                     }}></div>
                             )}
