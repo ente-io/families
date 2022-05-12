@@ -10,17 +10,9 @@ export default function App() {
                     rel="apple-touch-icon"
                     href="/images/apple-touch-icon.png"
                 />
-
-                <link rel="preload" href="/images/add_family.png" as="image" />
-                <link rel="preload" href="/images/ellipse.png" as="image" />
                 <link
                     rel="preload"
                     href="/images/family_add_single.png"
-                    as="image"
-                />
-                <link
-                    rel="preload"
-                    href="/images/family_sharing.png"
                     as="image"
                 />
                 <link rel="preload" href="/images/success.png" as="image" />
