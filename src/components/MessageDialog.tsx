@@ -22,7 +22,12 @@ function MessageDialog({
             onClose={() => setOpen(false)}
             fullWidth={true}
             maxWidth="xs"
-            >
+            PaperProps={{
+                style: {
+                    borderRadius: 10,
+                    background: '#000',
+                },
+            }}>
             <div
                 style={{
                     backgroundColor: 'black',

@@ -33,7 +33,13 @@ function ActionDialog({
             open={open}
             onClose={handleClose}
             fullWidth={true}
-            maxWidth="xs">
+            maxWidth="xs"
+            PaperProps={{
+                style: {
+                    borderRadius: 10,
+                    background: '#000',
+                },
+            }}>
             <div
                 style={{
                     backgroundColor: 'black',
