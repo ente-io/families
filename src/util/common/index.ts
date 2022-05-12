@@ -1,4 +1,4 @@
-import { Member } from "../../types";
+import { Member } from '../../types';
 
 export function convertBytesToHumanReadable(
     bytes: number,
@@ -22,6 +22,6 @@ export function runningInBrowser() {
 }
 
 export function sortMembersByUsageDesc(members: Member[]): Member[] {
-    const sortedMembers = members.sort((a, b) => b.usage - a.usage);
+    const sortedMembers = [...members].sort((a, b) => b.usage - a.usage);
     return sortedMembers;
 }
