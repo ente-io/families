@@ -45,7 +45,10 @@ function App({ Component, pageProps }) {
             const token = params.get('token');
             if (token) {
                 setAuthToken(token);
-                syncMembers(token); // passing token as state of authToken might not be updated
+            }
+            const isFamilyCreated = params.get('isFamilyCreated') ?? params.get('familyCreated') ?? "false";
+            if (isFamilyCreated != undefined && isFamilyCreated.toLowerCase() == 'true') {
+                syncMembers(token)
             }
         } catch (e) {
             logError(e, 'failed to set initial query params state');
