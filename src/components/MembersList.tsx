@@ -27,11 +27,10 @@ const tooltipProps = {
     },
 };
 
-export function MembersList() {
+export function MembersList({ syncMembers }) {
     const {
         isLargerDisplay,
         members,
-        syncMembers,
         authToken,
         setActionDialogOptions,
         setActionDialogView,

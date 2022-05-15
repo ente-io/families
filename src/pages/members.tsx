@@ -1,5 +1,5 @@
 import { Grid, Container } from '@mui/material';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { BsPlusLg } from 'react-icons/bs';
 import InviteDialog from '../components/InviteDialog';
 import { MembersContainer } from '../components/MembersContainer';
@@ -14,17 +14,58 @@ import {
 import theme from '../theme';
 import constants from '../util/strings/constants';
 import { AppContext } from './_app';
-import FooterPatternIcon from '../components/icons/FooterPatternIcon';
 import FooterPattern from '../components/FooterPattern';
+import { useRouter } from 'next/router';
+import { getMembers } from '../services/APIService';
+import { logError } from '../util/sentry';
 
 function Members() {
     const {
+        authToken,
+        setAuthToken,
+        setMembers,
+        setFamilyManagerEmail,
+        setTotalStorage,
+        setMessage,
+        setMessageDialogView,
         isLargerDisplay,
         familyManagerEmail,
         members,
         inviteDialogView,
         setInviteDialogView,
     } = useContext(AppContext);
+
+    const router = useRouter();
+
+    useEffect(() => {
+        if (authToken) {
+            syncMembers();
+        }
+    }, [authToken]);
+
+    const syncMembers = async () => {
+        try {
+            const res = await getMembers(authToken);
+            if (res.success) {
+                setMembers(res.data.members);
+                setTotalStorage(res.data.storage);
+                for (const member of res.data.members) {
+                    if (member.isAdmin) {
+                        setFamilyManagerEmail(member.email);
+                        break;
+                    }
+                }
+            } else {
+                setAuthToken('');
+                router.replace({ pathname: '/' });
+                setMessage(res.msg);
+                setMessageDialogView(true);
+            }
+        } catch (e) {
+            logError(e, 'failed to sync members');
+        }
+    };
+
     return (
         <>
             <Grid
@@ -135,7 +176,7 @@ function Members() {
             </Grid>
             {members?.length > 1 && (
                 <>
-                    <MembersContainer />
+                    <MembersContainer syncMembers={syncMembers} />
                     <div
                         style={{
                             display: 'flex',
@@ -149,6 +190,7 @@ function Members() {
             <InviteDialog
                 open={inviteDialogView}
                 setOpen={setInviteDialogView}
+                syncMembers={syncMembers}
             />
             {members?.length === 1 && isLargerDisplay && (
                 <>

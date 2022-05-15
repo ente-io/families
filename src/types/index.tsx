@@ -3,7 +3,6 @@ export interface AppContextType {
     isUserAdmin: boolean;
     members: Member[];
     setMembers: (members: Member[]) => void;
-    syncMembers: (token?: string) => void;
     familyManagerEmail: string;
     setFamilyManagerEmail: (email: string) => void;
     totalStorage: number;
@@ -56,7 +55,6 @@ export const defaultAppContext: AppContextType = {
     isUserAdmin: false,
     members: [],
     setMembers: () => {},
-    syncMembers: () => {},
     familyManagerEmail: '',
     setFamilyManagerEmail: () => {},
     totalStorage: 0,

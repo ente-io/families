@@ -46,37 +46,10 @@ function App({ Component, pageProps }) {
             if (token) {
                 setAuthToken(token);
             }
-            const isFamilyCreated = params.get('isFamilyCreated') ?? params.get('familyCreated') ?? "false";
-            if (isFamilyCreated != undefined && isFamilyCreated.toLowerCase() == 'true') {
-                syncMembers(token)
-            }
         } catch (e) {
             logError(e, 'failed to set initial query params state');
         }
     }, []);
-
-    const syncMembers = async (token?: string) => {
-        try {
-            const res = await getMembers(authToken || token);
-            if (res.success) {
-                setMembers(res.data.members);
-                setTotalStorage(res.data.storage);
-                for (const member of res.data.members) {
-                    if (member.isAdmin) {
-                        setFamilyManagerEmail(member.email);
-                        break;
-                    }
-                }
-            } else {
-                setAuthToken('');
-                router.replace({ pathname: '/' });
-                setMessage(res.msg);
-                setMessageDialogView(true);
-            }
-        } catch (e) {
-            logError(e, 'failed to sync members');
-        }
-    };
 
     // handles loading across pages
     useEffect(() => {
@@ -113,7 +86,6 @@ function App({ Component, pageProps }) {
                     setFamilyManagerEmail,
                     members,
                     setMembers,
-                    syncMembers,
                     totalStorage,
                     setTotalStorage,
                     authToken,

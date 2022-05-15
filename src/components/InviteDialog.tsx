@@ -14,8 +14,8 @@ import {
 import InviteSent from './InviteSent';
 import { logError } from '../util/sentry';
 
-function InviteDialog({ open, setOpen }) {
-    const { isLargerDisplay, authToken, syncMembers } = useContext(AppContext);
+function InviteDialog({ open, setOpen, syncMembers }) {
+    const { isLargerDisplay, authToken } = useContext(AppContext);
     const [email, setEmail] = useState('');
     const [isError, setIsError] = useState(false);
     const [errorMsg, setErrorMsg] = useState<string | JSX.Element>('');
