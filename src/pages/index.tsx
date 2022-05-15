@@ -20,7 +20,6 @@ import {
     OverlayContainer,
 } from '../components/styledComponents/Utils';
 import EnteLoader from '../components/EnteLoader';
-import { isDeviceMobile } from '../util/common/deviceDetection';
 
 function Home() {
     const {
@@ -134,9 +133,7 @@ function Home() {
                                         ? '52px'
                                         : '36px',
                                 }}>
-                                {constants.FAMILY}
-                                <br />
-                                {constants.SHARING}
+                                {constants.FAMILY_PLANS}
                             </div>
                             <div
                                 style={{
@@ -153,7 +150,7 @@ function Home() {
                                         fontWeight: 'bold',
                                         color: theme.palette.primary.main,
                                     }}>
-                                    {constants.FAMILY_SHARING}
+                                    {constants.FAMILY_PLANS}
                                 </span>
                                 . <br /> {constants.SHARE_YOUR_PLAN} <br />
                                 {constants.EACH_MEMBER_GETS_OWN_SPACE}
