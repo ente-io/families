@@ -48,7 +48,7 @@ function Home() {
                 if (isFamilyCreated === 'true') {
                     await router.replace({
                         pathname: '/members',
-                        query: { token },
+                        query: { token, isFamilyCreated },
                     });
                 }
                 const inviteToken = params.get('inviteToken');
@@ -83,7 +83,7 @@ function Home() {
     const setPageToMembers = () => {
         router.replace({
             pathname: '/members',
-            query: { token: authToken },
+            query: { token: authToken, isFamilyCreated: 'true' },
         });
     };
 
