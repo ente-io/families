@@ -38,12 +38,8 @@ export async function createFamily(authToken: string): Promise<{
                 success: false,
                 msg: constants.SORRY_YOU_NEED_TO_UPGRADE,
             };
-        } else {
-            return {
-                success: false,
-                msg: constants.SORRY_SOMETHING_WENT_WRONG,
-            };
         }
+        throw new Error(res.statusText);
     } catch (e) {
         logError(e, 'createFamily failed');
         return {
@@ -72,16 +68,14 @@ export async function acceptInvite(inviteToken: string): Promise<{
                 success: true,
                 data: res.data,
             };
-        }
-        let message = constants.SORRY_SOMETHING_WENT_WRONG;
-        if (res.status == 404) {
-            message = constants.SORRY_INVITE_TOKEN_INVALID;
+        } else if (res.status == 404) {
+            return {
+                success: false,
+                msg: constants.SORRY_INVITE_TOKEN_INVALID,
+            };
         }
         // TODO: add case for invite expired
-        return {
-            success: false,
-            msg: message,
-        };
+        throw new Error(res.statusText);
     } catch (e) {
         logError(e, 'acceptInvite failed');
         return {
@@ -114,12 +108,14 @@ export async function getMembers(authToken: string): Promise<{
                 success: true,
                 data: res.data,
             };
+        } else if (res.status === 401) {
+            return {
+                success: false,
+                msg: constants.SORRY_SOMETHING_WENT_WRONG,
+                status: 401,
+            };
         }
-        return {
-            success: false,
-            msg: constants.SORRY_SOMETHING_WENT_WRONG,
-            status: res.status,
-        };
+        throw new Error(res.statusText);
     } catch (e) {
         logError(e, 'getMembers failed');
         return {
@@ -170,10 +166,7 @@ export async function inviteMember(
                 msg: constants.USER_ALREADY_HAS_SUBSCRIPTION,
             };
         }
-        return {
-            success: false,
-            msg: constants.OOPS_SOMETHING_WENT_WRONG,
-        };
+        throw new Error(res.statusText);
     } catch (e) {
         logError(e, 'inviteMember failed');
         return {
@@ -206,10 +199,7 @@ export async function revokeInvite(
             };
         }
 
-        return {
-            success: false,
-            msg: constants.SORRY_SOMETHING_WENT_WRONG,
-        };
+        throw new Error(res.statusText);
     } catch (e) {
         logError(e, 'revokeInvite failed');
         return {
@@ -242,10 +232,7 @@ export async function removeMember(
             };
         }
 
-        return {
-            success: false,
-            msg: constants.SORRY_SOMETHING_WENT_WRONG,
-        };
+        throw new Error(res.statusText);
     } catch (e) {
         logError(e, 'removeMember failed');
         return {
