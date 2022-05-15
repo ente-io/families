@@ -26,7 +26,6 @@ function Home() {
     const {
         authToken,
         isLargerDisplay,
-        syncMembers,
         setIsLoading,
         setFamilyManagerEmail,
         setTotalStorage,
@@ -95,7 +94,6 @@ function Home() {
                 setIsLoading(false);
                 if (res.success) {
                     setPageToMembers();
-                    syncMembers();
                 } else {
                     setMessageDialogView(true);
                     setMessage(res.msg);

@@ -94,6 +94,7 @@ export async function acceptInvite(inviteToken: string): Promise<{
 export async function getMembers(authToken: string): Promise<{
     success: boolean;
     msg?: string;
+    status?: number;
     data?: {
         members: Member[];
         storage: number;
@@ -117,6 +118,7 @@ export async function getMembers(authToken: string): Promise<{
         return {
             success: false,
             msg: constants.SORRY_SOMETHING_WENT_WRONG,
+            status: res.status,
         };
     } catch (e) {
         logError(e, 'getMembers failed');

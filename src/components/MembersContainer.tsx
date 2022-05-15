@@ -8,7 +8,7 @@ import { BsPlusLg } from 'react-icons/bs';
 import { MAX_FAMILY_MEMBERS } from '../util/constants';
 import constants from '../util/strings/constants';
 
-export function MembersContainer() {
+export function MembersContainer({ syncMembers }) {
     const { isLargerDisplay, members, setInviteDialogView } =
         useContext(AppContext);
 
@@ -76,7 +76,7 @@ export function MembersContainer() {
                         <b> {constants.INVITE_MEMBER}</b>
                     </Button>
                 </div>
-                <MembersList />
+                <MembersList syncMembers={syncMembers} />
                 <div
                     style={{
                         marginBottom: isLargerDisplay ? '48px' : '32px',
