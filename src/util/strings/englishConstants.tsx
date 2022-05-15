@@ -2,11 +2,10 @@ const englishConstants = {
     ENTE: 'ente',
     FAMILY_TITLE: 'Family | ente.io',
     FAMILY: 'Family',
-    SHARING: 'Sharing',
     MEMBERS: 'Members',
     MEMBERS_LOWERCASE: 'members',
     INTRODUCING: 'Introducing',
-    FAMILY_SHARING: 'Family Sharing',
+    FAMILY_PLANS: 'Family Plans',
     SHARE_YOUR_PLAN: 'Share your plan with your family members.',
     EACH_MEMBER_GETS_OWN_SPACE: 'Each member gets their own private space.',
     GET_STARTED: 'Get Started',
@@ -42,7 +41,8 @@ const englishConstants = {
     USER_ALREADY_HAS_SUBSCRIPTION:
         'The customer you invited already has an active subscription. To join your family, please ask them to cancel their subscription.',
     REVOKE_INVITE: 'Revoke invitation?',
-    REVOKE_INVITE_MESSAGE: 'Are you sure you want to revoke the invitation sent to',
+    REVOKE_INVITE_MESSAGE:
+        'Are you sure you want to revoke the invitation sent to',
     REVOKE: 'Revoke',
     CANCEL: 'Cancel',
     INVITE_REVOKED: 'Invitation revoked',
