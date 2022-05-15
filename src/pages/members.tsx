@@ -56,8 +56,15 @@ function Members() {
                     }
                 }
             } else {
-                setAuthToken('');
-                router.replace({ pathname: '/' });
+                if (res.status === 401) {
+                    setAuthToken('');
+                    router.replace({ pathname: '/' });
+                } else {
+                    router.replace({
+                        pathname: '/',
+                        query: { token: authToken },
+                    });
+                }
                 setMessage(res.msg);
                 setMessageDialogView(true);
             }
