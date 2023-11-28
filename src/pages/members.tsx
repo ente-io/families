@@ -48,7 +48,7 @@ function Members() {
             const res = await getMembers(authToken);
             if (res.success) {
                 setMembers(res.data.members);
-                setTotalStorage(res.data.storage);
+                setTotalStorage(res.data.storage + res.data.adminBonus);
                 for (const member of res.data.members) {
                     if (member.isAdmin) {
                         setFamilyManagerEmail(member.email);

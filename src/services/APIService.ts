@@ -93,6 +93,7 @@ export async function getMembers(authToken: string): Promise<{
         members: Member[];
         storage: number;
         expiryTime: number;
+        adminBonus: number;
     };
 }> {
     try {
