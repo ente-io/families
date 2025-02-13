@@ -210,6 +210,44 @@ export async function revokeInvite(
     }
 }
 
+export async function modifyMemberStorage(
+    authToken: string,
+    id: string,
+    storageLimit: number
+): Promise<{
+    success: boolean;
+    msg?: string;
+}> {
+    try {
+        const res = await HTTPService.post(
+            `${getEndpoint()}/family/modify-storage`,
+            {},
+            {
+                'X-Auth-Token': authToken,
+            }
+        );
+
+        if (res.status === 200) {
+            return {
+                success: true,
+            };
+        } else if (res.status === 426) {
+            return {
+                success: false,
+                msg: constants.HIGHER_STORAGE_LIMIT,
+            }
+        } else if (res.status === 500) {
+            return {
+                success: false,
+                msg: constants.FAILED_TO_MODIFY_STORAGE
+            };
+        }
+    } catch (e) {
+        logError(e, `modifyMemberStorage failed`);
+    }
+    return;
+}
+
 export async function removeMember(
     authToken: string,
     userId: string

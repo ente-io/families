@@ -55,6 +55,11 @@ const englishConstants = {
     REACHED_MAX_FAMILY_SIZE:
         'You have reached the maximum number of family members.',
     OOPS_SOMETHING_WENT_WRONG: 'Oops, something went wrong.',
+
+    // constants for modifying member storage
+    FAILED_TO_MODIFY_STORAGE: "Couldn't modify storage for member",
+    HIGHER_STORAGE_LIMIT: "Storage Limit entered is higher than total subscription",
+    USAGE_HIGHER_THAN_LIMIT: "Members current storage is higher than the potential limit",
 };
 
 export default englishConstants;
