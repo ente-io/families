@@ -128,7 +128,8 @@ export async function getMembers(authToken: string): Promise<{
 
 export async function inviteMember(
     authToken: string,
-    email: string
+    email: string,
+    storageLimit?: number
 ): Promise<{
     success: boolean;
     msg?: string | JSX.Element;
