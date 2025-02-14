@@ -135,9 +135,16 @@ export async function inviteMember(
     msg?: string | JSX.Element;
 }> {
     try {
+        let storageLimitInBytes = (1024 ** 3)
+        if (storageLimit === 0) {
+            storageLimit = null
+        } else {
+            storageLimit *= storageLimitInBytes
+            console.log(storageLimit)
+        }
         const res = await HTTPService.post(
             `${getEndpoint()}/family/add-member`,
-            { email },
+            { email, storageLimit },
             undefined,
             {
                 'X-Auth-Token': authToken,
