@@ -2,6 +2,7 @@ import { Tooltip } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react';
 import { BsTrash as TrashIcon } from 'react-icons/bs';
 import { IoReload as ResendIcon } from 'react-icons/io5';
+import { MdOutlineEdit } from 'react-icons/md';
 import { AppContext } from '../pages/_app';
 import { Member } from '../types';
 import {
@@ -27,7 +28,7 @@ const tooltipProps = {
     },
 };
 
-export function MembersList({ syncMembers }) {
+export default function MembersList({ syncMembers }) {
     const {
         isLargerDisplay,
         members,
@@ -38,6 +39,7 @@ export function MembersList({ syncMembers }) {
         setMessage,
     } = useContext(AppContext);
 
+    const [editDialog, setEditDialog] = useState(false);
     const [membersWithoutAdmin, setMembersWithoutAdmin] = useState<Member[]>(
         []
     );
@@ -108,6 +110,12 @@ export function MembersList({ syncMembers }) {
         setActionDialogView(true);
     };
 
+    const handleEditClick = (member: Member) => {
+        if (member.status === 'INVITED' || member.status === 'ACCEPTED') {
+            setEditDialog(true);
+        }
+    };
+
     return (
         <>
             {membersWithoutAdmin.map((member, index) => (
@@ -157,6 +165,19 @@ export function MembersList({ syncMembers }) {
                                     </div>
                                 </Tooltip>
                             )}
+                            <Tooltip
+                                title="Edit Storage"
+                                placement="top"
+                                componentsProps={tooltipProps}>
+                                <div
+                                    style={{
+                                        marginLeft: '8px',
+                                        cursor: 'pointer',
+                                    }}
+                                    onClick={() => handleEditClick(member)}>
+                                    <MdOutlineEdit />
+                                </div>
+                            </Tooltip>
                             <Tooltip
                                 title={
                                     member.status === 'INVITED'

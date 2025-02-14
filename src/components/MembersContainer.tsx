@@ -1,7 +1,7 @@
 import { Button, Container } from '@mui/material';
 import React, { useContext } from 'react';
 import theme from '../theme';
-import { MembersList } from './MembersList';
+import MembersList from './MembersList';
 import { PersonIconContainer } from './styledComponents/FamilyMembers';
 import { AppContext } from '../pages/_app';
 import { BsPlusLg } from 'react-icons/bs';
