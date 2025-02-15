@@ -17,6 +17,10 @@ export function convertBytesToGBs(bytes: number): string {
     return (bytes / (1024 * 1024 * 1024)).toFixed(0);
 }
 
+export function convertGBsToBytes(gbs: number): number {
+    return gbs * (1024 ** 3);
+}
+
 export function runningInBrowser() {
     return typeof window !== 'undefined';
 }

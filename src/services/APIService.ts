@@ -1,8 +1,10 @@
 import UserNotFoundMessage from '../components/utils/UserNotFoundMessage';
 import { Member } from '../types';
+import { convertBytesToGBs } from '../util/common';
 import { logError } from '../util/sentry';
 import constants from '../util/strings/constants';
 import HTTPService from './HTTPService';
+import { convertGBsToBytes } from '../util/common';
 
 export const getEndpoint = () => {
     const endPoint =
@@ -135,12 +137,10 @@ export async function inviteMember(
     msg?: string | JSX.Element;
 }> {
     try {
-        let storageLimitInBytes = (1024 ** 3)
         if (storageLimit === 0) {
             storageLimit = null
         } else {
-            storageLimit *= storageLimitInBytes
-            console.log(storageLimit)
+            storageLimit = convertGBsToBytes(storageLimit)
         }
         const res = await HTTPService.post(
             `${getEndpoint()}/family/add-member`,
@@ -227,11 +227,18 @@ export async function modifyMemberStorage(
     msg?: string;
 }> {
     try {
+        if (storageLimit === 0) {
+            storageLimit = null
+        } else {
+            storageLimit = convertGBsToBytes(storageLimit)
+        }
+        
         const res = await HTTPService.post(
             `${getEndpoint()}/family/modify-storage`,
-            {},
+            { id, storageLimit},
+            undefined,
             {
-                'X-Auth-Token': authToken,
+            'X-Auth-Token': authToken,
             }
         );
 

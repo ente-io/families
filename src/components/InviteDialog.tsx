@@ -58,14 +58,10 @@ function InviteDialog({ open, setOpen, syncMembers }) {
     };
 
     const handleStorageLimitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (Number(e.target.value) === 0 && e.target.value === null) {
-            setStorageLimit(null)
-        } else {
             // Convert GB to Bytes before sending data to the server
             setStorageLimit(Number(e.target.value));
             setIsError(false);
             setErrorMsg('');
-        }
     };
 
     const handleKeyPress = (e) => {
@@ -160,12 +156,13 @@ function InviteDialog({ open, setOpen, syncMembers }) {
                                 style={{
                                     marginTop: '24px',
                                     width: '100%',
+                                    
                                 }}>
                                 <TextField
                                     type={'storage-limit'}
                                     error={isError}
                                     hiddenLabel
-                                    placeholder="storage in GB, ex: 10GB"
+                                    placeholder="storage in GB"
                                     size="small"
                                     variant="filled"
                                     fullWidth={true}
@@ -197,13 +194,16 @@ function InviteDialog({ open, setOpen, syncMembers }) {
                                     Default (empty) means sets no storage limit
                                 </p>
                             </div>
-                        </div>
                         {isError && (
                             <ErrorContainer
-                                style={{ color: theme.palette.error.main }}>
+                                style={{ 
+                                    color: theme.palette.error.main,
+                                    marginBottom: '10px',
+                                }}>
                                 {errorMsg}
                             </ErrorContainer>
                         )}
+                        </div>
                         <Button
                             disabled={isError}
                             variant="contained"
