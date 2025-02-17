@@ -11,6 +11,7 @@ import {
     revokeInviteOptions,
 } from '../util/options/ActionDialogOptionsUtils';
 import { logError } from '../util/sentry';
+import EditDialog from './EditDialog';
 
 const StatusMap = {
     SELF: 'Admin',
@@ -169,13 +170,20 @@ export default function MembersList({ syncMembers }) {
                                 title="Edit Storage"
                                 placement="top"
                                 componentsProps={tooltipProps}>
-                                <div
-                                    style={{
-                                        marginLeft: '8px',
-                                        cursor: 'pointer',
-                                    }}
-                                    onClick={() => handleEditClick(member)}>
-                                    <MdOutlineEdit />
+                                <div>
+                                    <div
+                                        style={{
+                                            marginLeft: '8px',
+                                            cursor: 'pointer',
+                                        }}
+                                        onClick={() => handleEditClick(member)}>
+                                        <MdOutlineEdit />
+                                    </div>
+                                    <EditDialog
+                                        open={editDialog}
+                                        setOpen={setEditDialog}
+                                        memberID={member.id}
+                                    />
                                 </div>
                             </Tooltip>
                             <Tooltip
