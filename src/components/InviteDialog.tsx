@@ -17,7 +17,6 @@ import { logError } from '../util/sentry';
 function InviteDialog({ open, setOpen, syncMembers }) {
     const { isLargerDisplay, authToken } = useContext(AppContext);
     const [email, setEmail] = useState('');
-    const [storageLimit, setStorageLimit] = useState<number>(null);
     const [isError, setIsError] = useState(false);
     const [errorMsg, setErrorMsg] = useState<string | JSX.Element>('');
     const [isInviteSent, setIsInviteSent] = useState(false);
@@ -27,7 +26,7 @@ function InviteDialog({ open, setOpen, syncMembers }) {
             if (email.length === 0) {
                 return;
             }
-            
+
             const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!re.test(email)) {
                 setIsError(true);
@@ -35,13 +34,12 @@ function InviteDialog({ open, setOpen, syncMembers }) {
                 return;
             }
 
-            const res = await inviteMember(authToken, email, storageLimit);
+            const res = await inviteMember(authToken, email);
             if (res.success) {
                 setOpen(false);
                 setIsInviteSent(true);
                 syncMembers();
                 setEmail('');
-                setStorageLimit(null);
             } else {
                 setIsError(true);
                 setErrorMsg(res.msg);
@@ -51,16 +49,10 @@ function InviteDialog({ open, setOpen, syncMembers }) {
         }
     };
 
-    const handleEmailChange = (e) => {
+    const handleTextChange = (e) => {
         setEmail(e.target.value);
         setIsError(false);
         setErrorMsg('');
-    };
-
-    const handleStorageLimitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-            setStorageLimit(Number(e.target.value));
-            setIsError(false);
-            setErrorMsg('');
     };
 
     const handleKeyPress = (e) => {
@@ -137,7 +129,7 @@ function InviteDialog({ open, setOpen, syncMembers }) {
                                     style: { textTransform: 'none' },
                                     autoCapitalize: 'none',
                                 }}
-                                onChange={handleEmailChange}
+                                onChange={handleTextChange}
                                 onKeyDown={handleKeyPress}
                                 autoComplete="off"
                                 sx={{
@@ -151,58 +143,13 @@ function InviteDialog({ open, setOpen, syncMembers }) {
                                     },
                                 }}
                             />
-                            <div
-                                style={{
-                                    marginTop: '24px',
-                                    width: '100%',
-                                    
-                                }}>
-                                <TextField
-                                    type={'storage-limit'}
-                                    error={isError}
-                                    hiddenLabel
-                                    placeholder="storage in GB"
-                                    size="small"
-                                    variant="filled"
-                                    fullWidth={true}
-                                    value={storageLimit}
-                                    autoFocus={false}
-                                    inputProps={{
-                                        style: { textTransform: 'none' },
-                                        autoCapitalize: 'none',
-                                    }}
-                                    onChange={handleStorageLimitChange}
-                                    onKeyDown={handleKeyPress}
-                                    autoComplete="off"
-                                    sx={{
-                                        input: {
-                                            backgroundColor: '#e4e4e4',
-                                            fontSize: '16px',
-                                            color: isError
-                                                ? theme.palette.error.main
-                                                : '#000',
-                                            borderRadius: '8px',
-                                        },
-                                    }}
-                                />
-                                <p
-                                    style={{
-                                        fontSize: '12px',
-                                        color: '#9f9f9f',
-                                    }}>
-                                    Enter 0 to set no storage limit
-                                </p>
-                            </div>
+                        </div>
                         {isError && (
                             <ErrorContainer
-                                style={{ 
-                                    color: theme.palette.error.main,
-                                    marginBottom: '10px',
-                                }}>
+                                style={{ color: theme.palette.error.main }}>
                                 {errorMsg}
                             </ErrorContainer>
                         )}
-                        </div>
                         <Button
                             disabled={isError}
                             variant="contained"
