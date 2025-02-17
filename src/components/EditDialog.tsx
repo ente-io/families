@@ -103,37 +103,52 @@ function EditDialog({ open, setOpen, memberID }) {
                         style={{
                             padding: '10px',
                         }}>
-                        <TextField
-                            type="number"
-                            InputProps={{ inputProps: { shiftMultiplier: 0 } }}
-                            placeholder="storage in GB, ex: 10GB"
-                            onChange={handleStorageLimitChange}
-                            onKeyDown={handleKeyPress}
-                            value={storageLimit}
-                            error={isError}
-                            size="small"
-                            variant="filled"
-                            fullWidth={true}
-                            autoFocus={true}
-                            autoComplete="off"
-                            sx={{
-                                input: {
-                                    backgroundColor: '#e4e4e4',
-                                    fontSize: '16px',
-                                    color: isError
+                        <div>
+                            <TextField
+                                type="number"
+                                InputProps={{
+                                    inputProps: { 
+                                        min: 0,
+                                        style: { paddingRight: '30px' }
+                                    },
+                                    endAdornment: (
+                                        <span style={{ 
+                                            position: 'absolute',
+                                            right: '10px',
+                                            color: '#949494'
+                                        }}>
+                                            GB
+                                        </span>
+                                    )
+                                }}
+                                placeholder="10"
+                                onChange={handleStorageLimitChange}
+                                onKeyDown={handleKeyPress}
+                                value={storageLimit}
+                                error={isError}
+                                size="small"
+                                variant="filled"
+                                fullWidth={true}
+                                autoFocus={true}
+                                autoComplete="off"
+                                sx={{
+                                    input: {
+                                        fontSize: '16px',
+                                        color: isError
                                         ? theme.palette.error.main
                                         : '#000',
-                                    borderRadius: '8px',
-                                    padding: '10px'
-                                },
-                            }}
-                        />
+                                        borderRadius: '8px',
+                                        padding: '10px',
+                                    },
+                                }}
+                            />
+                        </div>
                         <p
                             style={{
                                 fontSize: '12px',
                                 color: '#9f9f9f',
                             }}>
-                            Default (empty) means sets no storage limit
+                            Default (0) sets no storage limit.
                         </p>
                     </div>
                     {isError && (
