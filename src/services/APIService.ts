@@ -1,6 +1,5 @@
 import UserNotFoundMessage from '../components/utils/UserNotFoundMessage';
 import { Member } from '../types';
-import { convertBytesToGBs } from '../util/common';
 import { logError } from '../util/sentry';
 import constants from '../util/strings/constants';
 import HTTPService from './HTTPService';

@@ -58,7 +58,6 @@ function InviteDialog({ open, setOpen, syncMembers }) {
     };
 
     const handleStorageLimitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-            // Convert GB to Bytes before sending data to the server
             setStorageLimit(Number(e.target.value));
             setIsError(false);
             setErrorMsg('');
