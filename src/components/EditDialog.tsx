@@ -124,7 +124,7 @@ function EditDialog({ open, setOpen, memberID }) {
                                         ? theme.palette.error.main
                                         : '#000',
                                     borderRadius: '8px',
-                                    padding: 'none'
+                                    padding: '10px'
                                 },
                             }}
                         />
