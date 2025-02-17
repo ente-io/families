@@ -70,22 +70,22 @@ function EditDialog({ open, setOpen, memberID }) {
                 maxWidth="xs">
                 <div
                     style={{
-                        padding: '10px',
-                        width: 'auto',
                         backgroundColor: 'white',
                         display: 'flex',
                         flexDirection: 'column',
+                        padding: '20px 10px',
                     }}>
-                    <DialogContent
-                        style={{
-                            backgroundColor: 'white',
-                        }}>
+                    <DialogContent style={{
+                        padding: '10px 15px',
+                    }}>
                         <CloseButtonContainer>
                             <IoMdClose
                                 size={18}
                                 onClick={() => setOpen(false)}
                                 style={{
                                     cursor: 'pointer',
+                                    backgroundColor: '#f5f5f5',
+                                    borderRadius: '50%',
                                 }}
                             />
                         </CloseButtonContainer>
@@ -94,32 +94,35 @@ function EditDialog({ open, setOpen, memberID }) {
                                 fontSize: '24px',
                                 fontWeight: 'bold',
                                 color: '#000',
-                                textAlign: 'center',
+                                padding: 'none'
                             }}>
                             Edit Storage
                         </DialogContentText>
                     </DialogContent>
                     <div
                         style={{
-                            padding: '10px',
+                            width: 'parent',
+                            padding: '10px 10px',
+                            marginBottom: '10px'
+
                         }}>
                         <div>
                             <TextField
                                 type="number"
                                 InputProps={{
-                                    inputProps: { 
+                                    inputProps: {
                                         min: 0,
-                                        style: { paddingRight: '30px' }
+                                        style: { paddingRight: '10px' },
                                     },
                                     endAdornment: (
-                                        <span style={{ 
-                                            position: 'absolute',
-                                            right: '10px',
-                                            color: '#949494'
-                                        }}>
+                                        <span
+                                            style={{
+                                                right: '-10%',
+                                                color: '#949494',
+                                            }}>
                                             GB
                                         </span>
-                                    )
+                                    ),
                                 }}
                                 placeholder="10"
                                 onChange={handleStorageLimitChange}
@@ -135,10 +138,10 @@ function EditDialog({ open, setOpen, memberID }) {
                                     input: {
                                         fontSize: '16px',
                                         color: isError
-                                        ? theme.palette.error.main
-                                        : '#000',
+                                            ? theme.palette.error.main
+                                            : '#000',
                                         borderRadius: '8px',
-                                        padding: '10px',
+                                        padding: '10px'
                                     },
                                 }}
                             />
@@ -166,7 +169,7 @@ function EditDialog({ open, setOpen, memberID }) {
                             textTransform: 'none',
                             fontWeight: 'bold',
                             fontSize: '16px',
-                            width: isLargerDisplay ? '50%' : '60%',
+                            width: isLargerDisplay ? '95%' : '60%',
                             marginTop: '25px',
                             marginBottom: '30px',
                             margin: 'auto',
