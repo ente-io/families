@@ -60,6 +60,11 @@ function EditDialog({ open, setOpen, memberID }) {
         }
     };
 
+    const handleResetStorage = () => {
+        setStorageLimit(0);
+        setOpen(false)
+    };
+
     return (
         <>
             <Dialog
@@ -75,9 +80,10 @@ function EditDialog({ open, setOpen, memberID }) {
                         flexDirection: 'column',
                         padding: '20px 10px',
                     }}>
-                    <DialogContent style={{
-                        padding: '10px 15px',
-                    }}>
+                    <DialogContent
+                        style={{
+                            padding: '10px 15px',
+                        }}>
                         <CloseButtonContainer>
                             <IoMdClose
                                 size={18}
@@ -94,7 +100,7 @@ function EditDialog({ open, setOpen, memberID }) {
                                 fontSize: '24px',
                                 fontWeight: 'bold',
                                 color: '#000',
-                                padding: 'none'
+                                padding: 'none',
                             }}>
                             Edit Storage
                         </DialogContentText>
@@ -103,8 +109,7 @@ function EditDialog({ open, setOpen, memberID }) {
                         style={{
                             width: 'parent',
                             padding: '10px 10px',
-                            marginBottom: '10px'
-
+                            marginBottom: '10px',
                         }}>
                         <div>
                             <TextField
@@ -141,7 +146,7 @@ function EditDialog({ open, setOpen, memberID }) {
                                             ? theme.palette.error.main
                                             : '#000',
                                         borderRadius: '8px',
-                                        padding: '10px'
+                                        padding: '10px',
                                     },
                                 }}
                             />
@@ -151,7 +156,6 @@ function EditDialog({ open, setOpen, memberID }) {
                                 fontSize: '12px',
                                 color: '#9f9f9f',
                             }}>
-                            Default (0) sets no storage limit.
                         </p>
                     </div>
                     {isError && (
@@ -160,6 +164,26 @@ function EditDialog({ open, setOpen, memberID }) {
                             {errorMsg}
                         </ErrorContainer>
                     )}
+                    <Button
+                        disabled={isError}
+                        variant="contained"
+                        onClick={handleResetStorage}
+                        sx={{
+                            textTransform: 'none',
+                            fontWeight: 'bold',
+                            fontSize: '16px',
+                            color: 'black',
+                            backgroundColor: '#f5f5f5',
+                            ":hover": {
+                                backgroundColor: '#9f9f9f',
+                            },
+                            width: isLargerDisplay ? '95%' : '60%',
+                            margin: 'auto',
+                            marginBottom: '15px',
+                            dropShadow: 'none',
+                        }}>
+                        Reset
+                    </Button>
                     <Button
                         disabled={isError}
                         variant="contained"
