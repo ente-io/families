@@ -15,8 +15,6 @@ import {
     ErrorContainer,
 } from './styledComponents/InviteDialog';
 import { logError } from '../util/sentry';
-import { Unstable_NumberInput as NumberInput } from '@mui/base';
-import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io';
 
 function EditDialog({ open, setOpen, memberID }) {
     const { isLargerDisplay, authToken } = useContext(AppContext);

@@ -246,16 +246,16 @@ export async function modifyMemberStorage(
             return {
                 success: true,
             };
-        } else if (res.status === 426) {
+        } else if (res.status === 401) {
             return {
                 success: false,
-                msg: constants.HIGHER_STORAGE_LIMIT,
+                msg: constants.ERR_PERMISISON_DENIED,
             }
-        } else if (res.status === 500) {
+        } else {
             return {
                 success: false,
                 msg: constants.FAILED_TO_MODIFY_STORAGE
-            };
+            }
         }
     } catch (e) {
         logError(e, `modifyMemberStorage failed`);

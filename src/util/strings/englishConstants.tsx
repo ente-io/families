@@ -58,8 +58,7 @@ const englishConstants = {
 
     // constants for modifying member storage
     FAILED_TO_MODIFY_STORAGE: "Couldn't modify storage for member",
-    HIGHER_STORAGE_LIMIT: "Storage Limit entered is higher than total subscription",
-    USAGE_HIGHER_THAN_LIMIT: "Members current storage is higher than the potential limit",
+    ERR_PERMISISON_DENIED: "You don't have permission to modify storage for this member",
 };
 
 export default englishConstants;
