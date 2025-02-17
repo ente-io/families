@@ -191,7 +191,7 @@ function InviteDialog({ open, setOpen, syncMembers }) {
                                         fontSize: '12px',
                                         color: '#9f9f9f',
                                     }}>
-                                    Default (empty) means sets no storage limit
+                                    Enter 0 to set no storage limit
                                 </p>
                             </div>
                         {isError && (
