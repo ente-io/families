@@ -8,7 +8,7 @@ import {
 import React, { useContext, useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
 import { AppContext } from '../pages/_app';
-import { modifyMemberStorage } from '../services/APIService';
+import { getMembers, modifyMemberStorage } from '../services/APIService';
 import theme from '../theme';
 import {
     CloseButtonContainer,
@@ -62,7 +62,33 @@ function EditDialog({ open, setOpen, memberID }) {
 
     const handleResetStorage = () => {
         setStorageLimit(0);
-        setOpen(false)
+        setOpen(false);
+    };
+
+    const renderRemoveLimit = () => {
+        if (storageLimit) {
+            return (
+                <Button
+                    disabled={isError}
+                    variant="contained"
+                    onClick={handleResetStorage}
+                    sx={{
+                        textTransform: 'none',
+                        fontSize: '16px',
+                        color: 'black',
+                        backgroundColor: '#f5f5f5',
+                        ':hover': {
+                            backgroundColor: '#e4e4e4',
+                        },
+                        width: isLargerDisplay ? '95%' : '60%',
+                        margin: 'auto',
+                        marginBottom: '15px',
+                        dropShadow: 'none',
+                    }}>
+                    Remove Limit
+                </Button>
+            );
+        }
     };
 
     return (
@@ -102,7 +128,7 @@ function EditDialog({ open, setOpen, memberID }) {
                                 color: '#000',
                                 padding: 'none',
                             }}>
-                            Edit Storage
+                            Set Storage Storage
                         </DialogContentText>
                     </DialogContent>
                     <div
@@ -155,8 +181,7 @@ function EditDialog({ open, setOpen, memberID }) {
                             style={{
                                 fontSize: '12px',
                                 color: '#9f9f9f',
-                            }}>
-                        </p>
+                            }}></p>
                     </div>
                     {isError && (
                         <ErrorContainer
@@ -164,26 +189,7 @@ function EditDialog({ open, setOpen, memberID }) {
                             {errorMsg}
                         </ErrorContainer>
                     )}
-                    <Button
-                        disabled={isError}
-                        variant="contained"
-                        onClick={handleResetStorage}
-                        sx={{
-                            textTransform: 'none',
-                            fontWeight: 'bold',
-                            fontSize: '16px',
-                            color: 'black',
-                            backgroundColor: '#f5f5f5',
-                            ":hover": {
-                                backgroundColor: '#9f9f9f',
-                            },
-                            width: isLargerDisplay ? '95%' : '60%',
-                            margin: 'auto',
-                            marginBottom: '15px',
-                            dropShadow: 'none',
-                        }}>
-                        Reset
-                    </Button>
+                    {renderRemoveLimit()}
                     <Button
                         disabled={isError}
                         variant="contained"
@@ -198,7 +204,7 @@ function EditDialog({ open, setOpen, memberID }) {
                             marginBottom: '30px',
                             margin: 'auto',
                         }}>
-                        Save
+                        Set Limit
                     </Button>
                 </div>
             </Dialog>
