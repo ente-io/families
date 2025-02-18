@@ -128,7 +128,7 @@ function EditDialog({ open, setOpen, memberID }) {
                                 color: '#000',
                                 padding: 'none',
                             }}>
-                            Set Storage Storage
+                            Set Storage limit
                         </DialogContentText>
                     </DialogContent>
                     <div
