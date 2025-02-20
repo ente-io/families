@@ -20,7 +20,6 @@ function EditDialog({ open, setOpen, memberID }) {
     const { isLargerDisplay, authToken } = useContext(AppContext);
     const [storageLimit, setStorageLimit] = useState<number>(null);
     const [isError, setIsError] = useState(false);
-    const [memID, setMemID] = useState(false);
     const [errorMsg, setErrorMsg] = useState<string | JSX.Element>('');
 
     const handleEditClick = async () => {
@@ -46,8 +45,6 @@ function EditDialog({ open, setOpen, memberID }) {
     const handleStorageLimitChange = (
         event: React.ChangeEvent<HTMLInputElement>
     ) => {
-        setMemID(memberID);
-        // Convert GB to Bytes before sending data to the server
         const value = Number(event.target.value);
         setStorageLimit(value);
         setIsError(false);
