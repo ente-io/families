@@ -62,6 +62,14 @@ function EditDialog({ open, setOpen, memberID }) {
         setOpen(false);
     };
 
+    const handleOnClose = () => {
+        if (isError === true) {
+            setStorageLimit(null);
+            setIsError(false);
+            setOpen(false);
+        }
+    };
+
     const renderRemoveLimit = () => {
         if (storageLimit) {
             return (
@@ -92,9 +100,6 @@ function EditDialog({ open, setOpen, memberID }) {
         <>
             <Dialog
                 open={open}
-                onClose={() => {
-                    setOpen(false);
-                }}
                 maxWidth="xs">
                 <div
                     style={{
@@ -110,7 +115,7 @@ function EditDialog({ open, setOpen, memberID }) {
                         <CloseButtonContainer>
                             <IoMdClose
                                 size={18}
-                                onClick={() => setOpen(false)}
+                                onClick={handleOnClose}
                                 style={{
                                     cursor: 'pointer',
                                     backgroundColor: '#f5f5f5',
