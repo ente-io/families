@@ -44,6 +44,7 @@ export default function MembersList({ syncMembers }) {
     const [membersWithoutAdmin, setMembersWithoutAdmin] = useState<Member[]>(
         []
     );
+    const [selectedMemberID, setSelectedMemberID] = useState<string>(null);
 
     useEffect(() => {
         setMembersWithoutAdmin(
@@ -112,11 +113,14 @@ export default function MembersList({ syncMembers }) {
     };
 
     const handleEditClick = (member: Member) => {
-        if (member.status === 'INVITED' || member.status === 'ACCEPTED') {
+        setSelectedMemberID(member.id)
+        if (member.status === 'ACCEPTED') {
             setEditDialog(true);
+        } else if (member.status === 'INVITED') {
+            setEditDialog(true)
         }
     };
-
+    
     return (
         <>
             {membersWithoutAdmin.map((member, index) => (
@@ -182,7 +186,7 @@ export default function MembersList({ syncMembers }) {
                                     <EditDialog
                                         open={editDialog}
                                         setOpen={setEditDialog}
-                                        memberID={member.id}
+                                        memberID={selectedMemberID}
                                     />
                                 </div>
                             </Tooltip>
