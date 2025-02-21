@@ -12,6 +12,7 @@ import {
 } from '../util/options/ActionDialogOptionsUtils';
 import { logError } from '../util/sentry';
 import EditDialog from './EditDialog';
+import { convertBytesToGBs } from '../util/common';
 
 const StatusMap = {
     SELF: 'Admin',
@@ -45,6 +46,8 @@ export default function MembersList({ syncMembers }) {
         []
     );
     const [selectedMemberID, setSelectedMemberID] = useState<string>(null);
+    const [selectedMemLimit, setSelectedMemLimit] = useState<number>(null);
+    const [selectedMemUsage, setSelectedMemUsage] = useState<number>(null);
 
     useEffect(() => {
         setMembersWithoutAdmin(
@@ -113,14 +116,17 @@ export default function MembersList({ syncMembers }) {
     };
 
     const handleEditClick = (member: Member) => {
-        setSelectedMemberID(member.id)
+        setSelectedMemberID(member.id);
+        setSelectedMemLimit(member.storageLimit);
+        setSelectedMemUsage(member.usage);
+
         if (member.status === 'ACCEPTED') {
             setEditDialog(true);
-        } else if (member.status === 'INVITED') {
-            setEditDialog(true)
+        } else {
+            setEditDialog(false);
         }
     };
-    
+
     return (
         <>
             {membersWithoutAdmin.map((member, index) => (
@@ -170,26 +176,38 @@ export default function MembersList({ syncMembers }) {
                                     </div>
                                 </Tooltip>
                             )}
-                            <Tooltip
-                                title="Edit Storage"
-                                placement="top"
-                                componentsProps={tooltipProps}>
-                                <div>
-                                    <div
-                                        style={{
-                                            marginLeft: '8px',
-                                            cursor: 'pointer',
-                                        }}
-                                        onClick={() => handleEditClick(member)}>
-                                        <MdOutlineEdit />
+                            {member.status === 'ACCEPTED' ? (
+                                <Tooltip
+                                    title="Edit Storage"
+                                    placement="top"
+                                    componentsProps={tooltipProps}>
+                                    <div>
+                                        <div
+                                            style={{
+                                                marginLeft: '8px',
+                                                cursor: 'pointer',
+                                            }}
+                                            onClick={() =>
+                                                handleEditClick(member)
+                                            }>
+                                            <MdOutlineEdit />
+                                        </div>
+                                        <EditDialog
+                                            open={editDialog}
+                                            setOpen={setEditDialog}
+                                            memberID={selectedMemberID}
+                                            prevLimit={convertBytesToGBs(
+                                                selectedMemLimit
+                                            )}
+                                            memberUsage={convertBytesToGBs(
+                                                selectedMemUsage
+                                            )}
+                                        />
                                     </div>
-                                    <EditDialog
-                                        open={editDialog}
-                                        setOpen={setEditDialog}
-                                        memberID={selectedMemberID}
-                                    />
-                                </div>
-                            </Tooltip>
+                                </Tooltip>
+                            ) : (
+                                <span></span>
+                            )}
                             <Tooltip
                                 title={
                                     member.status === 'INVITED'

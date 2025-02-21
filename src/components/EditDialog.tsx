@@ -8,7 +8,7 @@ import {
 import React, { useContext, useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
 import { AppContext } from '../pages/_app';
-import { getMembers, modifyMemberStorage } from '../services/APIService';
+import { modifyMemberStorage } from '../services/APIService';
 import theme from '../theme';
 import {
     CloseButtonContainer,
@@ -16,12 +16,11 @@ import {
 } from './styledComponents/InviteDialog';
 import { logError } from '../util/sentry';
 
-function EditDialog({ open, setOpen, memberID }) {
+function EditDialog({ open, setOpen, memberID, prevLimit, memberUsage }) {
     const { isLargerDisplay, authToken } = useContext(AppContext);
     const [storageLimit, setStorageLimit] = useState<number>(null);
     const [isError, setIsError] = useState(false);
     const [errorMsg, setErrorMsg] = useState<string | JSX.Element>('');
-
     const handleEditClick = async () => {
         try {
             const res = await modifyMemberStorage(
@@ -42,13 +41,36 @@ function EditDialog({ open, setOpen, memberID }) {
         }
     };
 
+    const handleResetStorage = async () => {
+        try {
+            // 0 sets no limit for the member
+            const res = await modifyMemberStorage(authToken, memberID, 0);
+            if (res.success) {
+                setOpen(false);
+                setStorageLimit(null);
+            } else {
+                setIsError(true);
+                setErrorMsg(res.msg);
+            }
+        } catch (e) {
+            logError(e, 'failed to reset storage');
+            setIsError(true);
+        }
+    };
+
     const handleStorageLimitChange = (
         event: React.ChangeEvent<HTMLInputElement>
     ) => {
-        const value = Number(event.target.value);
-        setStorageLimit(value);
-        setIsError(false);
-        setErrorMsg('');
+        const limitValue = Number(event.target.value);
+        if (limitValue < memberUsage) {
+            setIsError(true);
+            setErrorMsg(`Cannot reduce. Used storage is ${memberUsage}GB`);
+            setStorageLimit(null);
+        } else {
+            setStorageLimit(limitValue);
+            setIsError(false);
+            setErrorMsg('');
+        }
     };
 
     const handleKeyPress = (e) => {
@@ -57,24 +79,22 @@ function EditDialog({ open, setOpen, memberID }) {
         }
     };
 
-    const handleResetStorage = () => {
-        setStorageLimit(0);
-        setOpen(false);
-    };
-
     const handleOnClose = () => {
         if (isError === true) {
             setStorageLimit(null);
             setIsError(false);
             setOpen(false);
+        } else {
+            setOpen(false);
+            setStorageLimit(null);
         }
     };
 
     const renderRemoveLimit = () => {
-        if (storageLimit) {
+        // if prevLimit != 0 then render the remove limit button
+        if (prevLimit != 0) {
             return (
                 <Button
-                    disabled={isError}
                     variant="contained"
                     onClick={handleResetStorage}
                     sx={{
@@ -90,7 +110,7 @@ function EditDialog({ open, setOpen, memberID }) {
                         marginBottom: '15px',
                         dropShadow: 'none',
                     }}>
-                    Remove Limit
+                    Remove limit
                 </Button>
             );
         }
@@ -98,9 +118,7 @@ function EditDialog({ open, setOpen, memberID }) {
 
     return (
         <>
-            <Dialog
-                open={open}
-                maxWidth="xs">
+            <Dialog open={open} maxWidth="xs">
                 <div
                     style={{
                         backgroundColor: 'white',
@@ -130,13 +148,15 @@ function EditDialog({ open, setOpen, memberID }) {
                                 color: '#000',
                                 padding: 'none',
                             }}>
-                            Set Storage limit
+                            Set storage limit
                         </DialogContentText>
                     </DialogContent>
                     <div
                         style={{
                             width: 'parent',
-                            padding: '10px 10px',
+                            paddingBottom: '20px',
+                            paddingRight: '10px',
+                            paddingLeft: '10px',
                             marginBottom: '10px',
                         }}>
                         <div>
@@ -144,7 +164,6 @@ function EditDialog({ open, setOpen, memberID }) {
                                 type="number"
                                 InputProps={{
                                     inputProps: {
-                                        min: 0,
                                         style: { paddingRight: '10px' },
                                     },
                                     endAdornment: (
@@ -157,10 +176,18 @@ function EditDialog({ open, setOpen, memberID }) {
                                         </span>
                                     ),
                                 }}
-                                placeholder="10"
+                                placeholder={
+                                    // if there was a limit set show the pre-set limit
+                                    // else just show "Enter Limit" for the user to set a limit
+                                    prevLimit != 0
+                                        ? `Current limit: ${Math.max(
+                                              memberUsage,
+                                              prevLimit
+                                          )} GB`
+                                        : ' Enter limit'
+                                }
                                 onChange={handleStorageLimitChange}
                                 onKeyDown={handleKeyPress}
-                                value={storageLimit}
                                 error={isError}
                                 size="small"
                                 variant="filled"
@@ -178,19 +205,14 @@ function EditDialog({ open, setOpen, memberID }) {
                                     },
                                 }}
                             />
+                            {isError && (
+                                <ErrorContainer
+                                    style={{ color: theme.palette.error.main }}>
+                                    {errorMsg}
+                                </ErrorContainer>
+                            )}
                         </div>
-                        <p
-                            style={{
-                                fontSize: '12px',
-                                color: '#9f9f9f',
-                            }}></p>
                     </div>
-                    {isError && (
-                        <ErrorContainer
-                            style={{ color: theme.palette.error.main }}>
-                            {errorMsg}
-                        </ErrorContainer>
-                    )}
                     {renderRemoveLimit()}
                     <Button
                         disabled={isError}
@@ -199,14 +221,13 @@ function EditDialog({ open, setOpen, memberID }) {
                         onClick={handleEditClick}
                         sx={{
                             textTransform: 'none',
-                            fontWeight: 'bold',
                             fontSize: '16px',
                             width: isLargerDisplay ? '95%' : '60%',
                             marginTop: '25px',
                             marginBottom: '30px',
                             margin: 'auto',
                         }}>
-                        Set Limit
+                        Set limit
                     </Button>
                 </div>
             </Dialog>

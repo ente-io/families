@@ -30,6 +30,7 @@ export interface Member {
     status: MemberStatusOptions;
     usage: number;
     isAdmin: boolean;
+    storageLimit?: number;
 }
 
 export interface ActionDialogOptions {
