@@ -76,6 +76,9 @@ function EditDialog({ open, setOpen, memberID, prevLimit, memberUsage }) {
     ) => {
         setStatus('normal');
         const limitValue = Number(event.target.value);
+        if (isNaN(limitValue)) {
+            return;
+        }
         if (limitValue < memberUsage) {
             setIsError(true);
             setErrorMsg(`Cannot reduce. Used storage is ${memberUsage}GB`);
@@ -194,9 +197,7 @@ function EditDialog({ open, setOpen, memberID, prevLimit, memberUsage }) {
                         <div>
                             <TextField
                                 type="number"
-                                value={
-                                    storageLimit ?? (prevLimit ? prevLimit : '')
-                                }
+                                value={storageLimit === 0 ? '' : (storageLimit ?? (prevLimit || ''))}
                                 InputProps={{
                                     inputProps: {
                                         style: { paddingRight: '10px' },
