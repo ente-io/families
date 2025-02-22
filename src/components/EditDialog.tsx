@@ -4,7 +4,9 @@ import {
     Dialog,
     TextField,
     DialogContentText,
+    CircularProgress,
 } from '@mui/material';
+import { MdCheck, MdOutlineError } from 'react-icons/md';
 import React, { useContext, useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
 import { AppContext } from '../pages/_app';
@@ -18,10 +20,17 @@ import { logError } from '../util/sentry';
 
 function EditDialog({ open, setOpen, memberID, prevLimit, memberUsage }) {
     const { isLargerDisplay, authToken } = useContext(AppContext);
-    const [storageLimit, setStorageLimit] = useState<number>(null);
+    const [storageLimit, setStorageLimit] = useState<number | null>(
+        prevLimit ? null : prevLimit
+    );
     const [isError, setIsError] = useState(false);
     const [errorMsg, setErrorMsg] = useState<string | JSX.Element>('');
+    const [status, setStatus] = useState<'normal' | 'loading' | 'success' | 'error'>(
+        'normal'
+    );
+
     const handleEditClick = async () => {
+        setStatus('loading')
         try {
             const res = await modifyMemberStorage(
                 authToken,
@@ -29,9 +38,13 @@ function EditDialog({ open, setOpen, memberID, prevLimit, memberUsage }) {
                 storageLimit
             );
             if (res.success) {
-                setOpen(false);
-                setStorageLimit(null);
+                setStatus('success');
+                setTimeout(() => {
+                    setOpen(false);
+                    setStatus('normal');
+                }, 500);
             } else {
+                setStatus('error');
                 setIsError(true);
                 setErrorMsg(res.msg);
             }
@@ -61,6 +74,7 @@ function EditDialog({ open, setOpen, memberID, prevLimit, memberUsage }) {
     const handleStorageLimitChange = (
         event: React.ChangeEvent<HTMLInputElement>
     ) => {
+        setStatus('normal');
         const limitValue = Number(event.target.value);
         if (limitValue < memberUsage) {
             setIsError(true);
@@ -83,10 +97,28 @@ function EditDialog({ open, setOpen, memberID, prevLimit, memberUsage }) {
         if (isError === true) {
             setStorageLimit(null);
             setIsError(false);
+            setStatus('normal');
             setOpen(false);
         } else {
             setOpen(false);
             setStorageLimit(null);
+            setStatus('normal');
+        }
+    };
+
+    // render button stylesheet as per the status from request
+    const renderButtonStatus = () => {
+        switch (status) {
+            case 'loading':
+                return <CircularProgress size={24} color="inherit" />;
+            case 'success':
+                return <MdCheck size={24}/>;
+            case 'error':
+                return <MdOutlineError size={24}/>;
+            case 'normal':
+                return 'Set limit';
+            default:
+                return 'Set limit';
         }
     };
 
@@ -162,6 +194,9 @@ function EditDialog({ open, setOpen, memberID, prevLimit, memberUsage }) {
                         <div>
                             <TextField
                                 type="number"
+                                value={
+                                    storageLimit ?? (prevLimit ? prevLimit : '')
+                                }
                                 InputProps={{
                                     inputProps: {
                                         style: { paddingRight: '10px' },
@@ -176,16 +211,7 @@ function EditDialog({ open, setOpen, memberID, prevLimit, memberUsage }) {
                                         </span>
                                     ),
                                 }}
-                                placeholder={
-                                    // if there was a limit set show the pre-set limit
-                                    // else just show "Enter Limit" for the user to set a limit
-                                    prevLimit != 0
-                                        ? `Current limit: ${Math.max(
-                                              memberUsage,
-                                              prevLimit
-                                          )} GB`
-                                        : ' Enter limit'
-                                }
+                                placeholder="Enter limit"
                                 onChange={handleStorageLimitChange}
                                 onKeyDown={handleKeyPress}
                                 error={isError}
@@ -215,7 +241,6 @@ function EditDialog({ open, setOpen, memberID, prevLimit, memberUsage }) {
                     </div>
                     {renderRemoveLimit()}
                     <Button
-                        disabled={isError}
                         variant="contained"
                         color="primary"
                         onClick={handleEditClick}
@@ -226,8 +251,12 @@ function EditDialog({ open, setOpen, memberID, prevLimit, memberUsage }) {
                             marginTop: '25px',
                             marginBottom: '30px',
                             margin: 'auto',
+                            backgroundColor: isError
+                                ? theme.palette.error.main
+                                : theme.palette.primary.main,
+                            pointerEvents: isError ? 'none' : 'auto',
                         }}>
-                        Set limit
+                        {renderButtonStatus()}
                     </Button>
                 </div>
             </Dialog>

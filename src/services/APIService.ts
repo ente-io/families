@@ -137,9 +137,9 @@ export async function inviteMember(
 }> {
     try {
         if (storageLimit === 0) {
-            storageLimit = null
+            storageLimit = null;
         } else {
-            storageLimit = convertGBsToBytes(storageLimit)
+            storageLimit = convertGBsToBytes(storageLimit);
         }
         const res = await HTTPService.post(
             `${getEndpoint()}/family/add-member`,
@@ -226,18 +226,14 @@ export async function modifyMemberStorage(
     msg?: string;
 }> {
     try {
-        if (storageLimit === 0) {
-            storageLimit = null
-        } else {
-            storageLimit = convertGBsToBytes(storageLimit)
-        }
-        
+        storageLimit = convertGBsToBytes(storageLimit);
+
         const res = await HTTPService.post(
             `${getEndpoint()}/family/modify-storage`,
-            { id, storageLimit},
+            { id, storageLimit },
             undefined,
             {
-            'X-Auth-Token': authToken,
+                'X-Auth-Token': authToken,
             }
         );
 
@@ -249,12 +245,12 @@ export async function modifyMemberStorage(
             return {
                 success: false,
                 msg: constants.ERR_PERMISISON_DENIED,
-            }
+            };
         } else {
             return {
                 success: false,
-                msg: constants.FAILED_TO_MODIFY_STORAGE
-            }
+                msg: constants.FAILED_TO_MODIFY_STORAGE,
+            };
         }
     } catch (e) {
         logError(e, `modifyMemberStorage failed`);
