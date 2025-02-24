@@ -153,7 +153,7 @@ function EditDialog({ open, setOpen, memberID, prevLimit, memberUsage }) {
 
     return (
         <>
-            <Dialog open={open} maxWidth="xs">
+            <Dialog open={open} onClose={() => setOpen(false)} maxWidth="xs">
                 <div
                     style={{
                         backgroundColor: 'white',
