@@ -95,6 +95,7 @@ function EditDialog({ open, setOpen, memberID, prevLimit, memberUsage, onStorage
             setStorageLimit(limitValue);
             setIsError(false);
             setErrorMsg('');
+            setStatus('normal')
         }
     };
 
