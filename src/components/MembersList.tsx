@@ -12,7 +12,7 @@ import {
 } from '../util/options/ActionDialogOptionsUtils';
 import { logError } from '../util/sentry';
 import EditDialog from './EditDialog';
-import { convertBytesToGBs } from '../util/common';
+import { convertBytesToGBs, convertGBsToBytes } from '../util/common';
 
 const StatusMap = {
     SELF: 'Admin',
@@ -87,6 +87,22 @@ export default function MembersList({ syncMembers }) {
         } catch (e) {
             logError(e, 'failed to revoke invite');
         }
+    };
+
+    const handleStorageUpdated = (memberId, newLimit) => {
+        setSelectedMemLimit(newLimit === null ? null : newLimit);
+        
+        const updatedMembers = members.map(member => {
+            if (member.id === memberId) {
+                return {
+                    ...member,
+                    storageLimit: newLimit === null ? null : newLimit
+                };
+            }
+            return member;
+        });
+        
+        syncMembers();
     };
 
     const handleRemoveMember = (member: Member) => {
@@ -202,6 +218,7 @@ export default function MembersList({ syncMembers }) {
                                             memberUsage={convertBytesToGBs(
                                                 selectedMemUsage
                                             )}
+                                            onStorageUpdated={handleStorageUpdated}
                                         />
                                     </div>
                                 </Tooltip>

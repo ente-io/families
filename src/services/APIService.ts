@@ -3,7 +3,6 @@ import { Member } from '../types';
 import { logError } from '../util/sentry';
 import constants from '../util/strings/constants';
 import HTTPService from './HTTPService';
-import { convertGBsToBytes } from '../util/common';
 
 export const getEndpoint = () => {
     const endPoint =
@@ -136,11 +135,6 @@ export async function inviteMember(
     msg?: string | JSX.Element;
 }> {
     try {
-        if (storageLimit === 0) {
-            storageLimit = null;
-        } else {
-            storageLimit = convertGBsToBytes(storageLimit);
-        }
         const res = await HTTPService.post(
             `${getEndpoint()}/family/add-member`,
             { email, storageLimit },
@@ -226,8 +220,6 @@ export async function modifyMemberStorage(
     msg?: string;
 }> {
     try {
-        storageLimit = convertGBsToBytes(storageLimit);
-
         const res = await HTTPService.post(
             `${getEndpoint()}/family/modify-storage`,
             { id, storageLimit },

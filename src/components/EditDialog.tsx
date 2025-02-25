@@ -17,8 +17,9 @@ import {
     ErrorContainer,
 } from './styledComponents/InviteDialog';
 import { logError } from '../util/sentry';
+import { convertGBsToBytes } from '../util/common';
 
-function EditDialog({ open, setOpen, memberID, prevLimit, memberUsage }) {
+function EditDialog({ open, setOpen, memberID, prevLimit, memberUsage, onStorageUpdated }) {
     const { isLargerDisplay, authToken } = useContext(AppContext);
     const [storageLimit, setStorageLimit] = useState<number | null>(
         prevLimit ? null : prevLimit
@@ -35,7 +36,7 @@ function EditDialog({ open, setOpen, memberID, prevLimit, memberUsage }) {
             const res = await modifyMemberStorage(
                 authToken,
                 memberID,
-                storageLimit
+                convertGBsToBytes(storageLimit)
             );
             if (res.success) {
                 setStatus('success');
@@ -43,6 +44,9 @@ function EditDialog({ open, setOpen, memberID, prevLimit, memberUsage }) {
                     setOpen(false);
                     setStatus('normal');
                 }, 500);
+                if (onStorageUpdated) {
+                    onStorageUpdated(memberID, storageLimit);
+                }
             } else {
                 setStatus('error');
                 setIsError(true);
@@ -54,13 +58,17 @@ function EditDialog({ open, setOpen, memberID, prevLimit, memberUsage }) {
         }
     };
 
+    // separate api call to setup null (unlimited) storage for member
     const handleResetStorage = async () => {
         try {
-            // 0 sets no limit for the member
-            const res = await modifyMemberStorage(authToken, memberID, 0);
+            // null sets no limit for the member
+            const res = await modifyMemberStorage(authToken, memberID, null);
             if (res.success) {
                 setOpen(false);
                 setStorageLimit(null);
+                if (onStorageUpdated) {
+                    onStorageUpdated(memberID, storageLimit);
+                }
             } else {
                 setIsError(true);
                 setErrorMsg(res.msg);
@@ -126,7 +134,6 @@ function EditDialog({ open, setOpen, memberID, prevLimit, memberUsage }) {
     };
 
     const renderRemoveLimit = () => {
-        // if prevLimit != 0 then render the remove limit button
         if (prevLimit != 0) {
             return (
                 <Button
