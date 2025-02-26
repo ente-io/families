@@ -7,7 +7,7 @@ import {
     CircularProgress,
 } from '@mui/material';
 import { MdCheck, MdOutlineError } from 'react-icons/md';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useLayoutEffect, useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
 import { AppContext } from '../pages/_app';
 import { modifyMemberStorage } from '../services/APIService';
@@ -19,19 +19,38 @@ import {
 import { logError } from '../util/sentry';
 import { convertGBsToBytes } from '../util/common';
 
-function EditDialog({ open, setOpen, memberID, prevLimit, memberUsage, onStorageUpdated }) {
+function EditDialog({
+    open,
+    setOpen,
+    memberID,
+    prevLimit,
+    memberUsage,
+    onStorageUpdated,
+}) {
     const { isLargerDisplay, authToken } = useContext(AppContext);
     const [storageLimit, setStorageLimit] = useState<number | null>(
         prevLimit ? null : prevLimit
     );
     const [isError, setIsError] = useState(false);
     const [errorMsg, setErrorMsg] = useState<string | JSX.Element>('');
-    const [status, setStatus] = useState<'normal' | 'loading' | 'success' | 'error'>(
-        'normal'
-    );
+    const [status, setStatus] = useState<
+        'normal' | 'loading' | 'success' | 'error'
+    >('normal');
+
+    // [!FOR THE FUTURE]
+    // useLayoutEffect here is a dependency because handleStorageLimitChange sets the storageLimit
+    // to the entered limitValue, and then the value of TextField uses the same value. Hence,
+    // when the user is changed, the TextBox keeps on showing stale values. useLayoutEffect
+    // is speciically used to avoid visual changes happening. 
+    useLayoutEffect(() => {
+        setStorageLimit(prevLimit ?? null);
+        setIsError(false);
+        setErrorMsg('');
+        setStatus('normal');
+    }, [prevLimit]);
 
     const handleEditClick = async () => {
-        setStatus('loading')
+        setStatus('loading');
         try {
             const res = await modifyMemberStorage(
                 authToken,
@@ -83,21 +102,18 @@ function EditDialog({ open, setOpen, memberID, prevLimit, memberUsage, onStorage
         event: React.ChangeEvent<HTMLInputElement>
     ) => {
         setStatus('normal');
-        const limitValue = Number(event.target.value);
-        if (isNaN(limitValue)) {
-            setStorageLimit(null);
-            return;
-        }
+        let limitValue = Number(event.target.value);
         if (limitValue < memberUsage) {
             setIsError(true);
             setErrorMsg(`Cannot reduce. Used storage is ${memberUsage}GB`);
             setStorageLimit(null);
             return;
         } else {
-            setStorageLimit(limitValue === 0 ? null : limitValue);
+            setStorageLimit(limitValue);
             setIsError(false);
             setErrorMsg('');
             setStatus('normal');
+            return;
         }
     };
 
@@ -107,16 +123,16 @@ function EditDialog({ open, setOpen, memberID, prevLimit, memberUsage, onStorage
         }
     };
 
-    const handleOnClose = () => {
+    const handleOnClose = async () => {
         if (isError === true) {
             setStorageLimit(null);
             setIsError(false);
             setStatus('normal');
             setOpen(false);
         } else {
-            setOpen(false);
             setStorageLimit(null);
             setStatus('normal');
+            setOpen(false);
         }
     };
 
@@ -126,9 +142,9 @@ function EditDialog({ open, setOpen, memberID, prevLimit, memberUsage, onStorage
             case 'loading':
                 return <CircularProgress size={24} color="inherit" />;
             case 'success':
-                return <MdCheck size={24}/>;
+                return <MdCheck size={24} />;
             case 'error':
-                return <MdOutlineError size={24}/>;
+                return <MdOutlineError size={24} />;
             case 'normal':
                 return 'Set limit';
             default:
@@ -136,6 +152,10 @@ function EditDialog({ open, setOpen, memberID, prevLimit, memberUsage, onStorage
         }
     };
 
+    console.log(storageLimit ??
+        storageLimit ??
+        (prevLimit || '')
+    )
     const renderRemoveLimit = () => {
         if (prevLimit != null) {
             return (
@@ -161,8 +181,7 @@ function EditDialog({ open, setOpen, memberID, prevLimit, memberUsage, onStorage
         }
     };
 
-    console.log("storageLimit:", storageLimit)
-    console.log("prev", prevLimit)
+    console.log(storageLimit ?? (prevLimit || ''));
     return (
         <>
             <Dialog open={open} onClose={() => setOpen(false)} maxWidth="xs">
@@ -209,9 +228,13 @@ function EditDialog({ open, setOpen, memberID, prevLimit, memberUsage, onStorage
                         <div>
                             <TextField
                                 type="number"
-                                value={storageLimit === 0 ? '' : (storageLimit ?? (prevLimit || ''))}
-                                inputProps={{ 
-                                    pattern: "^[0-9]*\.?[0-9]*$",
+                                value={
+                                    storageLimit === null ? '' :
+                                    storageLimit ??
+                                    (prevLimit || '')
+                                }
+                                inputProps={{
+                                    pattern: '^[0-9]*.?[0-9]*$',
                                 }}
                                 InputProps={{
                                     inputProps: {
