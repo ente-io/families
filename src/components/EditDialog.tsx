@@ -152,10 +152,6 @@ function EditDialog({
         }
     };
 
-    console.log(storageLimit ??
-        storageLimit ??
-        (prevLimit || '')
-    )
     const renderRemoveLimit = () => {
         if (prevLimit != null) {
             return (
@@ -181,7 +177,6 @@ function EditDialog({
         }
     };
 
-    console.log(storageLimit ?? (prevLimit || ''));
     return (
         <>
             <Dialog open={open} onClose={() => setOpen(false)} maxWidth="xs">
