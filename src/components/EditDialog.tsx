@@ -204,8 +204,11 @@ function EditDialog({ open, setOpen, memberID, prevLimit, memberUsage, onStorage
                         }}>
                         <div>
                             <TextField
-                                type="number"
+                                type="text"
                                 value={storageLimit === 0 ? '' : (storageLimit ?? (prevLimit || ''))}
+                                inputProps={{ 
+                                    pattern: "^[0-9]*\.?[0-9]*$",
+                                }}
                                 InputProps={{
                                     inputProps: {
                                         style: { paddingRight: '10px' },
