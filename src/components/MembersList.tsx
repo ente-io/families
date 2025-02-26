@@ -46,7 +46,7 @@ export default function MembersList({ syncMembers }) {
         []
     );
     const [selectedMemberID, setSelectedMemberID] = useState<string>(null);
-    const [selectedMemLimit, setSelectedMemLimit] = useState<number>(null);
+    const [selectedMemLimit, setSelectedMemLimit] = useState<number | null>(null);
     const [selectedMemUsage, setSelectedMemUsage] = useState<number>(null);
 
     useEffect(() => {
@@ -212,9 +212,7 @@ export default function MembersList({ syncMembers }) {
                                             open={editDialog}
                                             setOpen={setEditDialog}
                                             memberID={selectedMemberID}
-                                            prevLimit={convertBytesToGBs(
-                                                selectedMemLimit
-                                            )}
+                                            prevLimit={selectedMemLimit === null ? null : convertBytesToGBs(selectedMemLimit)}
                                             memberUsage={convertBytesToGBs(
                                                 selectedMemUsage
                                             )}
