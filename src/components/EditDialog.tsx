@@ -85,17 +85,19 @@ function EditDialog({ open, setOpen, memberID, prevLimit, memberUsage, onStorage
         setStatus('normal');
         const limitValue = Number(event.target.value);
         if (isNaN(limitValue)) {
+            setStorageLimit(null);
             return;
         }
         if (limitValue < memberUsage) {
             setIsError(true);
             setErrorMsg(`Cannot reduce. Used storage is ${memberUsage}GB`);
             setStorageLimit(null);
+            return;
         } else {
-            setStorageLimit(limitValue);
+            setStorageLimit(limitValue === 0 ? null : limitValue);
             setIsError(false);
             setErrorMsg('');
-            setStatus('normal')
+            setStatus('normal');
         }
     };
 
@@ -135,7 +137,7 @@ function EditDialog({ open, setOpen, memberID, prevLimit, memberUsage, onStorage
     };
 
     const renderRemoveLimit = () => {
-        if (prevLimit != 0) {
+        if (prevLimit != null) {
             return (
                 <Button
                     variant="contained"
@@ -159,6 +161,8 @@ function EditDialog({ open, setOpen, memberID, prevLimit, memberUsage, onStorage
         }
     };
 
+    console.log("storageLimit:", storageLimit)
+    console.log("prev", prevLimit)
     return (
         <>
             <Dialog open={open} onClose={() => setOpen(false)} maxWidth="xs">
@@ -204,7 +208,7 @@ function EditDialog({ open, setOpen, memberID, prevLimit, memberUsage, onStorage
                         }}>
                         <div>
                             <TextField
-                                type="text"
+                                type="number"
                                 value={storageLimit === 0 ? '' : (storageLimit ?? (prevLimit || ''))}
                                 inputProps={{ 
                                     pattern: "^[0-9]*\.?[0-9]*$",
