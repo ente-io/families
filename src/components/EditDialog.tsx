@@ -41,7 +41,7 @@ function EditDialog({
     // useLayoutEffect here is a dependency because handleStorageLimitChange sets the storageLimit
     // to the entered limitValue, and then the value of TextField uses the same value. Hence,
     // when the user is changed, the TextBox keeps on showing stale values. useLayoutEffect
-    // is speciically used to avoid visual changes happening. 
+    // is speciically used to avoid visual changes happening.
     useLayoutEffect(() => {
         setStorageLimit(prevLimit ?? null);
         setIsError(false);
@@ -223,18 +223,12 @@ function EditDialog({
                         <div>
                             <TextField
                                 type="number"
-                                value={
-                                    storageLimit === null ? '' :
-                                    storageLimit ??
-                                    (prevLimit || '')
-                                }
+                                value={storageLimit === null ? '' : storageLimit || ''}
                                 inputProps={{
-                                    pattern: '^[0-9]*.?[0-9]*$',
+                                    pattern: '^[0-9]+(\.[0-9]*)?$',
+                                    step: "any",
                                 }}
                                 InputProps={{
-                                    inputProps: {
-                                        style: { paddingRight: '10px' },
-                                    },
                                     endAdornment: (
                                         <span
                                             style={{
