@@ -17,7 +17,7 @@ import {
     ErrorContainer,
 } from './styledComponents/InviteDialog';
 import { logError } from '../util/sentry';
-import { convertGBsToBytes } from '../util/common';
+import { convertBytesToGBs, convertGBsToBytes } from '../util/common';
 
 function EditDialog({
     open,
@@ -70,8 +70,15 @@ function EditDialog({
                 }, 1000);
             } else {
                 setStatus('error');
-                setIsError(true);
-                setErrorMsg(res.msg);
+                if (storageLimit < memberUsage) {
+                    setIsError(true);
+                    setErrorMsg(
+                        `Cannot set limit below current usage: ${memberUsage}GB`
+                    );
+                } else {
+                    setIsError(true);
+                    setErrorMsg(res.msg);
+                }
             }
         } catch (e) {
             logError(e, 'failed to modify storage');
@@ -105,18 +112,11 @@ function EditDialog({
     ) => {
         setStatus('normal');
         let limitValue = Number(event.target.value);
-        if (limitValue !== 0 && limitValue !== null && limitValue < memberUsage) {
-            setIsError(true);
-            setErrorMsg(`Cannot reduce. Used storage is ${memberUsage}GB`);
-            setStorageLimit(null);
-            return;
-        } else {
-            setStorageLimit(limitValue);
-            setIsError(false);
-            setErrorMsg('');
-            setStatus('normal');
-            return;
-        }
+        setStorageLimit(limitValue);
+        setIsError(false);
+        setErrorMsg('');
+        setStatus('normal');
+        return;
     };
 
     const handleKeyPress = (e) => {
@@ -225,10 +225,14 @@ function EditDialog({
                         <div>
                             <TextField
                                 type="number"
-                                value={storageLimit === null ? '' : storageLimit || ''}
+                                value={
+                                    storageLimit === null
+                                        ? ''
+                                        : storageLimit || ''
+                                }
                                 inputProps={{
-                                    pattern: '^[0-9]+(\.[0-9]*)?$',
-                                    step: "any",
+                                    pattern: '^[0-9]+(.[0-9]*)?$',
+                                    step: 'any',
                                 }}
                                 InputProps={{
                                     endAdornment: (
@@ -263,7 +267,15 @@ function EditDialog({
                             />
                             {isError && (
                                 <ErrorContainer
-                                    style={{ color: theme.palette.error.main }}>
+                                    style={{
+                                        color: theme.palette.error.main,
+                                        width: '85%',
+                                        paddingTop: '10px',
+                                        margin: 'auto',
+                                        textAlign: isError
+                                            ? 'center'
+                                            : 'match-parent',
+                                    }}>
                                     {errorMsg}
                                 </ErrorContainer>
                             )}
