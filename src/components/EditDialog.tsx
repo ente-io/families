@@ -51,6 +51,7 @@ function EditDialog({
 
     const handleEditClick = async () => {
         setStatus('loading');
+        setStorageLimit(storageLimit)
         try {
             const res = await modifyMemberStorage(
                 authToken,
@@ -70,13 +71,12 @@ function EditDialog({
                 }, 1000);
             } else {
                 setStatus('error');
+                setIsError(true);
                 if (storageLimit < memberUsage) {
-                    setIsError(true);
                     setErrorMsg(
                         `Cannot set limit below current usage: ${memberUsage}GB`
                     );
                 } else {
-                    setIsError(true);
                     setErrorMsg(res.msg);
                 }
             }
@@ -86,7 +86,7 @@ function EditDialog({
         }
     };
 
-    // separate api call to setup null (unlimited) storage for member
+    // separate api call to setup null (unlimited) storage for memberstorage
     const handleResetStorage = async () => {
         try {
             // null sets no limit for the member
@@ -112,11 +112,15 @@ function EditDialog({
     ) => {
         setStatus('normal');
         let limitValue = Number(event.target.value);
+        if (limitValue === null) {
+            setStorageLimit(prevLimit ?? null);
+            return;
+        }
+        // If the value is invalid (NaN), reset to previous limit
         setStorageLimit(limitValue);
         setIsError(false);
         setErrorMsg('');
         setStatus('normal');
-        return;
     };
 
     const handleKeyPress = (e) => {
@@ -127,12 +131,12 @@ function EditDialog({
 
     const handleOnClose = async () => {
         if (isError === true) {
-            setStorageLimit(null);
+            setStorageLimit(prevLimit ?? null);
             setStatus('normal');
             setIsError(false);
             setOpen(false);
+
         } else {
-            setStorageLimit(null);
             setStatus('normal');
             setOpen(false);
         }
