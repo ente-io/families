@@ -12,7 +12,7 @@ import {
 } from '../util/options/ActionDialogOptionsUtils';
 import { logError } from '../util/sentry';
 import EditDialog from './EditDialog';
-import { convertBytesToGBs, convertGBsToBytes } from '../util/common';
+import { convertBytesToGBs } from '../util/common';
 
 const StatusMap = {
     SELF: 'Admin',

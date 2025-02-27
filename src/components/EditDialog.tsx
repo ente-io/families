@@ -63,9 +63,11 @@ function EditDialog({
                     setOpen(false);
                     setStatus('normal');
                 }, 500);
-                if (onStorageUpdated) {
-                    onStorageUpdated(memberID, storageLimit);
-                }
+                setTimeout(() => {
+                    if (onStorageUpdated) {
+                        onStorageUpdated(memberID, storageLimit);
+                    }
+                }, 1000);
             } else {
                 setStatus('error');
                 setIsError(true);
@@ -103,7 +105,7 @@ function EditDialog({
     ) => {
         setStatus('normal');
         let limitValue = Number(event.target.value);
-        if (limitValue < memberUsage) {
+        if (limitValue !== 0 && limitValue !== null && limitValue < memberUsage) {
             setIsError(true);
             setErrorMsg(`Cannot reduce. Used storage is ${memberUsage}GB`);
             setStorageLimit(null);
@@ -126,8 +128,8 @@ function EditDialog({
     const handleOnClose = async () => {
         if (isError === true) {
             setStorageLimit(null);
-            setIsError(false);
             setStatus('normal');
+            setIsError(false);
             setOpen(false);
         } else {
             setStorageLimit(null);
