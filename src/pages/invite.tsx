@@ -3,13 +3,12 @@ import React, { useContext } from 'react';
 import { ImageContainer } from '../components/styledComponents/InviteAccepted';
 import { getWebEndpoint } from '../services/APIService';
 import theme from '../theme';
-import { convertBytesToHumanReadable } from '../util/common';
 import { isDeviceMobile } from '../util/common/deviceDetection';
 import constants from '../util/strings/constants';
 import { AppContext } from './_app';
 
 function Invite() {
-    const { isLargerDisplay, familyManagerEmail, totalStorage } =
+    const { isLargerDisplay, familyManagerEmail } =
         useContext(AppContext);
 
     const handleClick = () => {
@@ -58,22 +57,6 @@ function Invite() {
                             {familyManagerEmail}
                         </span>
                         {constants.FAMILY_ON} <b>{constants.ENTE}</b>.
-                    </div>
-                    <div
-                        style={{
-                            marginTop: '24px',
-                            color: '#a5a5a5',
-                            fontSize: '18px',
-                        }}>
-                        {constants.YOU_NOW_HAVE_ACCESS}{' '}
-                        <span
-                            style={{
-                                color: '#fff',
-                                fontWeight: 'bold',
-                            }}>
-                            {convertBytesToHumanReadable(totalStorage)}
-                        </span>{' '}
-                        {constants.OF_SHARED_STORAGE}
                     </div>
                     <div
                         style={{

@@ -128,7 +128,8 @@ export async function getMembers(authToken: string): Promise<{
 
 export async function inviteMember(
     authToken: string,
-    email: string
+    email: string,
+    storageLimit?: number
 ): Promise<{
     success: boolean;
     msg?: string | JSX.Element;
@@ -136,7 +137,7 @@ export async function inviteMember(
     try {
         const res = await HTTPService.post(
             `${getEndpoint()}/family/add-member`,
-            { email },
+            { email, storageLimit },
             undefined,
             {
                 'X-Auth-Token': authToken,
@@ -208,6 +209,45 @@ export async function revokeInvite(
             msg: constants.SORRY_SOMETHING_WENT_WRONG,
         };
     }
+}
+
+export async function modifyMemberStorage(
+    authToken: string,
+    id: string,
+    storageLimit: number
+): Promise<{
+    success: boolean;
+    msg?: string;
+}> {
+    try {
+        const res = await HTTPService.post(
+            `${getEndpoint()}/family/modify-storage`,
+            { id, storageLimit },
+            undefined,
+            {
+                'X-Auth-Token': authToken,
+            }
+        );
+
+        if (res.status === 200) {
+            return {
+                success: true,
+            };
+        } else if (res.status === 401) {
+            return {
+                success: false,
+                msg: constants.ERR_PERMISISON_DENIED,
+            };
+        } else {
+            return {
+                success: false,
+                msg: constants.FAILED_TO_MODIFY_STORAGE,
+            };
+        }
+    } catch (e) {
+        logError(e, `modifyMemberStorage failed`);
+    }
+    return;
 }
 
 export async function removeMember(

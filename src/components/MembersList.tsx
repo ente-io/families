@@ -2,6 +2,7 @@ import { Tooltip } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react';
 import { BsTrash as TrashIcon } from 'react-icons/bs';
 import { IoReload as ResendIcon } from 'react-icons/io5';
+import { MdOutlineEdit } from 'react-icons/md';
 import { AppContext } from '../pages/_app';
 import { Member } from '../types';
 import {
@@ -10,6 +11,8 @@ import {
     revokeInviteOptions,
 } from '../util/options/ActionDialogOptionsUtils';
 import { logError } from '../util/sentry';
+import EditDialog from './EditDialog';
+import { convertBytesToGBs } from '../util/common';
 
 const StatusMap = {
     SELF: 'Admin',
@@ -27,7 +30,7 @@ const tooltipProps = {
     },
 };
 
-export function MembersList({ syncMembers }) {
+export default function MembersList({ syncMembers }) {
     const {
         isLargerDisplay,
         members,
@@ -38,9 +41,13 @@ export function MembersList({ syncMembers }) {
         setMessage,
     } = useContext(AppContext);
 
+    const [editDialog, setEditDialog] = useState(false);
     const [membersWithoutAdmin, setMembersWithoutAdmin] = useState<Member[]>(
         []
     );
+    const [selectedMemberID, setSelectedMemberID] = useState<string>(null);
+    const [selectedMemLimit, setSelectedMemLimit] = useState<number | null>(null);
+    const [selectedMemUsage, setSelectedMemUsage] = useState<number>(null);
 
     useEffect(() => {
         setMembersWithoutAdmin(
@@ -82,6 +89,22 @@ export function MembersList({ syncMembers }) {
         }
     };
 
+    const handleStorageUpdated = (memberId, newLimit) => {
+        setSelectedMemLimit(newLimit === null ? null : newLimit);
+        
+        const updatedMembers = members.map(member => {
+            if (member.id === memberId) {
+                return {
+                    ...member,
+                    storageLimit: newLimit === null ? null : newLimit
+                };
+            }
+            return member;
+        });
+        
+        syncMembers();
+    };
+
     const handleRemoveMember = (member: Member) => {
         try {
             setActionDialogOptions(
@@ -106,6 +129,18 @@ export function MembersList({ syncMembers }) {
             handleRemoveMember(member);
         }
         setActionDialogView(true);
+    };
+
+    const handleEditClick = (member: Member) => {
+        setSelectedMemberID(member.id);
+        setSelectedMemLimit(member.storageLimit);
+        setSelectedMemUsage(member.usage);
+
+        if (member.status === 'ACCEPTED') {
+            setEditDialog(true);
+        } else {
+            setEditDialog(false);
+        }
     };
 
     return (
@@ -156,6 +191,37 @@ export function MembersList({ syncMembers }) {
                                         <ResendIcon />
                                     </div>
                                 </Tooltip>
+                            )}
+                            {member.status === 'ACCEPTED' ? (
+                                <Tooltip
+                                    title="Edit Storage"
+                                    placement="top"
+                                    componentsProps={tooltipProps}>
+                                    <div>
+                                        <div
+                                            style={{
+                                                marginLeft: '8px',
+                                                cursor: 'pointer',
+                                            }}
+                                            onClick={() =>
+                                                handleEditClick(member)
+                                            }>
+                                            <MdOutlineEdit />
+                                        </div>
+                                        <EditDialog
+                                            open={editDialog}
+                                            setOpen={setEditDialog}
+                                            memberID={selectedMemberID}
+                                            prevLimit={selectedMemLimit === null ? null : convertBytesToGBs(selectedMemLimit)}
+                                            memberUsage={convertBytesToGBs(
+                                                selectedMemUsage
+                                            )}
+                                            onStorageUpdated={handleStorageUpdated}
+                                        />
+                                    </div>
+                                </Tooltip>
+                            ) : (
+                                <span></span>
                             )}
                             <Tooltip
                                 title={
