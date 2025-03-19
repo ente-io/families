@@ -1,4 +1,3 @@
-import { Tooltip } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react';
 import { BsTrash as TrashIcon } from 'react-icons/bs';
 import { IoReload as ResendIcon } from 'react-icons/io5';
@@ -20,16 +19,6 @@ const StatusMap = {
     INVITED: 'Invited',
 };
 
-const tooltipProps = {
-    tooltip: {
-        sx: {
-            color: '#fff',
-            backgroundColor: '#454545',
-            fontWeight: 'bold',
-        },
-    },
-};
-
 export default function MembersList({ syncMembers }) {
     const {
         isLargerDisplay,
@@ -46,7 +35,9 @@ export default function MembersList({ syncMembers }) {
         []
     );
     const [selectedMemberID, setSelectedMemberID] = useState<string>(null);
-    const [selectedMemLimit, setSelectedMemLimit] = useState<number | null>(null);
+    const [selectedMemLimit, setSelectedMemLimit] = useState<number | null>(
+        null
+    );
     const [selectedMemUsage, setSelectedMemUsage] = useState<number>(null);
 
     useEffect(() => {
@@ -91,17 +82,17 @@ export default function MembersList({ syncMembers }) {
 
     const handleStorageUpdated = (memberId, newLimit) => {
         setSelectedMemLimit(newLimit === null ? null : newLimit);
-        
-        const updatedMembers = members.map(member => {
+
+        const updatedMembers = members.map((member) => {
             if (member.id === memberId) {
                 return {
                     ...member,
-                    storageLimit: newLimit === null ? null : newLimit
+                    storageLimit: newLimit === null ? null : newLimit,
                 };
             }
             return member;
         });
-        
+
         syncMembers();
     };
 
@@ -176,70 +167,53 @@ export default function MembersList({ syncMembers }) {
                                 color: '#7d7d7d',
                             }}>
                             {member.status !== 'ACCEPTED' && (
-                                <Tooltip
-                                    title="Resend Invite"
-                                    placement="top"
-                                    componentsProps={tooltipProps}>
-                                    <div
-                                        style={{
-                                            marginLeft: '8px',
-                                            cursor: 'pointer',
-                                        }}
-                                        onClick={() =>
-                                            handleResendInvite(member)
-                                        }>
-                                        <ResendIcon />
-                                    </div>
-                                </Tooltip>
-                            )}
-                            {member.status === 'ACCEPTED' ? (
-                                <Tooltip
-                                    title="Edit Storage"
-                                    placement="top"
-                                    componentsProps={tooltipProps}>
-                                    <div>
-                                        <div
-                                            style={{
-                                                marginLeft: '8px',
-                                                cursor: 'pointer',
-                                            }}
-                                            onClick={() =>
-                                                handleEditClick(member)
-                                            }>
-                                            <MdOutlineEdit />
-                                        </div>
-                                        <EditDialog
-                                            open={editDialog}
-                                            setOpen={setEditDialog}
-                                            memberID={selectedMemberID}
-                                            prevLimit={selectedMemLimit === null ? null : convertBytesToGBs(selectedMemLimit)}
-                                            memberUsage={convertBytesToGBs(
-                                                selectedMemUsage
-                                            )}
-                                            onStorageUpdated={handleStorageUpdated}
-                                        />
-                                    </div>
-                                </Tooltip>
-                            ) : (
-                                <span></span>
-                            )}
-                            <Tooltip
-                                title={
-                                    member.status === 'INVITED'
-                                        ? 'Revoke Invite'
-                                        : 'Remove Member'
-                                }
-                                placement="top"
-                                componentsProps={tooltipProps}>
                                 <div
                                     style={{
                                         marginLeft: '8px',
                                         cursor: 'pointer',
                                     }}
-                                    onClick={() => handleTrashClick(member)}>
-                                    <TrashIcon />
+                                    onClick={() => handleResendInvite(member)}>
+                                    <ResendIcon />
                                 </div>
-                            </Tooltip>
+                            )}
+                            {member.status === 'ACCEPTED' ? (
+                                <div>
+                                    <div
+                                        style={{
+                                            marginLeft: '8px',
+                                            cursor: 'pointer',
+                                        }}
+                                        onClick={() => handleEditClick(member)}>
+                                        <MdOutlineEdit />
+                                    </div>
+                                    <EditDialog
+                                        open={editDialog}
+                                        setOpen={setEditDialog}
+                                        memberID={selectedMemberID}
+                                        prevLimit={
+                                            selectedMemLimit === null
+                                                ? null
+                                                : convertBytesToGBs(
+                                                      selectedMemLimit
+                                                  )
+                                        }
+                                        memberUsage={convertBytesToGBs(
+                                            selectedMemUsage
+                                        )}
+                                        onStorageUpdated={handleStorageUpdated}
+                                    />
+                                </div>
+                            ) : (
+                                <span></span>
+                            )}
+                            <div
+                                style={{
+                                    marginLeft: '8px',
+                                    cursor: 'pointer',
+                                }}
+                                onClick={() => handleTrashClick(member)}>
+                                <TrashIcon />
+                            </div>
                         </div>
                     </div>
                     {index !== membersWithoutAdmin.length - 1 && (
