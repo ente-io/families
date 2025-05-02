@@ -80,17 +80,16 @@ export default function MembersList({ syncMembers }) {
         }
     };
 
-    const handleStorageUpdated = (memberId, newLimit) => {
+    const handleUpdatedStorage = (memberId, newLimit) => {
         setSelectedMemLimit(newLimit === null ? null : newLimit);
 
-        const updatedMembers = members.map((member) => {
+        members.forEach((member) => {
             if (member.id === memberId) {
                 return {
                     ...member,
                     storageLimit: newLimit === null ? null : newLimit,
                 };
             }
-            return member;
         });
 
         syncMembers();
@@ -200,7 +199,7 @@ export default function MembersList({ syncMembers }) {
                                         memberUsage={convertBytesToGBs(
                                             selectedMemUsage
                                         )}
-                                        onStorageUpdated={handleStorageUpdated}
+                                        onStorageUpdated={handleUpdatedStorage}
                                     />
                                 </div>
                             ) : (

@@ -17,7 +17,7 @@ import {
     ErrorContainer,
 } from './styledComponents/InviteDialog';
 import { logError } from '../util/sentry';
-import { convertBytesToGBs, convertGBsToBytes } from '../util/common';
+import { convertGBsToBytes } from '../util/common';
 
 function EditDialog({
     open,
@@ -28,9 +28,7 @@ function EditDialog({
     onStorageUpdated,
 }) {
     const { isLargerDisplay, authToken } = useContext(AppContext);
-    const [storageLimit, setStorageLimit] = useState<number | null>(
-        prevLimit ? null : prevLimit
-    );
+    const [storageLimit, setStorageLimit] = useState<number | null>(prevLimit);
     const [isError, setIsError] = useState(false);
     const [errorMsg, setErrorMsg] = useState<string | JSX.Element>('');
     const [status, setStatus] = useState<
@@ -41,7 +39,7 @@ function EditDialog({
     // useLayoutEffect here is a dependency because handleStorageLimitChange sets the storageLimit
     // to the entered limitValue, and then the value of TextField uses the same value. Hence,
     // when the user is changed, the TextBox keeps on showing stale values. useLayoutEffect
-    // is speciically used to avoid visual changes happening.
+    // is specifically used to avoid visual changes happening.
     useLayoutEffect(() => {
         setStorageLimit(prevLimit ?? null);
         setIsError(false);
@@ -51,7 +49,7 @@ function EditDialog({
 
     const handleEditClick = async () => {
         setStatus('loading');
-        setStorageLimit(storageLimit)
+        setStorageLimit(storageLimit);
         try {
             const res = await modifyMemberStorage(
                 authToken,
@@ -135,7 +133,6 @@ function EditDialog({
             setStatus('normal');
             setIsError(false);
             setOpen(false);
-
         } else {
             setStatus('normal');
             setOpen(false);
@@ -184,129 +181,125 @@ function EditDialog({
     };
 
     return (
-        <>
-            <Dialog open={open} onClose={() => setOpen(false)} maxWidth="xs">
+        <Dialog open={open} onClose={() => setOpen(false)} maxWidth="xs">
+            <div
+                style={{
+                    backgroundColor: 'white',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    padding: '20px 10px',
+                }}>
+                <DialogContent
+                    style={{
+                        padding: '10px 15px',
+                    }}>
+                    <CloseButtonContainer>
+                        <IoMdClose
+                            size={18}
+                            onClick={handleOnClose}
+                            style={{
+                                cursor: 'pointer',
+                                backgroundColor: '#f5f5f5',
+                                borderRadius: '50%',
+                            }}
+                        />
+                    </CloseButtonContainer>
+                    <DialogContentText
+                        style={{
+                            fontSize: '24px',
+                            fontWeight: 'bold',
+                            color: '#000',
+                            padding: 'none',
+                        }}>
+                        Set storage limit
+                    </DialogContentText>
+                </DialogContent>
                 <div
                     style={{
-                        backgroundColor: 'white',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        padding: '20px 10px',
+                        width: 'parent',
+                        paddingBottom: '20px',
+                        paddingRight: '10px',
+                        paddingLeft: '10px',
+                        marginBottom: '10px',
                     }}>
-                    <DialogContent
-                        style={{
-                            padding: '10px 15px',
-                        }}>
-                        <CloseButtonContainer>
-                            <IoMdClose
-                                size={18}
-                                onClick={handleOnClose}
+                    <div>
+                        <TextField
+                            type="number"
+                            value={
+                                storageLimit === null ? '' : storageLimit || ''
+                            }
+                            inputProps={{
+                                pattern: '^[0-9]+(.[0-9]*)?$',
+                                step: 'any',
+                            }}
+                            InputProps={{
+                                endAdornment: (
+                                    <span
+                                        style={{
+                                            right: '-10%',
+                                            color: '#949494',
+                                        }}>
+                                        GB
+                                    </span>
+                                ),
+                            }}
+                            placeholder="Enter limit"
+                            onChange={handleStorageLimitChange}
+                            onKeyDown={handleKeyPress}
+                            error={isError}
+                            size="small"
+                            variant="filled"
+                            fullWidth={true}
+                            autoFocus={true}
+                            autoComplete="off"
+                            sx={{
+                                input: {
+                                    fontSize: '16px',
+                                    color: isError
+                                        ? theme.palette.error.main
+                                        : '#000',
+                                    borderRadius: '8px',
+                                    padding: '10px',
+                                },
+                            }}
+                        />
+                        {isError && (
+                            <ErrorContainer
                                 style={{
-                                    cursor: 'pointer',
-                                    backgroundColor: '#f5f5f5',
-                                    borderRadius: '50%',
-                                }}
-                            />
-                        </CloseButtonContainer>
-                        <DialogContentText
-                            style={{
-                                fontSize: '24px',
-                                fontWeight: 'bold',
-                                color: '#000',
-                                padding: 'none',
-                            }}>
-                            Set storage limit
-                        </DialogContentText>
-                    </DialogContent>
-                    <div
-                        style={{
-                            width: 'parent',
-                            paddingBottom: '20px',
-                            paddingRight: '10px',
-                            paddingLeft: '10px',
-                            marginBottom: '10px',
-                        }}>
-                        <div>
-                            <TextField
-                                type="number"
-                                value={
-                                    storageLimit === null
-                                        ? ''
-                                        : storageLimit || ''
-                                }
-                                inputProps={{
-                                    pattern: '^[0-9]+(.[0-9]*)?$',
-                                    step: 'any',
-                                }}
-                                InputProps={{
-                                    endAdornment: (
-                                        <span
-                                            style={{
-                                                right: '-10%',
-                                                color: '#949494',
-                                            }}>
-                                            GB
-                                        </span>
-                                    ),
-                                }}
-                                placeholder="Enter limit"
-                                onChange={handleStorageLimitChange}
-                                onKeyDown={handleKeyPress}
-                                error={isError}
-                                size="small"
-                                variant="filled"
-                                fullWidth={true}
-                                autoFocus={true}
-                                autoComplete="off"
-                                sx={{
-                                    input: {
-                                        fontSize: '16px',
-                                        color: isError
-                                            ? theme.palette.error.main
-                                            : '#000',
-                                        borderRadius: '8px',
-                                        padding: '10px',
-                                    },
-                                }}
-                            />
-                            {isError && (
-                                <ErrorContainer
-                                    style={{
-                                        color: theme.palette.error.main,
-                                        width: '85%',
-                                        paddingTop: '10px',
-                                        margin: 'auto',
-                                        textAlign: isError
-                                            ? 'center'
-                                            : 'match-parent',
-                                    }}>
-                                    {errorMsg}
-                                </ErrorContainer>
-                            )}
-                        </div>
+                                    color: theme.palette.error.main,
+                                    width: '85%',
+                                    paddingTop: '10px',
+                                    margin: 'auto',
+                                    textAlign: isError
+                                        ? 'center'
+                                        : 'match-parent',
+                                }}>
+                                {errorMsg}
+                            </ErrorContainer>
+                        )}
                     </div>
-                    {renderRemoveLimit()}
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={handleEditClick}
-                        sx={{
-                            textTransform: 'none',
-                            fontSize: '16px',
-                            width: isLargerDisplay ? '95%' : '60%',
-                            marginTop: '25px',
-                            marginBottom: '30px',
-                            margin: 'auto',
-                            backgroundColor: isError
-                                ? theme.palette.error.main
-                                : theme.palette.primary.main,
-                            pointerEvents: isError ? 'none' : 'auto',
-                        }}>
-                        {renderButtonStatus()}
-                    </Button>
                 </div>
-            </Dialog>
-        </>
+                {renderRemoveLimit()}
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleEditClick}
+                    sx={{
+                        textTransform: 'none',
+                        fontSize: '16px',
+                        width: isLargerDisplay ? '95%' : '60%',
+                        marginTop: '25px',
+                        marginBottom: '30px',
+                        margin: 'auto',
+                        backgroundColor: isError
+                            ? theme.palette.error.main
+                            : theme.palette.primary.main,
+                        pointerEvents: isError ? 'none' : 'auto',
+                    }}>
+                    {renderButtonStatus()}
+                </Button>
+            </div>
+        </Dialog>
     );
 }
 
