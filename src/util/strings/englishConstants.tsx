@@ -9,7 +9,7 @@ const englishConstants = {
     SHARE_YOUR_PLAN: 'Share your plan with your family members.',
     EACH_MEMBER_GETS_OWN_SPACE: 'Each member gets their own private space.',
     GET_STARTED: 'Get Started',
-    INVITE_UPTO: 'You can invite upto',
+    INVITE_UPTO: 'You can invite up to',
     FAMILY_MANAGER: 'Family Manager',
     INVITE_YOUR_LOVED_ONES: 'Invite your loved ones to share your storage plan',
     BREAKDOWN: 'Breakdown',
